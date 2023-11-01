@@ -60,7 +60,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
                 <div class="sidebar-brand-icon rotate-n-15">
 
                 </div>
-                <div class="sidebar-brand-text mx-3">Logo Hiswana</div>
+                <div class="sidebar-brand-text mx-3">PT Non PSO</div>
             </a>
 
             <!-- Divider -->

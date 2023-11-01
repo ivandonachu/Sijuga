@@ -6,3 +6,9 @@
 /SijugaNonPSO/Admin/file_admin
 /SijugaNonPSO/Admin/proses/koneksi.php
 /SijugaNonPSO/Admin/view/koneksi.php
+
+/Direktur/koneksi.php
+/Direktur/SijugaNonPSO/view/koneksi.php
+/Direktur/SijugaNonPSO/proses/koneksi.php
+/Direktur/SijugaPSO/view/koneksi.php
+/Direktur/SijugaPSO/proses/koneksi.php

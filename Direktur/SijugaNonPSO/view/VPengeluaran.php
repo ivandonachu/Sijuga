@@ -6,13 +6,13 @@ if (!isset($_SESSION["login"])) {
     exit;
 }
 $username = $_COOKIE['username'];
-$result1 = mysqli_query($koneksi, "SELECT * FROM account WHERE username = '$username'");
+$result1 = mysqli_query($koneksi, "SELECT * FROM super_account WHERE username = '$username'");
 $data1 = mysqli_fetch_array($result1);
 $jabatan_valid = $data1['jabatan'];
 $nama = $data1['nama'];
 $foto_profile = $data1['foto_profile'];
-$username = $data1['username'];
-if ($jabatan_valid == 'Admin') {
+
+if ($jabatan_valid == 'Direktur') {
 } else {
     header("Location: logout.php");
     exit;
@@ -85,13 +85,41 @@ if ($tanggal_awal == $tanggal_akhir) {
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="DsAdmin">
+                <a class="nav-link" href="DsSijugaNonPSO">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span style="font-size: 17px;">Dashboard</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
+
+             <!-- Nav Item - Menu List Pt -->
+             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwox" aria-expanded="true" aria-controls="collapseTwox">
+                    <i class="fa-solid fa-building"></i>
+                    <span>List PT</span>
+                </a>
+                <div id="collapseTwox" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/Direktur/SijugaNonPSO/view/DsSijugaNonPSO">SijugaNonPSO</a>
+                        <a class="collapse-item" href="/Direktur/SijugaPSO/view/DsSijugaPSO">SijugaPSO</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Menu Laporan Perusahaan -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoz" aria-expanded="true" aria-controls="collapseTwoz">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>Laporan</span>
+                </a>
+                <div id="collapseTwoz" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VLabaRugi">Laba Rugi</a>
+                        <a class="collapse-item" href="VLaporanAlokasi">Laporan Alokasi</a>
+                    </div>
+                </div>
+            </li>
 
             <!-- Nav Item - Menu Keuangan -->
             <li class="nav-item">
@@ -203,7 +231,7 @@ if ($tanggal_awal == $tanggal_akhir) {
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Pengeluaran</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaNonPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Pengeluaran</a> </small>
                     <br>
                     <br>
 
@@ -233,86 +261,6 @@ if ($tanggal_awal == $tanggal_akhir) {
                                     <div class="col-md-6">
                                         <?php echo " <a style='font-size: 12px'> Data yang tampil  $tanggal_awal  sampai  $tanggal_akhir</a>" ?>
                                     </div>
-                                    <div class="col-md-6">
-                                        <!-- Button Input Data Bayar -->
-                                        <div align="right">
-                                            <button style="font-size: clamp(7px, 3vw, 15px); " type="button" class="btn btn-primary" data-toggle="modal" data-target="#input"> <i class="fas fa-plus-square mr-2"></i>Catat Pengeluaran</button> <br> <br>
-                                        </div>
-                                        <!-- Form Modal  -->
-                                        <div class="modal fade bd-example-modal-lg" id="input" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title"> Form Pengeluaran</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-
-                                                    <!-- Form Input Data -->
-                                                    <div class="modal-body" align="left">
-                                                        <?php echo "<form action='../proses/IPengeluaran?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir' enctype='multipart/form-data' method='POST'>";  ?>
-
-                                                        <br>
-
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>Tanggal</label>
-                                                                <input class="form-control " type="date" name="tanggal" required="">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>Nama Akun</label>
-                                                                <select name="nama_akun" class="form-control" required="">
-                                                                    <option>Alat Tulis Kantor</option>
-                                                                    <option>Biaya Administrasi</option>
-                                                                    <option>Biaya Kantor</option>
-                                                                    <option>Biaya Konsumsi</option>
-                                                                    <option>Biaya Penjualan & Pemasaran</option>
-                                                                    <option>Biaya Perbaikan Kendaraan</option>
-                                                                    <option>Gaji Karyawan</option>
-                                                                    <option>Gaji Driver</option>
-                                                                    <option>Listrik & Telepon</option>
-                                                                    <option>Transport / Perjalanan Dinas</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <br>
-
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>Jumlah Pengeluaran</label>
-                                                                <input class="form-control form-control-sm" type="text" name="jumlah_pengeluaran" required="">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>Keterangan</label>
-                                                                <textarea class="form-control form-control-sm" name="keterangan"></textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <br>
-
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>Upload File</label>
-                                                                <input type="file" name="file">
-                                                            </div>
-                                                        </div>
-
-                                                        <br>
-
-                                                        <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-primary">INPUT</button>
-                                                            <button type="reset" class="btn btn-danger"> RESET</button>
-                                                        </div>
-                                                        </form>
-
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <!-- Tabel -->
@@ -326,7 +274,6 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jumlah Pengeluaran</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Keterangan</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">File</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -357,118 +304,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($jumlah_pengeluaran); ?> <?php echo "</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$keterangan</td>
                                                 <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="/SijugaNonPSO/Admin/file_admin/<?= $file_bukti ?>" href="/SijugaNonPSO/Admin/file_admin/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
-                                                "; ?>
-                                                    <?php echo "<td style='font-size: clamp(12px, 1vw, 15px);'>"; ?>
-
-                                                    <button style=" font-size: clamp(7px, 1vw, 10px); color:black; " href="#" type="submit" class=" btn bg-warning mr-2 rounded" data-toggle="modal" data-target="#formedit<?php echo $data['no_pengeluaran']; ?>" data-toggle='tooltip' title='Edit Pengeluaran'>
-                                                        <i class="fa-regular fa-pen-to-square"></i></button>
-                                                    <!-- Form EDIT DATA -->
-
-                                                    <div class="modal fade" id="formedit<?php echo $data['no_pengeluaran']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title"> Edit Pengeluaran </h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                                                                        <span aria-hidden="true"> &times; </span>
-                                                                    </button>
-                                                                </div>
-
-                                                                <!-- Form Edit Data -->
-                                                                <div class="modal-body">
-                                                                    <form action="../proses/EPengeluaran" enctype="multipart/form-data" method="POST">
-
-                                                                        <input type="hidden" name="no_pengeluaran" value="<?= $no_pengeluaran; ?>">
-                                                                        <input type="hidden" name="tanggal1" value="<?php echo $tanggal_awal; ?>">
-                                                                        <input type="hidden" name="tanggal2" value="<?php echo $tanggal_akhir; ?>">
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label>Tanggal</label>
-                                                                                <input class="form-control " type="date" name="tanggal" value="<?= $tanggal; ?>" required="">
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <label>Nama Akun</label>
-                                                                                <select name="nama_akun" class="form-control">
-                                                                                    <?php $dataSelect = $data['nama_akun']; ?>
-                                                                                    <option <?php echo ($dataSelect == 'Alat Tulis Kantor') ? "selected" : "" ?>>Alat Tulis Kantor</option>
-                                                                                    <option <?php echo ($dataSelect == 'Biaya Administrasi') ? "selected" : "" ?>>Biaya Administrasi</option>
-                                                                                    <option <?php echo ($dataSelect == 'Biaya Kantor') ? "selected" : "" ?>>Biaya Kantor</option>
-                                                                                    <option <?php echo ($dataSelect == 'Biaya Konsumsi') ? "selected" : "" ?>>Biaya Konsumsi</option>
-                                                                                    <option <?php echo ($dataSelect == 'Biaya Penjualan & Pemasaran') ? "selected" : "" ?>>Biaya Penjualan & Pemasaran</option>
-                                                                                    <option <?php echo ($dataSelect == 'Biaya Perbaikan Kendaraan') ? "selected" : "" ?>>Biaya Perbaikan Kendaraan</option>
-                                                                                    <option <?php echo ($dataSelect == 'Gaji Karyawan') ? "selected" : "" ?>>Gaji Karyawan</option>
-                                                                                    <option <?php echo ($dataSelect == 'Gaji Driver') ? "selected" : "" ?>>Gaji Driver</option>
-                                                                                    <option <?php echo ($dataSelect == 'Listrik & Telepon') ? "selected" : "" ?>>Listrik & Telepon</option>
-                                                                                    <option <?php echo ($dataSelect == 'Transport / Perjalanan Dinas') ? "selected" : "" ?>>Transport / Perjalanan Dinas</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <br>
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label>Jumlah Pengeluaran</label>
-                                                                                <input class="form-control form-control-sm" type="text" name="jumlah_pengeluaran" value="<?= $jumlah_pengeluaran; ?>" required="">
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <label>Keterangan</label>
-                                                                                <textarea class="form-control form-control-sm" name="keterangan"><?= $keterangan; ?></textarea>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <br>
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label>Upload File</label>
-                                                                                <input type="file" name="file">
-                                                                            </div>
-                                                                        </div>
-                                                                        <br>
-
-                                                                        <div class="modal-footer">
-                                                                            <button type="submit" class="btn btn-primary"> Ubah </button>
-                                                                            <button type="reset" class="btn btn-danger"> RESET</button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Button Hapus -->
-                                                    <button style=" font-size: clamp(7px, 1vw, 10px); color:black;" href="#" type="submit" class=" btn btn-danger" data-toggle="modal" data-target="#PopUpHapus<?php echo $data['no_pengeluaran']; ?>" data-toggle='tooltip' title='Hapus Pengeluaran'>
-                                                        <i style="font-size: clamp(7px, 1vw, 10px); color: black;" class="fa-solid fa-trash"></i></button>
-                                                    <div class="modal fade" id="PopUpHapus<?php echo $data['no_pengeluaran']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h4 class="modal-title"> <b> Hapus Pengeluaran </b> </h4>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                                                                        <span aria-hidden="true"> &times; </span>
-                                                                    </button>
-                                                                </div>
-
-                                                                <div class="modal-body">
-                                                                    <form action="../proses/DPengeluaran" method="POST">
-                                                                        <input type="hidden" name="no_pengeluaran" value="<?php echo $no_pengeluaran; ?>">
-                                                                        <input type="hidden" name="tanggal1" value="<?php echo $tanggal_awal; ?>">
-                                                                        <input type="hidden" name="tanggal2" value="<?php echo $tanggal_akhir; ?>">
-                                                                        <div class="form-group">
-                                                                            <h6> Yakin Ingin Hapus Pengeluaran ini ? </h6>
-                                                                        </div>
-
-                                                                        <div class="modal-footer">
-                                                                            <button type="submit" class="btn btn-primary"> Hapus </button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                <?php echo  " </td> </tr>";
+                                                </tr>";
                                             }
                                                 ?>
 

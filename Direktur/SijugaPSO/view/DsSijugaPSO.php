@@ -6,13 +6,13 @@ if (!isset($_SESSION["login"])) {
     exit;
 }
 $username = $_COOKIE['username'];
-$result1 = mysqli_query($koneksi, "SELECT * FROM account WHERE username = '$username'");
+$result1 = mysqli_query($koneksi, "SELECT * FROM super_account WHERE username = '$username'");
 $data1 = mysqli_fetch_array($result1);
 $jabatan_valid = $data1['jabatan'];
 $nama = $data1['nama'];
 $foto_profile = $data1['foto_profile'];
 
-if ($jabatan_valid == 'Admin') {
+if ($jabatan_valid == 'Direktur') {
 } else {
     header("Location: logout.php");
     exit;
@@ -94,41 +94,6 @@ function formatuang($angka)
 {
     $uang = "Rp " . number_format($angka, 2, ',', '.');
     return $uang;
-}
-
-$tanggal_awal = date('Y-m-1');
-$tanggal_akhir = date('Y-m-31');
-
-
-$table2 = mysqli_query($koneksi, "SELECT * FROM inventory ");
-
-
-//data grafik
-
-//data tanggal
-$table3 = mysqli_query($koneksi, "SELECT tanggal FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal ");
-
-
-while ($data3 = mysqli_fetch_assoc($table3)) {
-    $tanggal_grafik = $data3['tanggal'];
-
-    $data_tanggal[] = "$tanggal_grafik";
-}
-
-//data Penjualan 5,5kg
-$table4 = mysqli_query($koneksi, "SELECT sum(jumlah_55kg) AS jumlah_penjualan_55 FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal   ");
-
-while ($data4 = mysqli_fetch_array($table4)) {
-    $jumlah_penjualan_55 = $data4['jumlah_penjualan_55'];
-    $data_penjualan_55[] = "$jumlah_penjualan_55";
-}
-
-//data Penjualan 12kg
-$table5 = mysqli_query($koneksi, "SELECT sum(jumlah_12kg) AS jumlah_penjualan_12 FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal ");
-
-while ($data5 = mysqli_fetch_array($table5)) {
-    $jumlah_penjualan_12 = $data5['jumlah_penjualan_12'];
-    $data_penjualan_12[] = "$jumlah_penjualan_12";
 }
 
 
@@ -217,7 +182,7 @@ while ($data5 = mysqli_fetch_array($table5)) {
                 <div class="sidebar-brand-icon rotate-n-15">
 
                 </div>
-                <div class="sidebar-brand-text mx-3">PT Non PSO</div>
+                <div class="sidebar-brand-text mx-3">PT PSO</div>
             </a>
 
             <!-- Divider -->
@@ -233,52 +198,20 @@ while ($data5 = mysqli_fetch_array($table5)) {
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Nav Item - Menu Keuangan -->
+            <!-- Nav Item - Menu List Pt -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fa-solid fa-cash-register"></i>
-                    <span>Transaksi</span>
+                    <span>List PT</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VPenjualan">Penjualan</a>
-                        <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VPengeluaran">Pengeluaran</a>
-                        <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
-
+                    <a class="collapse-item" href="/Direktur/SijugaNonPSO/view/DsSijugaNonPSO">SijugaNonPSO</a>
+                        <a class="collapse-item" href="/Direktur/SijugaPSO/view/DsSijugaPSO">SijugaPSO</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Menu Anggota -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fa-solid fa-people-group"></i>
-                    <span>Pangkalan</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListPangkalan">List Pangkalan</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-
-            <!-- Nav Item - Menu Pengaturan Akun -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Pengaturan Akun</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListAkun">List Akun</a>
-                    </div>
-                </div>
-            </li>
 
 
             <!-- Divider -->
@@ -377,74 +310,6 @@ while ($data5 = mysqli_fetch_array($table5)) {
                     <br>
 
 
-                    <!-- Content Grafik -->
-
-                    <div class="row">
-
-                        <!-- Area Chart -->
-                        <div class="col-xl-12 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-
-                                </div>
-                                <!-- Card Body -->
-                                <div style="height: 450px;" class="card-body">
-                                    <div class="chart-area">
-                                        <div id="chart_penjualan">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-12 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h5 style="color: black;">Laporan Inventory</h5>
-                                </div>
-                                <!-- Card Body -->
-                                <div style="height: 300px;" class="card-body">
-                                    <div class="chart-area">
-                                        <!-- Tabel Inventory -->
-
-                                        <!-- Tabel -->
-
-                                        <table align="center" id="example2" class="table-sm table-striped table-bordered  nowrap" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Tabung</th>
-                                                    <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jumlah</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <?php
-
-                                                while ($data = mysqli_fetch_array($table2)) {
-                                                    $nama_tabung = $data['nama_tabung'];
-                                                    $jumlah_tabung = $data['jumlah_tabung'];
-                                                    echo "<tr>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_tabung</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$jumlah_tabung</td>
-                                                 </tr>";
-                                                }
-                                                ?>
-
-                                            </tbody>
-                                        </table>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                    </div>
 
 
                 </div>
@@ -513,71 +378,7 @@ while ($data5 = mysqli_fetch_array($table5)) {
     <script src="/js/6bcb3870ca.js" crossorigin="anonymous"></script>
     <!-- grafik-->
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script>
-        Highcharts.chart('chart_penjualan', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Grafik Penjualan'
-            },
-
-            xAxis: {
-                categories: [
-                    <?php
-
-                    foreach ($data_tanggal as $a) {
-                    ?> ' <?php print_r($a);
-
-                            ?> '
-                    <?php echo ",";
-                    } ?>
-
-
-
-
-
-
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Penjualan (Rp)'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>Rp {point.y:.2f}</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: 'Penjualan 5,5 Kg',
-                data: [<?php foreach ($data_penjualan_55 as $x) {
-                            print_r($x);
-                            echo ",";
-                        } ?>]
-
-            }, {
-                name: 'Penjualan 12 Kg',
-                data: [<?php foreach ($data_penjualan_12 as $n) {
-                            print_r($n);
-                            echo ",";
-                        } ?>]
-
-            }]
-        });
-    </script>
+    
 
 
 </body>
