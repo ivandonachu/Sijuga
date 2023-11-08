@@ -104,6 +104,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
                         <a class="collapse-item" href="VPengeluaran">Pengeluaran</a>
+                        <a class="collapse-item" href="VTransportFee">Transport Fee</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
 
                     </div>

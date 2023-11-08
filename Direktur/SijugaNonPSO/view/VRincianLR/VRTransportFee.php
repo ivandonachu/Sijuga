@@ -18,8 +18,25 @@ if ($jabatan_valid == 'Direktur') {
     exit;
 }
 
-$table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
 
+
+if (isset($_GET['tanggal1'])) {
+    $tanggal_awal = $_GET['tanggal1'];
+    $tanggal_akhir = $_GET['tanggal2'];
+} elseif (isset($_POST['tanggal1'])) {
+    $tanggal_awal = $_POST['tanggal1'];
+    $tanggal_akhir = $_POST['tanggal2'];
+} else {
+    $tanggal_awal = date('Y-m-1');
+    $tanggal_akhir = date('Y-m-31');
+}
+
+if ($tanggal_awal == $tanggal_akhir) {
+    $table = mysqli_query($koneksi, "SELECT * FROM transport_fee WHERE tanggal = '$tanggal_awal'");
+} else {
+
+    $table = mysqli_query($koneksi, "SELECT * FROM transport_fee WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
+}
 
 ?>
 
@@ -34,7 +51,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>List Pangkalan</title>
+    <title>Rincian Transport Fee</title>
 
     <!-- Custom fonts for this template-->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -68,7 +85,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="DsSijugaNonPSO">
+                <a class="nav-link" href="DsAdmin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span style="font-size: 17px;">Dashboard</span></a>
             </li>
@@ -76,35 +93,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-             <!-- Nav Item - Menu List Pt -->
-             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwox" aria-expanded="true" aria-controls="collapseTwox">
-                    <i class="fa-solid fa-building"></i>
-                    <span>List PT</span>
-                </a>
-                <div id="collapseTwox" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/Direktur/SijugaNonPSO/view/DsSijugaNonPSO">SijugaNonPSO</a>
-                        <a class="collapse-item" href="/Direktur/SijugaPSO/view/DsSijugaPSO">SijugaPSO</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Menu Laporan Perusahaan -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoz" aria-expanded="true" aria-controls="collapseTwoz">
-                    <i class="fa-solid fa-file-lines"></i>
-                    <span>Laporan</span>
-                </a>
-                <div id="collapseTwoz" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VLabaRugi">Laba Rugi</a>
-                        <a class="collapse-item" href="VLaporanAlokasi">Laporan Alokasi</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Menu List Pt -->
+            <!-- Nav Item - Menu Keuangan -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fa-solid fa-cash-register"></i>
@@ -151,6 +140,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
                     </div>
                 </div>
             </li>
+
 
 
             <!-- Divider -->
@@ -214,20 +204,29 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaNonPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">List Pangkalan</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Rincian Transport Fee</a> </small>
                     <br>
                     <br>
 
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h5 style="color: grey;">List Pangkalan</h5>
+                            <h5 style="color: grey;">Rincian Transport Fee</h5>
                         </div>
                         <!-- Card Body -->
                         <div style="height: 820px;" class="card-body">
                             <div class="chart-area">
 
-                                
+                                <div align="left">
+                                    <?php echo "<a href='../VLabaRugi?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir'><button type='button' class='btn btn-primary'>Kembali</button></a>"; ?>
+                                </div>
+
+                                <!-- Form Input -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <?php echo " <a style='font-size: 12px'> Data yang tampil  $tanggal_awal  sampai  $tanggal_akhir</a>" ?>
+                                    </div>
+                                </div>
 
                                 <!-- Tabel -->
                                 <div style="overflow-x: auto" ;>
@@ -235,74 +234,68 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
                                         <thead>
                                             <tr>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No Registrasi</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Pangkalan</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Type</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Pemilik</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No HP</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No KTP</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Alaamt</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No Kantor</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">SP Agen</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Se LPG</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">QTY Kontrak</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Kode Pos</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Latitude</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Longtitude</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Status</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Tipe Pembayaran</th>
-                                               
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Tanggal</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jumlah</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Keterangan</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">File</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
                                             <?php
                                             $no_urut = 0;
-                                            while ($data = mysqli_fetch_array($table)) {
-                                                $no_registrasi = $data['no_registrasi'];
-                                                $nama_pangkalan = $data['nama_pangkalan'];
-                                                $type = $data['type'];
-                                                $pemilik = $data['pemilik'];
-                                                $no_hp_pemilik = $data['no_hp_pemilik'];
-                                                $no_ktp = $data['no_ktp'];
-                                                $alamat = $data['alamat'];
-                                                $no_kantor = $data['no_kantor'];
-                                                $sp_agen = $data['sp_agen'];
-                                                $se_lpg = $data['se_lpg'];
-                                                $qty_kontrak = $data['qty_kontrak'];
-                                                $kode_pos = $data['kode_pos'];
-                                                $latitude = $data['latitude'];
-                                                $longtitude = $data['longtitude'];
-                                                $status = $data['status'];
-                                                $tipe_pembayaran = $data['tipe_pembayaran'];
+                                            $total_transport_fee = 0;
+                                            function formatuang($angka)
+                                            {
+                                                $uang = "Rp " . number_format($angka, 2, ',', '.');
+                                                return $uang;
+                                            }
 
+                                            while ($data = mysqli_fetch_array($table)) {
+                                                $no_laporan = $data['no_laporan'];
+                                                $tanggal = $data['tanggal'];
+                                                $jumlah = $data['jumlah'];
+                                                $keterangan = $data['keterangan'];
+                                                $file_bukti = $data['file_bukti'];
+                                                $total_transport_fee = $total_transport_fee + $jumlah;
                                                 $no_urut++;
 
                                                 echo "<tr>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_urut</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_registrasi</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_pangkalan</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$type</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$pemilik</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_hp_pemilik</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_ktp</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$alamat</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_kantor</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$sp_agen</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$se_lpg</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$qty_kontrak</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$kode_pos</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$latitude</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$longtitude</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$status</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$tipe_pembayaran</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$tanggal</td>
+                                                <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($jumlah); ?> <?php echo "</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$keterangan</td>
+                                                <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="/SijugaNonPSO/Admin/file_admin/<?= $file_bukti ?>" href="/SijugaNonPSO/Admin/file_admin/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
                                                 </tr>";
-                                            }
-                                            ?>
+                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                ?>
 
                                         </tbody>
                                     </table>
                                 </div>
+                                <br>
+                                <!-- Kotak  pengeluaran -->
+                                <div class="row">
+
+                                    <!-- Pengeluaran -->
+                                    <div class="col-xl-12 col-md-6 mb-4">
+                                        <div class="card border-left-danger shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                            Total Transport Fee</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= formatuang($total_transport_fee); ?></div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fa-solid fa-rupiah-sign"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

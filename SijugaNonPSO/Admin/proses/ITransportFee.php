@@ -14,12 +14,10 @@ if ($jabatan_valid == 'Admin') {
     header("Location: logout.php");
     exit;
 }
-$tanggal_awal = htmlspecialchars($_POST['tanggal1']);
-$tanggal_akhir = htmlspecialchars($_POST['tanggal2']);
-$no_pengeluaran = htmlspecialchars($_POST['no_pengeluaran']);
+$tanggal_awal = $_GET['tanggal1'];
+$tanggal_akhir = $_GET['tanggal2'];
 $tanggal = htmlspecialchars($_POST['tanggal']);
-$nama_akun = htmlspecialchars($_POST['nama_akun']);
-$jumlah_pengeluaran = htmlspecialchars($_POST['jumlah_pengeluaran']);
+$jumlah = htmlspecialchars($_POST['jumlah']);
 $keterangan = htmlspecialchars($_POST['keterangan']);
 $nama_file = $_FILES['file']['name'];
 
@@ -58,17 +56,12 @@ else if ( $nama_file != "" ) {
 }
 
 
-  if ($file == '') {
-    mysqli_query($koneksi,"UPDATE pengeluaran SET tanggal = '$tanggal' , nama_akun = '$nama_akun' , jumlah_pengeluaran = '$jumlah_pengeluaran' , keterangan = '$keterangan' WHERE no_pengeluaran =  '$no_pengeluaran'");
-  }
-  else{
-    mysqli_query($koneksi,"UPDATE pengeluaran SET tanggal = '$tanggal' , nama_akun = '$nama_akun' , jumlah_pengeluaran = '$jumlah_pengeluaran' , keterangan = '$keterangan', file_bukti = '$file' WHERE no_pengeluaran =  '$no_pengeluaran'");
-                  
-  }
+    
 
-  echo "<script>alert('Data Pengeluaran Berhasil di Edit'); window.location='../view/VPengeluaran?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";exit;
-
-
+            mysqli_query($koneksi,"INSERT INTO transport_fee VALUES('','$tanggal','$jumlah','$keterangan','$file')");
+               
+            echo "<script>alert('Data Transport Fee Berhasil di Input'); window.location='../view/VTransportFee?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";exit;
+     
 
      
         
