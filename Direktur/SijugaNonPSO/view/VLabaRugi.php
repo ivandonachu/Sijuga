@@ -443,7 +443,7 @@ $laba_bersih_sebelum_pajak = $laba_kotor - $total_biaya_usaha_final;
                             <h5 style="color: grey;">Laba Rugi Non PSO</h5>
                         </div>
                         <!-- Card Body -->
-                        <div style="height: 1820px;" class="card-body">
+                        <div style="height: 1550px;" class="card-body">
                             <div class="chart-area">
 
                                 <!-- Form Tanggal Akses Data -->
@@ -462,7 +462,17 @@ $laba_bersih_sebelum_pajak = $laba_kotor - $total_biaya_usaha_final;
                                     <div class="col-md-6">
                                         <?php echo " <a style='font-size: 12px'> Data yang tampil  $tanggal_awal  sampai  $tanggal_akhir</a>" ?>
                                     </div>
+                                    <div class="col-md-6">
+                                    <div align="right">
+                                       
+                                       <?php echo "<a href='VCetakLabaRugi?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir' target='_blank'><button style='color:white;
+                                          '  type='submit' class=' btn btn-secondary' >  <i class='fa-solid fa-print'></i> Cetak Laba Rugi</button></a>"; ?>
+                                     </div>
+                                    </div>
+
+                                 
                                 </div>
+                                <br>
 
 
                                 <table class="table table-condensed" style="color : black;">

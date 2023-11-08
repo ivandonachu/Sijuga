@@ -262,8 +262,16 @@ if ($tanggal_awal == $tanggal_akhir) {
                                     <div class="col-md-6">
                                         <?php echo " <a style='font-size: 12px'> Data yang tampil  $tanggal_awal  sampai  $tanggal_akhir</a>" ?>
                                     </div>
+                                    <div class="col-md-6">
+                                    <div align="right">
+                                       
+                                       <?php echo "<a href='VCetakLaporanAlokasi?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir' target='_blank'><button style='color:white;
+                                          '  type='submit' class=' btn btn-secondary' >  <i class='fa-solid fa-print'></i> Cetak Laporan Alokasi</button></a>"; ?>
+                                     </div>
+                                    </div>
+                                   
                                 </div>
-
+                                <br>
                                 <!-- Tabel -->
                                 <div style="overflow-x: auto" ;>
                                     <table align="center" id="example" class="table-sm table-striped table-bordered  nowrap" style="width:100%">
@@ -272,7 +280,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Pangkalan</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Total Alokasi 5,5 Kg</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Total Alokasi 5,5 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Total Alokasi 12 Kg</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -338,7 +346,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                     <div class="col mr-2">
                                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                         Total Seluruh Alokasi 12 KG</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= ($total_alokasi_12kg_global) ?></div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= ($total_alokasi_12kg_global)  ?></div>
                                                     </div>
                                                     <div class="col-auto">
                                                     <i class="fa-solid fa-dolly"></i>
