@@ -6,12 +6,12 @@ if (!isset($_SESSION["login"])) {
     exit;
 }
 $username = $_COOKIE['username'];
-$result1 = mysqli_query($koneksi, "SELECT * FROM account WHERE username = '$username'");
+$result1 = mysqli_query($koneksi, "SELECT * FROM super_account WHERE username = '$username'");
 $data1 = mysqli_fetch_array($result1);
 $jabatan_valid = $data1['jabatan'];
 $nama = $data1['nama'];
 $foto_profile = $data1['foto_profile'];
-$username = $data1['username'];
+
 if ($jabatan_valid == 'Direktur') {
 } else {
     header("Location: logout.php");
