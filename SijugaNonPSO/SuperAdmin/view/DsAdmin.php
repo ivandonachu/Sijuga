@@ -12,7 +12,7 @@ $jabatan_valid = $data1['jabatan'];
 $nama = $data1['nama'];
 $foto_profile = $data1['foto_profile'];
 
-if ($jabatan_valid == 'Admin') {
+if ($jabatan_valid == 'Super Admin') {
 } else {
     header("Location: logout.php");
     exit;
