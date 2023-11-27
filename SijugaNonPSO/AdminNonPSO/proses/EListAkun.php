@@ -10,7 +10,7 @@ $result1 = mysqli_query($koneksi, "SELECT * FROM account WHERE username = '$user
 $data1 = mysqli_fetch_array($result1);
 $jabatan_valid = $data1['jabatan'];
 $username = $data1['username'];
-if ($jabatan_valid == 'Admin') {
+if ($jabatan_valid == 'Admin Non PSO') {
 } else {
     header("Location: logout.php");
     exit;

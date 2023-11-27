@@ -243,11 +243,23 @@ while ($data5 = mysqli_fetch_array($table5)) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VPengeluaran">Pengeluaran</a>
-                        <a class="collapse-item" href="VListPiutang">List Piutang</a>
-                        <a class="collapse-item" href="VRiwayatPiutang">Riwayat Piutang</a>
+                        <a class="collapse-item" href="VListHutang">List Hutang</a>
+                        <a class="collapse-item" href="VRiwayatHuatng">Riwayat Hutang</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
 
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Menu Pengeeluaran -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesx" aria-expanded="true" aria-controls="collapseUtilitiesx">
+                <i class="fa-solid fa-wallet"></i>
+                    <span>Pengeluaran</span>
+                </a>
+                <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VPengeluaran">Kas Kecil</a>
                     </div>
                 </div>
             </li>
