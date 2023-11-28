@@ -14,12 +14,14 @@ if ($jabatan_valid == 'Admin Non PSO') {
     header("Location: logout.php");
     exit;
 }
-$tanggal_awal = $_GET['tanggal1'];
-$tanggal_akhir = $_GET['tanggal2'];
-$tanggal = htmlspecialchars($_POST['tanggal']);
-$nama_akun = htmlspecialchars($_POST['nama_akun']);
-$jumlah_pengeluaran = htmlspecialchars($_POST['jumlah_pengeluaran']);
-$keterangan = htmlspecialchars($_POST['keterangan']);
+$tanggal_awal = htmlspecialchars($_POST['tanggal1']);
+$tanggal_akhir = htmlspecialchars($_POST['tanggal2']);
+$no_penjualan = htmlspecialchars($_POST['no_penjualan']);
+$tanggal_bayar = htmlspecialchars($_POST['tanggal_bayar']);
+$jumlah_bayar = htmlspecialchars($_POST['jumlah_bayar']);
+$pembayaran_piutang = htmlspecialchars($_POST['pembayaran_piutang']);
+$status_penjualan = "Lunas";
+
 $nama_file = $_FILES['file']['name'];
 
 if ($nama_file == "") {
@@ -43,7 +45,7 @@ else if ( $nama_file != "" ) {
 		$nama_file_baru .= ".";
 		$nama_file_baru .= $ekstensi_file;
 
-		move_uploaded_file($tmp_name, '../file_admin/' . $nama_file_baru   );
+		move_uploaded_file($tmp_name, '../file_admin_non_pso/' . $nama_file_baru   );
 
 		return $nama_file_baru; 
 
@@ -56,13 +58,14 @@ else if ( $nama_file != "" ) {
 
 }
 
+mysqli_query($koneksi,"UPDATE penjualan SET status_penjualan = '$status_penjualan' WHERE no_penjualan =  '$no_penjualan'");
+mysqli_query($koneksi, "INSERT INTO riwayat_piutang VALUES('','$no_penjualan','$tanggal_bayar','$pembayaran_piutang','$jumlah_bayar','$file')");
 
-    
 
-            mysqli_query($koneksi,"INSERT INTO pengeluaran VALUES('','$tanggal','$nama_akun','$jumlah_pengeluaran','$keterangan','$file')");
-               
-            echo "<script>alert('Data Pengeluaran Berhasil di Input'); window.location='../view/VPengeluaran?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";exit;
-     
+
+  echo "<script>alert('Status Penjualan Berhasil Berubah ke Lunas'); window.location='../view/VRiwayatPiutang?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";exit;
+
+
 
      
         

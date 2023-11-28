@@ -18,7 +18,7 @@ if ($jabatan_valid == 'Admin Non PSO') {
     exit;
 }
 
-$table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
+$table = mysqli_query($koneksi, "SELECT * FROM customer");
 
 
 ?>
@@ -34,7 +34,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>List Pangkalan</title>
+    <title>List Customer</title>
 
     <!-- Custom fonts for this template-->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -86,10 +86,23 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VPengeluaran">Pengeluaran</a>
-                        <a class="collapse-item" href="VTransportFee">Transport Fee</a>
+                        <a class="collapse-item" href="VListHutang">List Hutang</a>
+                        <a class="collapse-item" href="VRiwayatHutang">Riwayat Hutang</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
 
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Menu Pengeeluaran -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesx" aria-expanded="true" aria-controls="collapseUtilitiesx">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Pengeluaran</span>
+                </a>
+                <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VPengeluaran">Kas Kecil</a>
                     </div>
                 </div>
             </li>
@@ -98,28 +111,11 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fa-solid fa-people-group"></i>
-                    <span>Pangkalan</span>
+                    <span>Customer</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListPangkalan">List Pangkalan</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-
-            <!-- Nav Item - Menu Pengaturan Akun -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Pengaturan Akun</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListAkun">List Akun</a>
+                        <a class="collapse-item" href="VListCustomer">List Customer</a>
                     </div>
                 </div>
             </li>
@@ -186,14 +182,14 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">List Pangkalan</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">List Customer</a> </small>
                     <br>
                     <br>
 
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h5 style="color: grey;">List Pangkalan</h5>
+                            <h5 style="color: grey;">List Customer</h5>
                         </div>
                         <!-- Card Body -->
                         <div style="height: 820px;" class="card-body">
@@ -207,14 +203,14 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
                                     <div class="col-md-2">
                                         <!-- Button Input Data Bayar -->
                                         <div align="right">
-                                            <button style="font-size: clamp(7px, 3vw, 15px); " type="button" class="btn btn-primary" data-toggle="modal" data-target="#input"> <i class="fas fa-plus-square mr-2"></i>Tambah Pangkalan</button> <br> <br>
+                                            <button style="font-size: clamp(7px, 3vw, 15px); " type="button" class="btn btn-primary" data-toggle="modal" data-target="#input"> <i class="fas fa-plus-square mr-2"></i>Tambah Customer</button> <br> <br>
                                         </div>
                                         <!-- Form Modal  -->
                                         <div class="modal fade bd-example-modal-lg" id="input" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title"> Form Tambah Pangalan</h5>
+                                                        <h5 class="modal-title"> Form Tambah Customer</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -222,18 +218,18 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
 
                                                     <!-- Form Input Data -->
                                                     <div class="modal-body" align="left">
-                                                        <?php echo "<form action='../proses/IPangkalan' enctype='multipart/form-data' method='POST'>";  ?>
+                                                        <?php echo "<form action='../proses/ICustomer' enctype='multipart/form-data' method='POST'>";  ?>
 
                                                         <br>
 
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label>No Registrasi</label>
-                                                                <input class="form-control form-control-sm" type="text" name="no_registrasi" required="">
+                                                                <label>Agen</label>
+                                                                <input class="form-control form-control-sm" type="text" name="agen" required="">
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>Nama Pangkalan</label>
-                                                                <input class="form-control form-control-sm" type="text" name="nama_pangkalan" required="">
+                                                                <label>Nama Customer</label>
+                                                                <input class="form-control form-control-sm" type="text" name="nama_customer" required="">
                                                             </div>
                                                         </div>
 
@@ -241,96 +237,54 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
 
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label>Tyoe</label>
-                                                                <input class="form-control form-control-sm" type="text" name="type" required="">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>Pemilik</label>
-                                                                <input class="form-control form-control-sm" type="text" name="pemilik" required="">
-                                                            </div>
-                                                        </div>
-
-                                                        <br>
-
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>No HandPhone</label>
-                                                                <input class="form-control form-control-sm" type="text" name="no_hp_pemilik" required="">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>No KTP</label>
-                                                                <input class="form-control form-control-sm" type="text" name="no_ktp" required="">
-                                                            </div>
-                                                        </div>
-
-                                                        <br>
-
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>Alamat</label>
-                                                                <textarea class="form-control form-control-sm" name="alamat"></textarea>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>No Telepon Kantor</label>
-                                                                <input class="form-control form-control-sm" type="text" name="no_kantor">
-                                                            </div>
-                                                        </div>
-
-                                                        <br>
-
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>SP Agen</label>
-                                                                <input class="form-control form-control-sm" type="text" name="sp_agen" required="">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>SE LPG</label>
-                                                                <input class="form-control form-control-sm" type="text" name="se_lpg" required="">
-                                                            </div>
-                                                        </div>
-
-                                                        <br>
-
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>QTY Kontrak</label>
-                                                                <input class="form-control form-control-sm" type="text" name="qty_kontrak" required="">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>Kode Pos</label>
-                                                                <input class="form-control form-control-sm" type="text" name="kode_pos" required="">
-                                                            </div>
-                                                        </div>
-
-                                                        <br>
-
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>Latitude</label>
-                                                                <input class="form-control form-control-sm" type="text" name="latitude" required="">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>Longtitude</label>
-                                                                <input class="form-control form-control-sm" type="text" name="longtitude" required="">
-                                                            </div>
-                                                        </div>
-
-                                                        <br>
-
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>Status</label>
-                                                                <select name="status" class="form-control" required="">
-                                                                    <option>Active</option>
-                                                                    <option>Non Active</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>Tipe Pembayaran</label>
-                                                                <select name="tipe_pembayaran" class="form-control" required="">
+                                                                <label>Jenis Pembayaran</label>
+                                                                <select name="jenis_pembayaran" class="form-control" required="">
                                                                     <option>Cash</option>
                                                                     <option>Cashless</option>
                                                                 </select>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Region 2</label>
+                                                                <input class="form-control form-control-sm" type="text" name="region_2" required="">
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>Provinsi</label>
+                                                                <input class="form-control form-control-sm" type="text" name="provinsi" required="">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Kabupaten</label>
+                                                                <input class="form-control form-control-sm" type="text" name="kabupaten" required="">
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>Harga 3 Kg</label>
+                                                                <input class="form-control form-control-sm" type="text" name="harga_3kg" required="">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Harga 5,5 Kg</label>
+                                                                <input class="form-control form-control-sm" type="text" name="harga_55kg" required="">
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>Harga 12 Kg</label>
+                                                                <input class="form-control form-control-sm" type="text" name="harga_12kg" required="">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Harga 50 Kg</label>
+                                                                <input class="form-control form-control-sm" type="text" name="harga_50kg" required="">
                                                             </div>
                                                         </div>
 
@@ -345,6 +299,67 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
                                                 </div>
                                             </div>
                                         </div>
+
+
+                                        <!-- Button Edit Harga -->
+                                        <div align="right">
+                                            <button style="font-size: clamp(7px, 3vw, 15px); " type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit_harga"> <i class="fa-regular fa-pen-to-square"></i>Ubah Harga</button> <br> <br>
+                                        </div>
+                                        <!-- Form Modal  -->
+                                        <div class="modal fade bd-example-modal-lg" id="edit_harga" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title"> Form Ubah Harga</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- Form Input Data -->
+                                                    <div class="modal-body" align="left">
+                                                        <?php echo "<form action='../proses/EHarga' enctype='multipart/form-data' method='POST'>";  ?>
+
+                                                        <br>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>Harga 3 Kg</label>
+                                                                <input class="form-control form-control-sm" type="text" name="harga_3kg" required="">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Harga 5,5 Kg</label>
+                                                                <input class="form-control form-control-sm" type="text" name="harga_55kg" required="">
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>Harga 12 Kg</label>
+                                                                <input class="form-control form-control-sm" type="text" name="harga_12kg" required="">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Harga 50 Kg</label>
+                                                                <input class="form-control form-control-sm" type="text" name="harga_50kg" required="">
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">Ubah Harga</button>
+                                                            <button type="reset" class="btn btn-danger"> RESET</button>
+                                                        </div>
+                                                        </form>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
                                 </div>
 
@@ -354,22 +369,17 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
                                         <thead>
                                             <tr>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No Registrasi</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Pangkalan</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Type</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Pemilik</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No HP</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No KTP</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Alaamt</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No Kantor</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">SP Agen</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Se LPG</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">QTY Kontrak</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Kode Pos</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Latitude</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Longtitude</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Status</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Tipe Pembayaran</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Kode Customer</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Customer</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jenis Pembayaran</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Region 2</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Provinsi</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Kabupaten / Kota</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Status Customer</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Harga 3 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Harga 5,5 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Harga 12 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Harga 50 Kg</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Aksi</th>
                                             </tr>
                                         </thead>
@@ -378,55 +388,45 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
                                             <?php
                                             $no_urut = 0;
                                             while ($data = mysqli_fetch_array($table)) {
-                                                $no_registrasi = $data['no_registrasi'];
-                                                $nama_pangkalan = $data['nama_pangkalan'];
-                                                $type = $data['type'];
-                                                $pemilik = $data['pemilik'];
-                                                $no_hp_pemilik = $data['no_hp_pemilik'];
-                                                $no_ktp = $data['no_ktp'];
-                                                $alamat = $data['alamat'];
-                                                $no_kantor = $data['no_kantor'];
-                                                $sp_agen = $data['sp_agen'];
-                                                $se_lpg = $data['se_lpg'];
-                                                $qty_kontrak = $data['qty_kontrak'];
-                                                $kode_pos = $data['kode_pos'];
-                                                $latitude = $data['latitude'];
-                                                $longtitude = $data['longtitude'];
-                                                $status = $data['status'];
-                                                $tipe_pembayaran = $data['tipe_pembayaran'];
+                                                $kode_customer = $data['kode_customer'];
+                                                $nama_customer = $data['nama_customer'];
+                                                $jenis_pembayaran = $data['jenis_pembayaran'];
+                                                $region_2 = $data['region_2'];
+                                                $provinsi = $data['provinsi'];
+                                                $kabupaten = $data['kabupaten'];
+                                                $status_customer = $data['status_customer'];
+                                                $harga_3kg = $data['harga_3kg'];
+                                                $harga_55kg = $data['harga_55kg'];
+                                                $harga_12kg = $data['harga_12kg'];
+                                                $harga_50kg = $data['harga_50kg'];
 
                                                 $no_urut++;
 
                                                 echo "<tr>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_urut</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_registrasi</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_pangkalan</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$type</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$pemilik</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_hp_pemilik</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_ktp</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$alamat</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_kantor</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$sp_agen</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$se_lpg</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$qty_kontrak</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$kode_pos</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$latitude</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$longtitude</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$status</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$tipe_pembayaran</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$kode_customer</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_customer</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$jenis_pembayaran</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$region_2</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$provinsi</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$kabupaten</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$status_customer</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$harga_3kg</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$harga_55kg</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$harga_12kg</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$harga_50kg</td>
                                                 "; ?>
                                                 <?php echo "<td style='font-size: clamp(12px, 1vw, 15px);'>"; ?>
 
-                                                <button style=" font-size: clamp(7px, 1vw, 10px); color:black; " href="#" type="submit" class=" btn bg-warning mr-2 rounded" data-toggle="modal" data-target="#formedit<?php echo $data['no_registrasi']; ?>" data-toggle='tooltip' title='Edit Data Pangkalan'>
+                                                <button style=" font-size: clamp(7px, 1vw, 10px); color:black; " href="#" type="submit" class=" btn bg-warning mr-2 rounded" data-toggle="modal" data-target="#formedit<?php echo $data['kode_customer']; ?>" data-toggle='tooltip' title='Edit Data Customer'>
                                                     <i class="fa-regular fa-pen-to-square"></i></button>
                                                 <!-- Form EDIT DATA -->
 
-                                                <div class="modal fade" id="formedit<?php echo $data['no_registrasi']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="formedit<?php echo $data['kode_customer']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title"> Edit Data Pangkalan </h5>
+                                                                <h5 class="modal-title"> Edit Data Customer </h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="close">
                                                                     <span aria-hidden="true"> &times; </span>
                                                                 </button>
@@ -434,17 +434,21 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
 
                                                             <!-- Form Edit Data -->
                                                             <div class="modal-body">
-                                                                <form action="../proses/EPangkalan" enctype="multipart/form-data" method="POST">
+                                                                <form action="../proses/ECustomer" enctype="multipart/form-data" method="POST">
 
                                                                     <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <label>No Registrasi</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="no_registrasi" value="<?= $no_registrasi; ?>" required="" disabled>
-                                                                            <input type="hidden" name="no_registrasi" value="<?= $no_registrasi; ?>">
+                                                                        <div class="col-md-4">
+                                                                            <label>Kode Customer</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="kode_customer" value="<?= $kode_customer; ?>" required="" disabled>
+                                                                            <input type="hidden" name="kode_customer" value="<?= $kode_customer; ?>">
                                                                         </div>
-                                                                        <div class="col-md-6">
-                                                                            <label>Nama Pangkalan</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="nama_pangkalan" value="<?= $nama_pangkalan; ?>">
+                                                                        <div class="col-md-4">
+                                                                            <label>Nama Customer</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="nama_customer" value="<?= $nama_customer; ?>">
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label>Agen</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="agen" value="<?= $agen; ?>">
                                                                         </div>
                                                                     </div>
 
@@ -452,100 +456,73 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
 
                                                                     <div class="row">
                                                                         <div class="col-md-6">
-                                                                            <label>Tyoe</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="type" value="<?= $type; ?>">
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <label>Pemilik</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="pemilik" value="<?= $pemilik; ?>">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <br>
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <label>No HandPhone</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="no_hp_pemilik" value="<?= $no_hp_pemilik; ?>">
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <label>No KTP</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="no_ktp" value="<?= $no_ktp; ?>">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <br>
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <label>Alamat</label>
-                                                                            <textarea class="form-control form-control-sm" name="alamat"><?= $alamat; ?></textarea>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <label>No Telepon Kantor</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="no_kantor" value="<?= $no_kantor; ?>">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <br>
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <label>SP Agen</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="sp_agen" value="<?= $sp_agen; ?>">
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <label>SE LPG</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="se_lpg" value="<?= $se_lpg; ?>">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <br>
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <label>QTY Kontrak</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="qty_kontrak" value="<?= $qty_kontrak; ?>">
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <label>Kode Pos</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="kode_pos" value="<?= $kode_pos; ?>">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <br>
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <label>Latitude</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="latitude" value="<?= $latitude; ?>">
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <label>Longtitude</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="longtitude" value="<?= $longtitude; ?>">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <br>
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <label>Status</label>
-                                                                            <select name="status" class="form-control">
-                                                                                <?php $dataSelect = $data['status']; ?>
-                                                                                <option <?php echo ($dataSelect == 'Active') ? "selected" : "" ?>>Active</option>
-                                                                                <option <?php echo ($dataSelect == 'Non Active') ? "selected" : "" ?>>Non Active</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <label>Tipe Pembayaran</label>
-                                                                            <select name="tipe_pembayaran" class="form-control">
-                                                                                <?php $dataSelect = $data['tipe_pembayaran']; ?>
+                                                                            <label>Jenis Pembayaran</label>
+                                                                            <select name="jenis_pembayaran" class="form-control">
+                                                                                <?php $dataSelect = $data['jenis_pembayaran']; ?>
                                                                                 <option <?php echo ($dataSelect == 'Cash') ? "selected" : "" ?>>Cash</option>
                                                                                 <option <?php echo ($dataSelect == 'Cashless') ? "selected" : "" ?>>Cashless</option>
                                                                             </select>
                                                                         </div>
+                                                                        <div class="col-md-6">
+                                                                            <label>Region 2</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="region_2" value="<?= $region_2; ?>">
+                                                                        </div>
                                                                     </div>
+
+                                                                    <br>
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <label>provinsi</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="provinsi" value="<?= $provinsi; ?>">
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <label>Kabupaten / Kota</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="kabupaten" value="<?= $kabupaten; ?>">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <br>
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <label>Status Customer</label>
+                                                                            <select name="status_customer" class="form-control">
+                                                                                <?php $dataSelect = $data['status_customer']; ?>
+                                                                                <option <?php echo ($dataSelect == 'Aktif') ? "selected" : "" ?>>Aktif</option>
+                                                                                <option <?php echo ($dataSelect == 'Tidak Aktif') ? "selected" : "" ?>>Tidak Aktif</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <br>
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <label>Harga 3 Kg</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="harga_3kg" value="<?= $harga_3kg; ?>">
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <label>Harga 5,5 Kg</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="harga_55kg" value="<?= $harga_55kg; ?>">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <br>
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <label>Harga 12 Kg</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="harga_12kg" value="<?= $harga_12kg; ?>">
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <label>Harga 50 Kg</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="harga_50kg" value="<?= $harga_50kg; ?>">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    
 
                                                                     <br>
 
@@ -560,23 +537,23 @@ $table = mysqli_query($koneksi, "SELECT * FROM pangkalan");
                                                 </div>
 
                                                 <!-- Button Hapus -->
-                                                <button style=" font-size: clamp(7px, 1vw, 10px); color:black;" href="#" type="submit" class=" btn btn-danger" data-toggle="modal" data-target="#PopUpHapus<?php echo $data['no_registrasi']; ?>" data-toggle='tooltip' title='Hapus Pangkalan'>
+                                                <button style=" font-size: clamp(7px, 1vw, 10px); color:black;" href="#" type="submit" class=" btn btn-danger" data-toggle="modal" data-target="#PopUpHapus<?php echo $data['kode_customer']; ?>" data-toggle='tooltip' title='Hapus Customer'>
                                                     <i style="font-size: clamp(7px, 1vw, 10px); color: black;" class="fa-solid fa-trash"></i></button>
-                                                <div class="modal fade" id="PopUpHapus<?php echo $data['no_registrasi']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="PopUpHapus<?php echo $data['kode_customer']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title"> <b> Hapus Pangkalan </b> </h4>
+                                                                <h4 class="modal-title"> <b> Hapus Customer </b> </h4>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="close">
                                                                     <span aria-hidden="true"> &times; </span>
                                                                 </button>
                                                             </div>
 
                                                             <div class="modal-body">
-                                                                <form action="../proses/DPangkalan" method="POST">
-                                                                    <input type="hidden" name="no_registrasi" value="<?php echo $no_registrasi; ?>">
+                                                                <form action="../proses/DCustomer" method="POST">
+                                                                    <input type="hidden" name="kode_customer" value="<?php echo $kode_customer; ?>">
                                                                     <div class="form-group">
-                                                                        <h6> Yakin Ingin Hapus Pangkalan <?php echo $data['sub_penyalur']; ?> ? </h6>
+                                                                        <h6> Yakin Ingin Hapus Pangkalan <?php echo $data['nama_customer']; ?> ? </h6>
                                                                     </div>
 
                                                                     <div class="modal-footer">

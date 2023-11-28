@@ -16,8 +16,8 @@ if ($jabatan_valid == 'Admin Non PSO') {
 }
 
 
-$no_registrasi = htmlspecialchars($_POST['no_registrasi']);
+$kode_customer = htmlspecialchars($_POST['kode_customer']);
 
-		$query = mysqli_query($koneksi,"DELETE FROM pangkalan WHERE no_registrasi = '$no_registrasi'");
-		echo "<script>alert('Data Pangkalan Berhasil Di Hapus'); window.location='../view/VListPangkalan';</script>";exit;
+		$query = mysqli_query($koneksi,"DELETE FROM customer WHERE kode_customer = '$kode_customer'");
+		echo "<script>alert('Data Customer Berhasil Di Hapus'); window.location='../view/VListCustomer';</script>";exit;
 	

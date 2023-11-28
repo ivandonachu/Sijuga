@@ -16,11 +16,15 @@ if ($jabatan_valid == 'Admin Non PSO') {
 }
 $tanggal_awal = htmlspecialchars($_POST['tanggal1']);
 $tanggal_akhir = htmlspecialchars($_POST['tanggal2']);
-$no_pengeluaran = htmlspecialchars($_POST['no_pengeluaran']);
-$tanggal = htmlspecialchars($_POST['tanggal']);
-$nama_akun = htmlspecialchars($_POST['nama_akun']);
-$jumlah_pengeluaran = htmlspecialchars($_POST['jumlah_pengeluaran']);
-$keterangan = htmlspecialchars($_POST['keterangan']);
+$no_laporan = htmlspecialchars($_POST['no_laporan']);
+$pembayaran_piutang = htmlspecialchars($_POST['pembayaran_piutang']);
+$tanggal_bayar = htmlspecialchars($_POST['tanggal_bayar']);
+
+
+
+
+
+
 $nama_file = $_FILES['file']['name'];
 
 if ($nama_file == "") {
@@ -44,7 +48,7 @@ else if ( $nama_file != "" ) {
 		$nama_file_baru .= ".";
 		$nama_file_baru .= $ekstensi_file;
 
-		move_uploaded_file($tmp_name, '../file_admin/' . $nama_file_baru   );
+		move_uploaded_file($tmp_name, '../file_admin_non_pso/' . $nama_file_baru   );
 
 		return $nama_file_baru; 
 
@@ -57,16 +61,14 @@ else if ( $nama_file != "" ) {
 
 }
 
-
-  if ($file == '') {
-    mysqli_query($koneksi,"UPDATE pengeluaran SET tanggal = '$tanggal' , nama_akun = '$nama_akun' , jumlah_pengeluaran = '$jumlah_pengeluaran' , keterangan = '$keterangan' WHERE no_pengeluaran =  '$no_pengeluaran'");
+if ($file == '') {
+    mysqli_query($koneksi,"UPDATE riwayat_piutang SET tanggal_bayar = '$tanggal_bayar' , pembayaran_piutang = '$pembayaran_piutang'  WHERE no_laporan =  '$no_laporan'");
   }
   else{
-    mysqli_query($koneksi,"UPDATE pengeluaran SET tanggal = '$tanggal' , nama_akun = '$nama_akun' , jumlah_pengeluaran = '$jumlah_pengeluaran' , keterangan = '$keterangan', file_bukti = '$file' WHERE no_pengeluaran =  '$no_pengeluaran'");
+    mysqli_query($koneksi,"UPDATE riwayat_piutang SET tanggal_bayar = '$tanggal_bayar' , pembayaran_piutang = '$pembayaran_piutang' , file_bukti = '$file' WHERE no_laporan  =  '$no_laporan'");
                   
   }
-
-  echo "<script>alert('Data Pengeluaran Berhasil di Edit'); window.location='../view/VPengeluaran?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";exit;
+  echo "<script>alert('Data Riwayat Piutang Berhasil Diubah'); window.location='../view/VRiwayatPiutang?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";exit;
 
 
 

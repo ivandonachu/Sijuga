@@ -3,9 +3,17 @@
 /proses_login.php
 /.htaccess
 /assets/img/foto_profile
-/SijugaNonPSO/Admin/file_admin
-/SijugaNonPSO/Admin/proses/koneksi.php
-/SijugaNonPSO/Admin/view/koneksi.php
+/SijugaNonPSO/AdminNonPSO/file_admin_non_pso
+/SijugaNonPSO/AdminNonPSO/proses/koneksi.php
+/SijugaNonPSO/AdminNonPSO/view/koneksi.php
+
+/SijugaNonPSO/SuperAdmin/file_admin
+/SijugaNonPSO/SuperAdmin/proses/koneksi.php
+/SijugaNonPSO/SuperAdmin/view/koneksi.php
+
+/SijugaPSO/AdminPSO/file_admin_pso
+/SijugaPSO/AdminPSO/proses/koneksi.php
+/SijugaPSO/AdminPSO/view/koneksi.php
 
 /Direktur/koneksi.php
 /Direktur/SijugaNonPSO/view/koneksi.php

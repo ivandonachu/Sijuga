@@ -86,10 +86,23 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="VPenjualan">Penjualan</a>
                             <a class="collapse-item" href="VPembelian">Pembelian</a>
-                            <a class="collapse-item" href="VPengeluaran">Pengeluaran</a>
-                            <a class="collapse-item" href="VTransportFee">Transport Fee</a>
+                            <a class="collapse-item" href="VListHutang">List Hutang</a>
+                            <a class="collapse-item" href="VRiwayatHutang">Riwayat Hutang</a>
                             <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
 
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Menu Pengeeluaran -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesx" aria-expanded="true" aria-controls="collapseUtilitiesx">
+                        <i class="fa-solid fa-wallet"></i>
+                        <span>Pengeluaran</span>
+                    </a>
+                    <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="VPengeluaran">Kas Kecil</a>
                         </div>
                     </div>
                 </li>
@@ -103,23 +116,6 @@
                     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="VListPangkalan">List Pangkalan</a>
-                        </div>
-                    </div>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-
-                <!-- Nav Item - Menu Pengaturan Akun -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>Pengaturan Akun</span>
-                    </a>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="VListAkun">List Akun</a>
                         </div>
                     </div>
                 </li>

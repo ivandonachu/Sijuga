@@ -47,7 +47,7 @@ else if ( $nama_file != "" ) {
 		$nama_file_baru .= ".";
 		$nama_file_baru .= $ekstensi_file;
 
-		move_uploaded_file($tmp_name, '../file_admin/' . $nama_file_baru   );
+		move_uploaded_file($tmp_name, '../file_admin_non_pso/' . $nama_file_baru   );
 
 		return $nama_file_baru; 
 

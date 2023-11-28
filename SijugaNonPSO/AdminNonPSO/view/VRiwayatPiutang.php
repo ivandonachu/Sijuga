@@ -32,10 +32,10 @@ if (isset($_GET['tanggal1'])) {
 }
 
 if ($tanggal_awal == $tanggal_akhir) {
-    $table = mysqli_query($koneksi, "SELECT * FROM pengeluaran WHERE tanggal = '$tanggal_awal'");
+    $table = mysqli_query($koneksi, "SELECT * FROM riwayat_piutang a INNER JOIN penjualan b ON b.no_penjualan=a.no_penjualan INNER JOIN customer c ON c.kode_customer=b.kode_customer WHERE tanggal = '$tanggal_awal' ");
 } else {
 
-    $table = mysqli_query($koneksi, "SELECT * FROM pengeluaran WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
+    $table = mysqli_query($koneksi, "SELECT * FROM riwayat_piutang a INNER JOIN penjualan b ON b.no_penjualan=a.no_penjualan INNER JOIN customer c ON c.kode_customer=b.kode_customer  WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'  ");
 }
 
 ?>
@@ -51,7 +51,7 @@ if ($tanggal_awal == $tanggal_akhir) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pengeluaran</title>
+    <title>Riwayat Piutang</title>
 
     <!-- Custom fonts for this template-->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -68,7 +68,6 @@ if ($tanggal_awal == $tanggal_akhir) {
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -103,10 +102,23 @@ if ($tanggal_awal == $tanggal_akhir) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VPengeluaran">Pengeluaran</a>
-                        <a class="collapse-item" href="VTransportFee">Transport Fee</a>
+                        <a class="collapse-item" href="VListHutang">List Hutang</a>
+                        <a class="collapse-item" href="VRiwayatHutang">Riwayat Hutang</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
 
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Menu Pengeeluaran -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesx" aria-expanded="true" aria-controls="collapseUtilitiesx">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Pengeluaran</span>
+                </a>
+                <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VPengeluaran">Kas Kecil</a>
                     </div>
                 </div>
             </li>
@@ -120,23 +132,6 @@ if ($tanggal_awal == $tanggal_akhir) {
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VListPangkalan">List Pangkalan</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-
-            <!-- Nav Item - Menu Pengaturan Akun -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Pengaturan Akun</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListAkun">List Akun</a>
                     </div>
                 </div>
             </li>
@@ -204,26 +199,26 @@ if ($tanggal_awal == $tanggal_akhir) {
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Pengeluaran</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Riwayat Piutang</a> </small>
                     <br>
                     <br>
 
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h5 style="color: grey;">Pengeluaran</h5>
+                            <h5 style="color: grey;">Riwayat Piutang</h5>
                         </div>
                         <!-- Card Body -->
-                        <div style="height: 820px;" class="card-body">
+                        <div style="height: 980px;" class="card-body">
                             <div class="chart-area">
 
                                 <!-- Form Tanggal Akses Data -->
-                                <?php echo "<form  method='POST' action='VPengeluaran' style='margin-bottom: 15px;'>" ?>
+                                <?php echo "<form  method='POST' action='VRiwayatPiutang' style='margin-bottom: 15px;'>" ?>
                                 <div>
                                     <div align="left" style="margin-left: 20px;">
-                                        <input type="date" id="tanggal1" style="font-size: 14px" name="tanggal1">
+                                        <input type="date" id="tanggal1" style="font-size: 12px" name="tanggal1">
                                         <span>-</span>
-                                        <input type="date" id="tanggal2" style="font-size: 14px" name="tanggal2">
+                                        <input type="date" id="tanggal2" style="font-size: 12px" name="tanggal2">
                                         <button type="submit" name="submmit" style="font-size: 12px; margin-left: 10px; margin-bottom: 2px;" class="btn1 btn btn-outline-primary btn-sm">Lihat</button>
                                     </div>
                                 </div>
@@ -234,97 +229,30 @@ if ($tanggal_awal == $tanggal_akhir) {
                                     <div class="col-md-6">
                                         <?php echo " <a style='font-size: 12px'> Data yang tampil  $tanggal_awal  sampai  $tanggal_akhir</a>" ?>
                                     </div>
-                                    <div class="col-md-6">
-                                        <!-- Button Input Data Bayar -->
-                                        <div align="right">
-                                            <button style="font-size: clamp(7px, 3vw, 15px); " type="button" class="btn btn-primary" data-toggle="modal" data-target="#input"> <i class="fas fa-plus-square mr-2"></i>Catat Pengeluaran</button> <br> <br>
-                                        </div>
-                                        <!-- Form Modal  -->
-                                        <div class="modal fade bd-example-modal-lg" id="input" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title"> Form Pengeluaran</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-
-                                                    <!-- Form Input Data -->
-                                                    <div class="modal-body" align="left">
-                                                        <?php echo "<form action='../proses/IPengeluaran?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir' enctype='multipart/form-data' method='POST'>";  ?>
-
-                                                        <br>
-
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>Tanggal</label>
-                                                                <input class="form-control " type="date" name="tanggal" required="">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>Nama Akun</label>
-                                                                <select name="nama_akun" class="form-control" required="">
-                                                                    <option>Alat Tulis Kantor</option>
-                                                                    <option>Biaya Administrasi</option>
-                                                                    <option>Biaya Kantor</option>
-                                                                    <option>Biaya Konsumsi</option>
-                                                                    <option>Biaya Penjualan & Pemasaran</option>
-                                                                    <option>Biaya Perbaikan Kendaraan</option>
-                                                                    <option>Gaji Karyawan</option>
-                                                                    <option>Gaji Driver</option>
-                                                                    <option>Listrik & Telepon</option>
-                                                                    <option>Transport / Perjalanan Dinas</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <br>
-
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>Jumlah Pengeluaran</label>
-                                                                <input class="form-control form-control-sm" type="text" name="jumlah_pengeluaran" required="">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>Keterangan</label>
-                                                                <textarea class="form-control form-control-sm" name="keterangan"></textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <br>
-
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>Upload File</label>
-                                                                <input type="file" name="file">
-                                                            </div>
-                                                        </div>
-
-                                                        <br>
-
-                                                        <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-primary">INPUT</button>
-                                                            <button type="reset" class="btn btn-danger"> RESET</button>
-                                                        </div>
-                                                        </form>
-
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <!-- Tabel -->
                                 <div style="overflow-x: auto" ;>
-                                    <table align="center" id="example" class="table-sm table-striped table-bordered  nowrap" style="width:100%">
+                                    <table align="center" id="example" class="table-sm table-striped table-bordeblack  nowrap" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Tanggal</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Akun Pengeluaran</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jumlah Pengeluaran</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Tanggal Penjualan</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Tanggal Bayar</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Akun</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Customer</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Pembayaran Hutang</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">QTY 5,5 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Harga 5,5 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">jumlah 5,5 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">QTY 12 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Harga 12 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">jumlah 12 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">QTY 50 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Harga 50 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">jumlah 50 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jumlah</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jumlah Bayar</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Keterangan</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">File</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Aksi</th>
@@ -334,7 +262,12 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                             <?php
                                             $no_urut = 0;
-                                            $total_pengeluaran = 0;
+                                            $total_penjualan_cashless = 0;
+                                            $total_penjualan_cash = 0;
+                                            $total_penjualan_55kg_cashless = 0;
+                                            $total_penjualan_55kg_cash = 0;
+                                            $total_penjualan_12kg_cashless = 0;
+                                            $total_penjualan_12kg_cash = 0;
                                             function formatuang($angka)
                                             {
                                                 $uang = "Rp " . number_format($angka, 2, ',', '.');
@@ -342,34 +275,85 @@ if ($tanggal_awal == $tanggal_akhir) {
                                             }
 
                                             while ($data = mysqli_fetch_array($table)) {
-                                                $no_pengeluaran = $data['no_pengeluaran'];
+                                                $no_laporan = $data['no_laporan'];
+                                                $no_penjualan = $data['no_penjualan'];
                                                 $tanggal = $data['tanggal'];
+                                                $tanggal_bayar = $data['tanggal_bayar'];
                                                 $nama_akun = $data['nama_akun'];
-                                                $jumlah_pengeluaran = $data['jumlah_pengeluaran'];
+                                                $nama_customer = $data['nama_customer'];
+                                                $pembayaran_piutang = $data['pembayaran_piutang'];
+                                                $qty_55kg = $data['qty_55kg'];
+                                                $harga_55kg = $data['harga_55kg'];
+                                                $jumlah_55kg = $data['jumlah_55kg'];
+                                                $qty_12kg = $data['qty_12kg'];
+                                                $harga_12kg = $data['harga_12kg'];
+                                                $jumlah_12kg = $data['jumlah_12kg'];
+                                                $qty_50kg = $data['qty_50kg'];
+                                                $harga_50kg = $data['harga_50kg'];
+                                                $jumlah_50kg = $data['jumlah_50kg'];
+                                                $jumlah = $data['jumlah'];
+                                                $jumlah_bayar = $data['jumlah_bayar'];
                                                 $keterangan = $data['keterangan'];
                                                 $file_bukti = $data['file_bukti'];
-                                                $total_pengeluaran = $total_pengeluaran + $jumlah_pengeluaran;
+                                                if ($pembayaran_piutang == 'Cash') {
+                                                    $total_penjualan_cash = $total_penjualan_cash + $jumlah;
+                                                    $total_penjualan_12kg_cash = $total_penjualan_12kg_cash + $jumlah_12kg;
+                                                    $total_penjualan_55kg_cash = $total_penjualan_55kg_cash + $jumlah_55kg;
+                                                } else {
+                                                    $total_penjualan_cashless = $total_penjualan_cashless + $jumlah;
+                                                    $total_penjualan_12kg_cashless = $total_penjualan_12kg_cashless + $jumlah_12kg;
+                                                    $total_penjualan_55kg_cashless = $total_penjualan_55kg_cashless + $jumlah_55kg;
+                                                }
+
                                                 $no_urut++;
 
                                                 echo "<tr>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_urut</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$tanggal</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_akun</td>
-                                                <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($jumlah_pengeluaran); ?> <?php echo "</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$keterangan</td>
-                                                <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="" href="/SijugaNonPSO/Admin/file_admin/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
-                                                "; ?>
+                                                    <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_urut</td>
+                                                    <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$tanggal</td>
+                                                    <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$tanggal_bayar</td>
+                                                    <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_akun</td>
+                                                    <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_customer</td>
+                                                    <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$pembayaran_piutang</td>
+                                                    <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$qty_55kg</td>";
+                                                    if ($qty_55kg == 0) {
+                                                        echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang(0); ?> <?php echo "</td>";
+                                                                                                                                                    } else {
+                                                                                                                                                        echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($harga_55kg); ?> <?php echo "</td>";
+                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                            echo "
+                                                    <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($jumlah_55kg); ?> <?php echo "</td>
+                                                    <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$qty_12kg</td>";
+                                                                                                                                                        if ($qty_12kg == 0) {
+                                                                                                                                                            echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang(0); ?> <?php echo "</td>";
+                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                            echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($harga_12kg); ?> <?php echo "</td>";
+                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                echo "
+                                                    <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($jumlah_12kg); ?> <?php echo "</td>
+                                                    <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$qty_50kg</td>";
+                                                                                                                                                        if ($qty_50kg == 0) {
+                                                                                                                                                            echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang(0); ?> <?php echo "</td>";
+                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                            echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($harga_50kg); ?> <?php echo "</td>";
+                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                echo "
+                                                    <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($jumlah_50kg); ?> <?php echo "</td>
+                                                    <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($jumlah); ?> <?php echo "</td>
+                                                    <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($jumlah_bayar); ?> <?php echo "</td>
+                                                    <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$keterangan</td>
+                                                    <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="" href="/SijugaNonPSO/AdminNonPSO/file_admin_non_pso/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
+                                                    "; ?>
                                                     <?php echo "<td style='font-size: clamp(12px, 1vw, 15px);'>"; ?>
 
-                                                    <button style=" font-size: clamp(7px, 1vw, 10px); color:black; " href="#" type="submit" class=" btn bg-warning mr-2 rounded" data-toggle="modal" data-target="#formedit<?php echo $data['no_pengeluaran']; ?>" data-toggle='tooltip' title='Edit Pengeluaran'>
+                                                    <button style=" font-size: clamp(7px, 1vw, 10px); color:black; " href="#" type="submit" class=" btn bg-warning mr-2 rounded" data-toggle="modal" data-target="#formpelunasan<?php echo $data['no_laporan']; ?>" data-toggle='tooltip' title='Edit Riwayat Piutang'>
                                                         <i class="fa-regular fa-pen-to-square"></i></button>
                                                     <!-- Form EDIT DATA -->
 
-                                                    <div class="modal fade" id="formedit<?php echo $data['no_pengeluaran']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="formpelunasan<?php echo $data['no_laporan']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title"> Edit Pengeluaran </h5>
+                                                                    <h5 class="modal-title">Edit Riwayat Piutang </h5>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="close">
                                                                         <span aria-hidden="true"> &times; </span>
                                                                     </button>
@@ -377,50 +361,31 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                                                 <!-- Form Edit Data -->
                                                                 <div class="modal-body">
-                                                                    <form action="../proses/EPengeluaran" enctype="multipart/form-data" method="POST">
+                                                                    <form action="../proses/ERiwayatPiutang" enctype="multipart/form-data" method="POST">
 
-                                                                        <input type="hidden" name="no_pengeluaran" value="<?= $no_pengeluaran; ?>">
-                                                                        <input type="hidden" name="tanggal1" value="<?php echo $tanggal_awal; ?>">
-                                                                        <input type="hidden" name="tanggal2" value="<?php echo $tanggal_akhir; ?>">
+                                                                        <input type="hidden" name="no_laporan" value="<?= $no_laporan; ?>">
+                                                                        <input type="hidden" name="tanggal1" value="<?= $tanggal_awal; ?>">
+                                                                            <input type="hidden" name="tanggal2" value="<?= $tanggal_akhir; ?>">
+                                                                    
+
                                                                         <div class="row">
                                                                             <div class="col-md-6">
-                                                                                <label>Tanggal</label>
-                                                                                <input class="form-control " type="date" name="tanggal" value="<?= $tanggal; ?>" required="">
+                                                                                <label>Tanggal Bayar</label>
+                                                                                <input class="form-control form-control-sm" type="date" name="tanggal_bayar" value="<?= $tanggal_bayar; ?>" requiblack="">
                                                                             </div>
+                                                                        </div>
+
+                                                                        <br>
+                                                                        <div class="row">
                                                                             <div class="col-md-6">
-                                                                                <label>Nama Akun</label>
-                                                                                <select name="nama_akun" class="form-control">
-                                                                                    <?php $dataSelect = $data['nama_akun']; ?>
-                                                                                    <option <?php echo ($dataSelect == 'Alat Tulis Kantor') ? "selected" : "" ?>>Alat Tulis Kantor</option>
-                                                                                    <option <?php echo ($dataSelect == 'Biaya Administrasi') ? "selected" : "" ?>>Biaya Administrasi</option>
-                                                                                    <option <?php echo ($dataSelect == 'Biaya Kantor') ? "selected" : "" ?>>Biaya Kantor</option>
-                                                                                    <option <?php echo ($dataSelect == 'Biaya Konsumsi') ? "selected" : "" ?>>Biaya Konsumsi</option>
-                                                                                    <option <?php echo ($dataSelect == 'Biaya Penjualan & Pemasaran') ? "selected" : "" ?>>Biaya Penjualan & Pemasaran</option>
-                                                                                    <option <?php echo ($dataSelect == 'Biaya Perbaikan Kendaraan') ? "selected" : "" ?>>Biaya Perbaikan Kendaraan</option>
-                                                                                    <option <?php echo ($dataSelect == 'Gaji Karyawan') ? "selected" : "" ?>>Gaji Karyawan</option>
-                                                                                    <option <?php echo ($dataSelect == 'Gaji Driver') ? "selected" : "" ?>>Gaji Driver</option>
-                                                                                    <option <?php echo ($dataSelect == 'Listrik & Telepon') ? "selected" : "" ?>>Listrik & Telepon</option>
-                                                                                    <option <?php echo ($dataSelect == 'Transport / Perjalanan Dinas') ? "selected" : "" ?>>Transport / Perjalanan Dinas</option>
+                                                                                <label>Pembayaran piutang</label>
+                                                                                <select name="pembayaran_piutang" class="form-control">
+                                                                                    <?php $dataSelect = $data['pembayaran_piutang']; ?>
+                                                                                    <option <?php echo ($dataSelect == 'Cashless') ? "selected" : "" ?>>Cashless</option>
+                                                                                    <option <?php echo ($dataSelect == 'Cash') ? "selected" : "" ?>>Cash</option>
                                                                                 </select>
                                                                             </div>
-                                                                        </div>
-
-                                                                        <br>
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label>Jumlah Pengeluaran</label>
-                                                                                <input class="form-control form-control-sm" type="text" name="jumlah_pengeluaran" value="<?= $jumlah_pengeluaran; ?>" required="">
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <label>Keterangan</label>
-                                                                                <textarea class="form-control form-control-sm" name="keterangan"><?= $keterangan; ?></textarea>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <br>
-
-                                                                        <div class="row">
+                                                               
                                                                             <div class="col-md-6">
                                                                                 <label>Upload File</label>
                                                                                 <input type="file" name="file">
@@ -429,7 +394,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                         <br>
 
                                                                         <div class="modal-footer">
-                                                                            <button type="submit" class="btn btn-primary"> Ubah </button>
+                                                                            <button type="submit" class="btn btn-primary">Konfirmasi </button>
                                                                             <button type="reset" class="btn btn-danger"> RESET</button>
                                                                         </div>
                                                                     </form>
@@ -438,26 +403,29 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                         </div>
                                                     </div>
 
+
+
                                                     <!-- Button Hapus -->
-                                                    <button style=" font-size: clamp(7px, 1vw, 10px); color:black;" href="#" type="submit" class=" btn btn-danger" data-toggle="modal" data-target="#PopUpHapus<?php echo $data['no_pengeluaran']; ?>" data-toggle='tooltip' title='Hapus Pengeluaran'>
+                                                    <button style=" font-size: clamp(7px, 1vw, 10px); color:black;" href="#" type="submit" class=" btn btn-danger" data-toggle="modal" data-target="#PopUpHapus<?php echo $data['no_laporan']; ?>" data-toggle='tooltip' title='Hapus Riwayat Piutang'>
                                                         <i style="font-size: clamp(7px, 1vw, 10px); color: black;" class="fa-solid fa-trash"></i></button>
-                                                    <div class="modal fade" id="PopUpHapus<?php echo $data['no_pengeluaran']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="PopUpHapus<?php echo $data['no_laporan']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h4 class="modal-title"> <b> Hapus Pengeluaran </b> </h4>
+                                                                    <h4 class="modal-title"> <b> Hapus Riwayat Piutang </b> </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="close">
                                                                         <span aria-hidden="true"> &times; </span>
                                                                     </button>
                                                                 </div>
 
                                                                 <div class="modal-body">
-                                                                    <form action="../proses/DPengeluaran" method="POST">
-                                                                        <input type="hidden" name="no_pengeluaran" value="<?php echo $no_pengeluaran; ?>">
+                                                                    <form action="../proses/DRiwayatPiutang" method="POST">
+                                                                        <input type="hidden" name="no_laporan" value="<?php echo $no_laporan; ?>">
+                                                                        <input type="hidden" name="no_penjualan" value="<?php echo $no_penjualan; ?>">
                                                                         <input type="hidden" name="tanggal1" value="<?php echo $tanggal_awal; ?>">
                                                                         <input type="hidden" name="tanggal2" value="<?php echo $tanggal_akhir; ?>">
                                                                         <div class="form-group">
-                                                                            <h6> Yakin Ingin Hapus Pengeluaran ini ? </h6>
+                                                                            <h6> Yakin Ingin Hapus Riwayat Piutang ini ? </h6>
                                                                         </div>
 
                                                                         <div class="modal-footer">
@@ -471,33 +439,20 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                                 <?php echo  " </td> </tr>";
                                             }
+
+
                                                 ?>
 
                                         </tbody>
                                     </table>
                                 </div>
                                 <br>
-                                <!-- Kotak  pengeluaran -->
-                                <div class="row">
 
-                                    <!-- Pengeluaran -->
-                                    <div class="col-xl-12 col-md-6 mb-4">
-                                        <div class="card border-left-danger shadow h-100 py-2">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                                            Total Pengeluaran</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= formatuang($total_pengeluaran); ?></div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <i class="fa-solid fa-rupiah-sign"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- TABEL Pembayaran Piutang -->
+                               
+
+                                
+
 
                             </div>
                         </div>
