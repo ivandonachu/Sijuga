@@ -11,7 +11,7 @@ $data1 = mysqli_fetch_array($result1);
 $jabatan_valid = $data1['jabatan'];
 $nama = $data1['nama'];
 $foto_profile = $data1['foto_profile'];
-
+$username = $data1['username'];
 if ($jabatan_valid == 'Super Admin') {
 } else {
     header("Location: logout.php");
@@ -20,118 +20,26 @@ if ($jabatan_valid == 'Super Admin') {
 
 
 
-
-//script format tanggal
-function formattanggal($date)
-{
-
-
-    $newDate = date(" d F Y", strtotime($date));
-    switch (date("l")) {
-        case 'Monday':
-            $nmh = "Senin";
-            break;
-        case 'Tuesday':
-            $nmh = "Selasa";
-            break;
-        case 'Wednesday':
-            $nmh = "Rabu";
-            break;
-        case 'Thursday':
-            $nmh = "Kamis";
-            break;
-        case 'Friday':
-            $nmh = "Jum'at";
-            break;
-        case 'Saturday':
-            $nmh = "Sabtu";
-            break;
-        case 'Sunday':
-            $nmh = "minggu";
-            break;
-    }
-    echo " $newDate";
+if (isset($_GET['tanggal1'])) {
+    $tanggal_awal = $_GET['tanggal1'];
+    $tanggal_akhir = $_GET['tanggal2'];
+    $no_polisi = $_GET['no_polisi'];
+} elseif (isset($_POST['tanggal1'])) {
+    $tanggal_awal = $_POST['tanggal1'];
+    $tanggal_akhir = $_POST['tanggal2'];
+    $no_polisi = $_GET['no_polisi'];
+} else {
+    $tanggal_awal = date('Y-m-1');
+    $tanggal_akhir = date('Y-m-31');
+    $no_polisi = $_GET['no_polisi'];
 }
 
-function getDay($date)
-{
-    $datetime = DateTime::createFromFormat('Y-m-d', $date);
-    return $datetime->format('l');
+if ($tanggal_awal == $tanggal_akhir) {
+    $table = mysqli_query($koneksi, "SELECT * FROM kas_kecil WHERE tanggal = '$tanggal_awal' AND akun_kas = 'BBM' AND no_polisi = '$no_polisi' ");
+} else {
+
+    $table = mysqli_query($koneksi, "SELECT * FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'BBM' AND no_polisi = '$no_polisi'");
 }
-
-function getHari($date)
-{
-    $day = getDay($date);
-    switch ($day) {
-        case 'Sunday':
-            $hari = 'Minggu';
-            break;
-        case 'Monday':
-            $hari = 'Senin';
-            break;
-        case 'Tuesday':
-            $hari = 'Selasa';
-            break;
-        case 'Wednesday':
-            $hari = 'Rabu';
-            break;
-        case 'Thursday':
-            $hari = 'Kamis';
-            break;
-        case 'Friday':
-            $hari = 'Jum\'at';
-            break;
-        case 'Saturday':
-            $hari = 'Sabtu';
-            break;
-        default:
-            $hari = 'Tidak ada';
-            break;
-    }
-    return $hari;
-}
-
-function formatuang($angka)
-{
-    $uang = "Rp " . number_format($angka, 2, ',', '.');
-    return $uang;
-}
-
-$tanggal_awal = date('Y-m-1');
-$tanggal_akhir = date('Y-m-31');
-
-
-$table2 = mysqli_query($koneksi, "SELECT * FROM inventory ");
-
-
-//data grafik
-
-//data tanggal
-$table3 = mysqli_query($koneksi, "SELECT tanggal FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal ");
-
-
-while ($data3 = mysqli_fetch_assoc($table3)) {
-    $tanggal_grafik = $data3['tanggal'];
-
-    $data_tanggal[] = "$tanggal_grafik";
-}
-
-//data Penjualan 5,5kg
-$table4 = mysqli_query($koneksi, "SELECT sum(jumlah_55kg) AS jumlah_penjualan_55 FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal   ");
-
-while ($data4 = mysqli_fetch_array($table4)) {
-    $jumlah_penjualan_55 = $data4['jumlah_penjualan_55'];
-    $data_penjualan_55[] = "$jumlah_penjualan_55";
-}
-
-//data Penjualan 12kg
-$table5 = mysqli_query($koneksi, "SELECT sum(jumlah_12kg) AS jumlah_penjualan_12 FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal ");
-
-while ($data5 = mysqli_fetch_array($table5)) {
-    $jumlah_penjualan_12 = $data5['jumlah_penjualan_12'];
-    $data_penjualan_12[] = "$jumlah_penjualan_12";
-}
-
 
 ?>
 
@@ -139,67 +47,21 @@ while ($data5 = mysqli_fetch_array($table5)) {
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dasboard</title>
-
-
+    <title>Rincian BBM Kendaraan</title>
     <!-- Custom fonts for this template-->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/bootstrap-select/dist/css/bootstrap-select.css">
     <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
-    <script type="text/javascript">
-        window.setTimeout("waktu()", 1000);
 
-        function waktu() {
-            var tanggal = new Date();
-            setTimeout("waktu()", 1000);
-            document.getElementById("jam").innerHTML = tanggal.getHours();
-            document.getElementById("menit").innerHTML = tanggal.getMinutes();
-            document.getElementById("detik").innerHTML = tanggal.getSeconds();
-        }
-    </script>
-
-    <style>
-        #jam-digital {
-            overflow: hidden
-        }
-
-        #hours {
-            float: left;
-            width: 50px;
-            height: 30px;
-            background-color: darkgrey;
-            margin-right: 25px
-        }
-
-        #minute {
-            float: left;
-            width: 50px;
-            height: 30px;
-            background-color: darkgrey;
-            margin-right: 25px
-        }
-
-        #second {
-            float: left;
-            width: 50px;
-            height: 30px;
-            background-color: darkgrey;
-        }
-
-        #jam-digital p {
-            color: #FFF;
-            font-size: 22px;
-            text-align: center
-        }
-    </style>
 
 
 
@@ -248,8 +110,8 @@ while ($data5 = mysqli_fetch_array($table5)) {
                 </div>
             </li>
 
-             <!-- Nav Item - Menu Keuangan -->
-             <li class="nav-item">
+            <!-- Nav Item - Menu Keuangan -->
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fa-solid fa-cash-register"></i>
                     <span>Transaksi</span>
@@ -323,7 +185,6 @@ while ($data5 = mysqli_fetch_array($table5)) {
                 </div>
             </li>
 
-
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -378,122 +239,114 @@ while ($data5 = mysqli_fetch_array($table5)) {
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Jam tanggal -->
-                    <div class="row">
-                        <div class="col-sm-9">
-                        </div>
-                        <div class="col-sm-3" style="color: black; font-size: 18px;">
-                            <script type='text/javascript'>
-                                var months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                                var myDays = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum&#39;at', 'Sabtu'];
-                                var date = new Date();
-                                var day = date.getDate();
-                                var month = date.getMonth();
-                                var thisDay = date.getDay(),
-                                    thisDay = myDays[thisDay];
-                                var yy = date.getYear();
-                                var year = (yy < 1000) ? yy + 1900 : yy;
-                                document.write(thisDay + ', ' + day + ' ' + months[month] + ' ' + year);
-                            </script>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-sm-9">
-                        </div>
-                        <div class="col-sm-3">
-                            <div id="jam-digital">
-                                <div id="hours">
-                                    <p id="jam"></p>
-                                </div>
-                                <div id="minute">
-                                    <p id="menit"> </p>
-                                </div>
-                                <div id="second">
-                                    <p id="detik"> </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
+                    <!-- Tabel List Akun -->
+
+
+
+                    <!-- Posisi Halaman -->
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsSuperAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">RINCIAN BBM KENDARAAN</a> </small>
                     <br>
                     <br>
 
-
-                    <!-- Content Grafik -->
-
-                    <div class="row">
-
-                        <!-- Area Chart -->
-                        <div class="col-xl-12 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h5 style="color: grey;">RINCIAN BBM KENDARAAN <?= $no_polisi ?> </h5>
+                        </div>
+                        <!-- Card Body -->
+                        <div style="height: 2520px;" class="card-body">
+                            <div class="chart-area">
+                                <?php echo " <a style='font-size: 12px'> Data yang tampil  $tanggal_awal  sampai  $tanggal_akhir</a>" ?>
+                                <br>
+                                <div align="left">
+                                    <?php echo "<a href='VKasKecil?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir'><button type='button' class='btn btn-primary'>Kembali</button></a>"; ?>
                                 </div>
-                                <!-- Card Body -->
-                                <div style="height: 450px;" class="card-body">
-                                    <div class="chart-area">
-                                        <div id="chart_penjualan">
 
-                                        </div>
-                                    </div>
+                                <br>
+
+                                <!-- Tabel -->
+                                <div style="overflow-x: auto" ;>
+                                    <table align="center" id="example" class="table-sm table-striped table-bordered  nowrap" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Tanggal</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Akun Kas</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No Polisi Kendaraan</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Debit</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Kredit</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Keterangan</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">File</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <?php
+                                            $no_urut = 0;
+                                            $total_pengeluaran = 0;
+                                            function formatuang($angka)
+                                            {
+                                                $uang = "Rp " . number_format($angka, 2, ',', '.');
+                                                return $uang;
+                                            }
+
+                                            while ($data = mysqli_fetch_array($table)) {
+                                                $no_laporan = $data['no_laporan'];
+                                                $tanggal = $data['tanggal'];
+                                                $akun_kas = $data['akun_kas'];
+                                                $no_polisi = $data['no_polisi'];
+                                                $jumlah = $data['jumlah'];
+                                                $status_saldo = $data['status_saldo'];
+                                                $keterangan = $data['keterangan'];
+                                                $file_bukti = $data['file_bukti'];
+
+                                                $no_urut++;
+
+                                                echo "<tr>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_urut</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$tanggal</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$akun_kas</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_polisi</td>";
+                                                if ($status_saldo == 'Masuk') {
+                                                    echo "
+                                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?= formatuang($jumlah); ?> <?php echo "</td>";
+                                                                                                                                                    } else {
+                                                                                                                                                        echo "
+                                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?php echo "</td>";
+                                                                                                                                                    }
+
+                                                                                                                                                    if ($status_saldo == 'Keluar') {
+                                                                                                                                                        echo "
+                                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?= formatuang($jumlah); ?> <?php echo "</td>";
+                                                                                                                                                    } else {
+                                                                                                                                                        echo "
+                                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?php echo "</td>";
+                                                                                                                                                    }
+                                                                                                                            ?>
+                                                <?php echo "
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$keterangan</td>
+                                                <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="" href="/SijugaNonPSO/AdminNonPSO/file_admin_non_pso/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
+                                                </tr>";
+                                                                                                                                                                                        }
+                                                                                                                                                                                            ?>
+
+                                        </tbody>
+                                    </table>
                                 </div>
+                                <br>
+
+
+
                             </div>
                         </div>
-
-                        <div class="col-xl-12 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h5 style="color: black;">Laporan Inventory</h5>
-                                </div>
-                                <!-- Card Body -->
-                                <div style="height: 300px;" class="card-body">
-                                    <div class="chart-area">
-                                        <!-- Tabel Inventory -->
-
-                                        <!-- Tabel -->
-
-                                        <table align="center" id="example2" class="table-sm table-striped table-bordered  nowrap" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Tabung</th>
-                                                    <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jumlah</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <?php
-
-                                                while ($data = mysqli_fetch_array($table2)) {
-                                                    $nama_tabung = $data['nama_tabung'];
-                                                    $jumlah_tabung = $data['jumlah_tabung'];
-                                                    echo "<tr>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_tabung</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$jumlah_tabung</td>
-                                                 </tr>";
-                                                }
-                                                ?>
-
-                                            </tbody>
-                                        </table>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
                     </div>
-
-
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
+
+
             <!-- End of Main Content -->
 
             <!-- Footer -->
@@ -535,7 +388,6 @@ while ($data5 = mysqli_fetch_array($table5)) {
             </div>
         </div>
     </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="/vendor_sb/jquery/jquery.min.js"></script>
     <script src="/vendor_sb/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -554,71 +406,58 @@ while ($data5 = mysqli_fetch_array($table5)) {
     <script src="/js/buttons.html5.min.js"></script>
     <!-- Fontawasome-->
     <script src="/js/6bcb3870ca.js" crossorigin="anonymous"></script>
-    <!-- grafik-->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+
+
+
     <script>
-        Highcharts.chart('chart_penjualan', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Grafik Penjualan'
-            },
+        $(document).ready(function() {
+            var table = $('#example').DataTable({
+                lengthChange: false,
+                buttons: ['excel']
+            });
 
-            xAxis: {
-                categories: [
-                    <?php
+            table.buttons().container()
+                .appendTo('#example_wrapper .col-md-6:eq(0)');
+        });
+    </script>
 
-                    foreach ($data_tanggal as $a) {
-                    ?> ' <?php print_r($a);
+    <script>
+        function createOptions(number) {
+            var options = [],
+                _options;
 
-                            ?> '
-                    <?php echo ",";
-                    } ?>
+            for (var i = 0; i < number; i++) {
+                var option = '<option value="' + i + '">Option ' + i + '</option>';
+                options.push(option);
+            }
 
+            _options = options.join('');
 
+            $('#number')[0].innerHTML = _options;
+            $('#number-multiple')[0].innerHTML = _options;
 
+            $('#number2')[0].innerHTML = _options;
+            $('#number2-multiple')[0].innerHTML = _options;
+        }
 
+        var mySelect = $('#first-disabled2');
 
+        createOptions(4000);
 
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Penjualan (Rp)'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>Rp {point.y:.2f}</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: 'Penjualan 5,5 Kg',
-                data: [<?php foreach ($data_penjualan_55 as $x) {
-                            print_r($x);
-                            echo ",";
-                        } ?>]
+        $('#special').on('click', function() {
+            mySelect.find('option:selected').prop('disabled', true);
+            mySelect.selectpicker('refresh');
+        });
 
-            }, {
-                name: 'Penjualan 12 Kg',
-                data: [<?php foreach ($data_penjualan_12 as $n) {
-                            print_r($n);
-                            echo ",";
-                        } ?>]
+        $('#special2').on('click', function() {
+            mySelect.find('option:disabled').prop('disabled', false);
+            mySelect.selectpicker('refresh');
+        });
 
-            }]
+        $('#basic2').selectpicker({
+            liveSearch: true,
+            maxOptions: 1
         });
     </script>
 
