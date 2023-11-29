@@ -6,12 +6,12 @@ if(!isset($_SESSION["login"])){
   exit;
 }
 $username=$_COOKIE['username'];
-$result1 = mysqli_query($koneksi, "SELECT * FROM super_account WHERE username = '$username'");
+$result1 = mysqli_query($koneksi, "SELECT * FROM account WHERE username = '$username'");
 $data1 = mysqli_fetch_array($result1);
 $jabatan_valid = $data1['jabatan']; 
 $nama = $data1['nama'];
 $username = $data1['username'];
-if ($jabatan_valid == 'Direktur') { 
+if ($jabatan_valid == 'Admin Non PSO') { 
 }
 
 else{  header("Location: logout.php");
@@ -65,7 +65,7 @@ else if ( $nama_file != "" ) {
     
     if($password_lama != "" && $password_baru1 != ""){
 
-        $sql_account = mysqli_query($koneksi, "SELECT * FROM super_account WHERE username = '$username'");
+        $sql_account = mysqli_query($koneksi, "SELECT * FROM account WHERE username = '$username'");
     
             $data_account = mysqli_fetch_assoc($sql_account);
               if(password_verify($password_lama, $data_account["password"]) ){ 
@@ -73,10 +73,10 @@ else if ( $nama_file != "" ) {
                     $jml_char = strlen($password_baru1);
 
                     if($jml_char < 8){
-                        echo "<script>alert('Password harus lebih dari 8 huruf'); window.location='view/VProfile';</script>";exit;
+                        echo "<script>alert('Password harus lebih dari 8 huruf'); window.location='VProfile';</script>";exit;
                     }
                     else if ($jml_char >15){
-                        echo "<script>alert('Password harus kurang dari 15 huruf'); window.location='view/VProfile';</script>";exit;
+                        echo "<script>alert('Password harus kurang dari 15 huruf'); window.location='VProfile';</script>";exit;
                     }
                     else if (count(explode(' ', $password_baru1)) > 1){
                         echo "<script>alert('password tidak boleh ada spasi'); window.location='VProfile';</script>";exit;
@@ -86,7 +86,7 @@ else if ( $nama_file != "" ) {
                     }
                     
                     $password_baru1 = password_hash($password_baru1, PASSWORD_DEFAULT);
-                    $query1 = mysqli_query($koneksi,"UPDATE super_account SET password = '$password_baru1' WHERE username =  '$username'");
+                    $query1 = mysqli_query($koneksi,"UPDATE account SET password = '$password_baru1' WHERE username =  '$username'");
                     echo "<script>alert('Password Berhasil Di Ganti'); window.location='VProfile';</script>";exit;
 
               }
@@ -101,10 +101,10 @@ else if ( $nama_file != "" ) {
 
 			
         if ($file == '') {
-            mysqli_query($koneksi,"UPDATE super_account SET nama = '$nama'  WHERE username =  '$username'");
+            mysqli_query($koneksi,"UPDATE account SET nama = '$nama'  WHERE username =  '$username'");
         }
         else{
-            mysqli_query($koneksi,"UPDATE super_account SET nama = '$nama', foto_profile = '$file' WHERE username =  '$username'");
+            mysqli_query($koneksi,"UPDATE account SET nama = '$nama', foto_profile = '$file' WHERE username =  '$username'");
         }
         
         echo "<script>alert('Profil Berhasil Di Edit'); window.location='VProfile';</script>";exit;
