@@ -36,8 +36,8 @@ if ($tanggal_awal == $tanggal_akhir) {
     $table2 = mysqli_query($koneksi, "SELECT * FROM inventory ");
 } else {
 
-    $table = mysqli_query($koneksi, "SELECT * FROM laporan_inventory WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
-    $table2 = mysqli_query($koneksi, "SELECT * FROM inventory ");
+    $table = mysqli_query($koneksi, "SELECT * FROM laporan_inventory WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'  ");
+    $table2 = mysqli_query($koneksi, "SELECT * FROM inventory WHERE kode_tabung != 'B05K11' AND kode_tabung != 'B12K11' AND kode_tabung != 'B50K11' AND kode_tabung != 'L03K11'AND kode_tabung != 'L03K01'AND kode_tabung != 'L03K10'AND kode_tabung != 'L03K00' ");
 }
 
 ?>
@@ -310,6 +310,23 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                                         <br>
 
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>50 Kg Isi</label>
+                                                                <input class="form-control form-control-sm" type="text" name="B50K01" required="">
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label>50 Kg Kosong</label>
+                                                                <input class="form-control form-control-sm" type="text" name="B50K10" required="">
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label>50 Kg retur</label>
+                                                                <input class="form-control form-control-sm" type="text" name="B50K00" required="">
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+
                                                         <div class="modal-footer">
                                                             <button type="submit" class="btn btn-primary">INPUT</button>
                                                             <button type="reset" class="btn btn-danger"> RESET</button>
@@ -332,13 +349,14 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Tanggal</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">5,5 Kg Isi</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">5,5 Kg Tabung + Isi</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">5,5 Kg Kosong</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">5,5 Kg Retur</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">12 Kg Isi</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">12 Kg Tabung + Isi</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">12 Kg Kosong</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">12 Kg Retur</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">50 Kg Isi</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">50 Kg Kosong</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">50 Kg Retur</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Aksi</th>
                                             </tr>
                                         </thead>
@@ -358,19 +376,24 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 $B12K11 = $data['B12K11'];
                                                 $B12K10 = $data['B12K10'];
                                                 $B12K00 = $data['B12K00'];
+                                                $B50K01 = $data['B50K01'];
+                                                $B50K11 = $data['B50K11'];
+                                                $B50K10 = $data['B50K10'];
+                                                $B50K00 = $data['B50K00'];
                                                 $no_urut++;
 
                                                 echo "<tr>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_urut</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$tanggal</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B05K01</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B05K11</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B05K10</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B05K00</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B12K01</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B12K11</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B12K10</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B12K00</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B50K01</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B50K10</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B50K00</td>
                                                 "; ?>
                                                 <?php echo "<td style='font-size: clamp(12px, 1vw, 15px);'>"; ?>
 
@@ -406,7 +429,7 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                                                     <div class="row">
                                                                         <div class="col-md-4">
-                                                                            <label>5,5 Kg Isi / Tabung + Isi</label>
+                                                                            <label>5,5 Kg Isi</label>
                                                                             <input class="form-control form-control-sm" type="text" name="B05K01" value="<?= $B05K01; ?>" required="">
                                                                         </div>
                                                                         <div class="col-md-4">
@@ -423,7 +446,7 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                                                     <div class="row">
                                                                         <div class="col-md-4">
-                                                                            <label>12 Kg Isi / Tabung + Isi</label>
+                                                                            <label>12 Kg Isi</label>
                                                                             <input class="form-control form-control-sm" type="text" name="B12K01" value="<?= $B12K01; ?>" required="">
                                                                         </div>
                                                                         <div class="col-md-4">
@@ -433,6 +456,23 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                         <div class="col-md-4">
                                                                             <label>12 Kg retur</label>
                                                                             <input class="form-control form-control-sm" type="text" name="B12K00" value="<?= $B12K00; ?>" required="">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <br>
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <label>50 Kg Isi</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="B50K01" value="<?= $B50K01; ?>" required="">
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label>50 Kg Kosong</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="B50K10" value="<?= $B50K10; ?>" required="">
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label>50 Kg retur</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="B50K00" value="<?= $B50K00; ?>" required="">
                                                                         </div>
                                                                     </div>
 

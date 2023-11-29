@@ -6,18 +6,17 @@ if (!isset($_SESSION["login"])) {
   exit;
 }
 $username = $_COOKIE['username'];
-$result1 = mysqli_query($koneksi, "SELECT * FROM account WHERE username = '$username'");
+$result1 = mysqli_query($koneksi, "SELECT * FROM super_account WHERE username = '$username'");
 $data1 = mysqli_fetch_array($result1);
 $jabatan_valid = $data1['jabatan'];
 $nama = $data1['nama'];
 $foto_profile = $data1['foto_profile'];
-$username = $data1['username'];
-if ($jabatan_valid == 'Super Admin') {
+
+if ($jabatan_valid == 'Direktur') {
 } else {
   header("Location: logout.php");
   exit;
 }
-
 
 
 
@@ -66,13 +65,41 @@ if ($jabatan_valid == 'Super Admin') {
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="DsAdmin">
+        <a class="nav-link" href="DsDirektur">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span style="font-size: 17px;">Dashboard</span></a>
       </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+
+       <!-- Nav Item - Menu List Pt -->
+       <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwox" aria-expanded="true" aria-controls="collapseTwox">
+                    <i class="fa-solid fa-building"></i>
+                    <span>List PT</span>
+                </a>
+                <div id="collapseTwox" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/Direktur/SijugaNonPSO/view/DsSijugaNonPSO">SijugaNonPSO</a>
+                        <a class="collapse-item" href="/Direktur/SijugaPSO/view/DsSijugaPSO">SijugaPSO</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Menu Laporan Perusahaan -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoz" aria-expanded="true" aria-controls="collapseTwoz">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>Laporan</span>
+                </a>
+                <div id="collapseTwoz" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VLabaRugi">Laba Rugi</a>
+                        <a class="collapse-item" href="VLaporanAlokasi">Laporan Alokasi</a>
+                    </div>
+                </div>
+            </li>
 
       <!-- Nav Item - Menu Keuangan -->
       <li class="nav-item">
@@ -193,7 +220,7 @@ if ($jabatan_valid == 'Super Admin') {
               <div class="col-md-9">
                 <div class="tab-content">
                   <div class="tab-pane fade active show" id="account-general">
-                    <?php echo "<form action='../proses/edit_profil' enctype='multipart/form-data' method='POST'>";  ?>
+                    <?php echo "<form action='edit_profil' enctype='multipart/form-data' method='POST'>";  ?>
                     <div class="card-body media align-items-center">
                       <img src="/img/foto_profile/<?= $foto_profile; ?>" style="max-height: 150px; " alt="" class="d-block ui-w-80">
                       <div class="media-body ml-4">

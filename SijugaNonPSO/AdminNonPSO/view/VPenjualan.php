@@ -36,6 +36,46 @@ if ($tanggal_awal == $tanggal_akhir) {
 } else {
 
     $table = mysqli_query($koneksi, "SELECT * FROM penjualan a INNER JOIN customer b ON b.kode_customer=a.kode_customer WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
+
+    //piutang
+    $sql_piutang = mysqli_query($koneksi, "SELECT SUM(jumlah_bayar) AS total_bayar_piutang FROM riwayat_piutang WHERE tanggal_bayar BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND pembayaran_piutang = 'Cash' ");
+    $data_piutang = mysqli_fetch_array($sql_piutang);
+    $total_pembayaran_piutang = $data_piutang['total_bayar_piutang'];
+
+    //pengeluaran
+    $sql_pengeluaran = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pengeluaran FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'  ");
+    $data_pengeluaran = mysqli_fetch_array($sql_pengeluaran);
+    $total_pengeluaran = $data_pengeluaran['total_pengeluaran'];
+
+    //setoran total
+    $sql_setoran = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_setoran FROM setoran WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'  ");
+    $data_setoran = mysqli_fetch_array($sql_setoran);
+    if (!isset($data_setoran['total_setoran'])) {
+        $total_setoran = 0;
+    } else {
+    
+        $total_setoran = $data_setoran['total_setoran'];
+    }
+
+    //setoran total cash
+    $sql_setoran_cash = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_setoran_cash FROM setoran WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND jenis_setoran = 'Cash'  ");
+    $data_setoran_cash = mysqli_fetch_array($sql_setoran_cash);
+    if (!isset($data_setoran_cash['total_setoran_cash'])) {
+        $total_setoran_cash = 0;
+    } else {
+    
+        $total_setoran_cash = $data_setoran_cash['total_setoran_cash'];
+    }
+
+    //setoran total cashles
+    $sql_setoran_cashles = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_setoran_cashless FROM setoran WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND jenis_setoran = 'Cashless'  ");
+    $data_setoran_cashles = mysqli_fetch_array($sql_setoran_cashles);
+    if (!isset($data_setoran_cashles['total_setoran_cashless'])) {
+        $total_setoran_cashless = 0;
+    } else {
+    
+        $total_setoran_cashless = $data_setoran_cashles['total_setoran_cashless'];
+    }
 }
 
 ?>
@@ -221,7 +261,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                             <h5 style="color: grey;">Penjualan</h5>
                         </div>
                         <!-- Card Body -->
-                        <div style="height: 980px;" class="card-body">
+                        <div style="height: 1980px;" class="card-body">
                             <div class="chart-area">
 
                                 <!-- Form Tanggal Akses Data -->
@@ -403,11 +443,11 @@ if ($tanggal_awal == $tanggal_akhir) {
                                             $total_penjualan_50kg_cashless = 0;
                                             $total_penjualan_50kg_cash = 0;
                                             $total_penjualan_lunas = 0;
-                                            $total_penjualan_piutang =0;
+                                            $total_penjualan_piutang = 0;
                                             $total_penjualan_12kg_piutang = 0;
                                             $total_penjualan_55kg_piutang = 0;
                                             $total_penjualan_50kg_piutang = 0;
-                                            $total_seluruh_penjualan =0;
+                                            $total_seluruh_penjualan = 0;
                                             function formatuang($angka)
                                             {
                                                 $uang = "Rp " . number_format($angka, 2, ',', '.');
@@ -516,7 +556,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                             <input type="hidden" name="tanggal1" value="<?= $tanggal_awal; ?>">
                                                                             <input type="hidden" name="tanggal2" value="<?= $tanggal_akhir; ?>">
                                                                             <input type="hidden" name="no_penjualan" value="<?= $no_penjualan; ?>">
-                                                                            <input type="hidden" name="jumlah_bayar" value="<?= $no_penjualan; ?>">
+                                                                            <input type="hidden" name="jumlah_bayar" value="<?= $jumlah; ?>">
 
 
                                                                             <div class="row">
@@ -914,7 +954,8 @@ if ($tanggal_awal == $tanggal_akhir) {
                                     </table>
                                 </div>
                                 <br>
-
+                                <hr>
+                                <br>
                                 <!-- Kotak pemasukan pengeluaran -->
                                 <h5 align="center" style='font-size: clamp(12px, 1vw, 18px); color: black;'>REKAP PENJUALAN</h5>
                                 <!-- Tabel -->
@@ -985,6 +1026,55 @@ if ($tanggal_awal == $tanggal_akhir) {
                                     </tbody>
                                 </table>
 
+                                <br>
+                                <hr>
+                                <br>
+                                <!-- Kotak pemasukan pengeluaran -->
+                                <h5 align="center" style='font-size: clamp(12px, 1vw, 18px); color: black;'>REKAP KEUANGAN CASH</h5>
+                                <!-- Tabel -->
+                                <table class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%; ">
+                                    <thead>
+                                        <tr>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Keuangan</th>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Keuangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Penjualan Cash </td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_penjualan_cash); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Pembayaran Piutang Cash</td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_pembayaran_piutang); ?> </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL CASH PENJUALAN + PIUTANG</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_penjualan_cash + $total_pembayaran_piutang); ?></strong> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL PENGELUARAN</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_pengeluaran); ?></strong> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL CASH DIKURANG PENGELUARAN</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang(($total_penjualan_cash + $total_pembayaran_piutang) - $total_pengeluaran); ?></strong> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL SETOR CASH</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_setoran_cash); ?></strong> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL SETOR CASHLESS</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_setoran_cashless); ?></strong> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL SETOR</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_setoran); ?></strong> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
 
                             </div>

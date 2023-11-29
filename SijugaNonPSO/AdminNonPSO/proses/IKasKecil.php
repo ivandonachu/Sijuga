@@ -63,6 +63,8 @@ if ($nama_file == "") {
 $sql_saldo = mysqli_query($koneksi, "SELECT * FROM list_saldo WHERE nama_saldo = 'Saldo Non PSO'");
 $data_saldo = mysqli_fetch_array($sql_saldo);
 $jumlah_saldo = $data_saldo['jumlah_saldo'];
+
+
 if ($akun_kas == 'PENAMBAHAN SALDO') {
 	$status_saldo = 'Masuk';
 	$jumlah_saldo_baru = $jumlah_saldo + $jumlah;

@@ -426,6 +426,13 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$keterangan</td>
                                                 <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="" href="/SijugaNonPSO/AdminNonPSO/file_admin_non_pso/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
                                                 "; ?>
+                                                    
+                                                    
+                                                <?php if($akun_kas != 'PENAMBAHAN SALDO' ){ ?>
+
+
+
+                                              
                                                     <?php echo "<td style='font-size: clamp(12px, 1vw, 15px);'>"; ?>
 
                                                     <button style=" font-size: clamp(7px, 1vw, 10px); color:black; " href="#" type="submit" class=" btn bg-warning mr-2 rounded" data-toggle="modal" data-target="#formedit<?php echo $data['no_laporan']; ?>" data-toggle='tooltip' title='Edit Kas Kecil'>
@@ -564,8 +571,13 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                  
                                                 <?php echo  " </td> </tr>";
+                                                 }
+
+                                                 else{
+                                                 echo"   <td style='font-size: clamp(12px, 1vw, 12px); color: black;' ></td>";
+                                                 }
                                             }
                                                 ?>
 

@@ -22,3 +22,9 @@
 /Direktur/SijugaPSO/view/koneksi.php
 /Direktur/SijugaPSO/proses/koneksi.php
 /Direktur/SijugaPSO/view/VRincianLR/koneksi.php
+
+/SuperAdmin/koneksi.php
+/SuperAdmin/SijugaNonPSO/view/koneksi.php
+/SuperAdmin/SijugaNonPSO/proses/koneksi.php
+/SuperAdmin/SijugaPSO/view/koneksi.php
+/SuperAdmin/SijugaPSO/proses/koneksi.php

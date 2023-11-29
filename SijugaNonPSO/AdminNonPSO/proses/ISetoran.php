@@ -9,7 +9,7 @@ $username = $_COOKIE['username'];
 $result1 = mysqli_query($koneksi, "SELECT * FROM account WHERE username = '$username'");
 $data1 = mysqli_fetch_array($result1);
 $jabatan_valid = $data1['jabatan'];
-if ($jabatan_valid == 'Super Admin') {
+if ($jabatan_valid == 'Admin Non PSO') {
 } else {
     header("Location: logout.php");
     exit;
@@ -17,19 +17,19 @@ if ($jabatan_valid == 'Super Admin') {
 $tanggal_awal = $_GET['tanggal1'];
 $tanggal_akhir = $_GET['tanggal2'];
 $tanggal = htmlspecialchars($_POST['tanggal']);
-$nama_akun = htmlspecialchars($_POST['nama_akun']);
-$jumlah_pengeluaran = htmlspecialchars($_POST['jumlah_pengeluaran']);
+$jenis_setoran = htmlspecialchars($_POST['jenis_setoran']);
+$jumlah = htmlspecialchars($_POST['jumlah']);
 $keterangan = htmlspecialchars($_POST['keterangan']);
+
 $nama_file = $_FILES['file']['name'];
 
 if ($nama_file == "") {
-	$file = "";
-}
+    $file = "";
+} else if ($nama_file != "") {
 
-else if ( $nama_file != "" ) {
-
-	function upload(){
-		$nama_file = $_FILES['file']['name'];
+    function upload()
+    {
+        $nama_file = $_FILES['file']['name'];
 		$ukuran_file = $_FILES['file']['size'];
 		$error = $_FILES['file']['error'];
 		$tmp_name = $_FILES['file']['tmp_name'];
@@ -43,31 +43,21 @@ else if ( $nama_file != "" ) {
 		$nama_file_baru .= ".";
 		$nama_file_baru .= $ekstensi_file;
 
-		move_uploaded_file($tmp_name, '../file_admin/' . $nama_file_baru   );
+		move_uploaded_file($tmp_name, '../file_admin_non_pso/' . $nama_file_baru   );
 
 		return $nama_file_baru; 
+    }
 
-	}
-
-	$file = upload();
-	if (!$file) {
-		return false;
-	}
-
+    $file = upload();
+    if (!$file) {
+        return false;
+    }
 }
 
 
-    
-
-            mysqli_query($koneksi,"INSERT INTO pengeluaran VALUES('','$tanggal','$nama_akun','$jumlah_pengeluaran','$keterangan','$file')");
-               
-            echo "<script>alert('Data Pengeluaran Berhasil di Input'); window.location='../view/VPengeluaran?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";exit;
-     
-
-     
-        
-
-       
 
 
-  ?>
+mysqli_query($koneksi, "INSERT INTO setoran VALUES('','$tanggal','$jenis_setoran','$jumlah','$keterangan','$file')");
+
+echo "<script>alert('Data Setoran Berhasil di Input'); window.location='../view/VLaporanSetoran?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";
+exit;

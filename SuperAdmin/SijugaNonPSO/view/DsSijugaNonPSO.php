@@ -20,6 +20,7 @@ if ($jabatan_valid == 'Super Admin') {
 
 
 
+
 //script format tanggal
 function formattanggal($date)
 {
@@ -217,7 +218,7 @@ while ($data5 = mysqli_fetch_array($table5)) {
                 <div class="sidebar-brand-icon rotate-n-15">
 
                 </div>
-                <div class="sidebar-brand-text mx-3">PT Non PSO</div>
+                <div class="sidebar-brand-text mx-3" style="font-size: 14px">PT SURYA KHARISMA HARTIWI</div>
             </a>
 
             <!-- Divider -->
@@ -225,7 +226,7 @@ while ($data5 = mysqli_fetch_array($table5)) {
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="DsAdmin">
+                <a class="nav-link" href="DsSuperAdmin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span style="font-size: 17px;">Dashboard</span></a>
             </li>
@@ -233,8 +234,22 @@ while ($data5 = mysqli_fetch_array($table5)) {
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Nav Item - Menu Keuangan -->
+            <!-- Nav Item - Menu List Pt -->
             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwox" aria-expanded="true" aria-controls="collapseTwox">
+                    <i class="fa-solid fa-building"></i>
+                    <span>List PT</span>
+                </a>
+                <div id="collapseTwox" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/SuperAdmin/SijugaNonPSO/view/DsSijugaNonPSO">SijugaNonPSO</a>
+                        <a class="collapse-item" href="/SuperAdmin/SijugaPSO/view/DsSijugaPSO">SijugaPSO</a>
+                    </div>
+                </div>
+            </li>
+
+             <!-- Nav Item - Menu Keuangan -->
+             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fa-solid fa-cash-register"></i>
                     <span>Transaksi</span>
@@ -243,10 +258,36 @@ while ($data5 = mysqli_fetch_array($table5)) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VPengeluaran">Pengeluaran</a>
-                        <a class="collapse-item" href="VTransportFee">Transport Fee</a>
+                        <a class="collapse-item" href="VListPiutang">List Piutang</a>
+                        <a class="collapse-item" href="VRiwayatPiutang">Riwayat Piutang</a>
+                        <a class="collapse-item" href="VLaporanSetoran">Laporan Setoran</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
+                    </div>
+                </div>
+            </li>
 
+            <!-- Nav Item - Menu Pengeeluaran -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesx" aria-expanded="true" aria-controls="collapseUtilitiesx">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Pengeluaran</span>
+                </a>
+                <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VKasKecil">Kas Kecil</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Menu Anggota -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>Customer</span>
+                </a>
+                <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VListCustomer">List Customer</a>
                     </div>
                 </div>
             </li>
@@ -255,11 +296,11 @@ while ($data5 = mysqli_fetch_array($table5)) {
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fa-solid fa-people-group"></i>
-                    <span>Pangkalan</span>
+                    <span>Aset</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListPangkalan">List Pangkalan</a>
+                        <a class="collapse-item" href="VListKendaraan">List Kendaraan</a>
                     </div>
                 </div>
             </li>
