@@ -18,12 +18,12 @@ $tanggal_awal = htmlspecialchars($_POST['tanggal1']);
 $tanggal_akhir = htmlspecialchars($_POST['tanggal2']);
 $no_laporan = htmlspecialchars($_POST['no_laporan']);
 $tanggal = htmlspecialchars($_POST['tanggal']);
-$akun_kas = htmlspecialchars($_POST['akun_kas']);
+$akun_kas = $_POST['akun_kas'];
 if (!isset($_POST['no_polisi'])) {
 	$no_polisi = "";
 } else {
 
-	$no_polisi = htmlspecialchars($_POST['no_polisi']);
+	$no_polisi = $_POST['no_polisi'];
 }
 if ($akun_kas == 'PENAMBAHAN SALDO') {
 	$status_saldo = 'Masuk';

@@ -274,14 +274,10 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                             <?php
                                             $no_urut = 0;
-                                            $total_penjualan_cashless = 0;
-                                            $total_penjualan_cash = 0;
-                                            $total_penjualan_55kg_cashless = 0;
-                                            $total_penjualan_55kg_cash = 0;
-                                            $total_penjualan_12kg_cashless = 0;
-                                            $total_penjualan_12kg_cash = 0;
-                                            $total_penjualan_50kg_cashless = 0;
-                                            $total_penjualan_50kg_cash = 0;
+                                            $total_penjualan_piutang = 0;
+                                            $total_penjualan_12kg_piutang = 0;
+                                            $total_penjualan_55kg_piutang = 0;
+                                            $total_penjualan_50kg_piutang = 0;
                                             function formatuang($angka)
                                             {
                                                 $uang = "Rp " . number_format($angka, 2, ',', '.');
@@ -307,17 +303,12 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 $status_penjualan = $data['status_penjualan'];
                                                 $keterangan = $data['keterangan'];
                                                 $file_bukti = $data['file_bukti'];
-                                                if ($pembayaran == 'Cash') {
-                                                    $total_penjualan_cash = $total_penjualan_cash + $jumlah;
-                                                    $total_penjualan_12kg_cash = $total_penjualan_12kg_cash + $jumlah_12kg;
-                                                    $total_penjualan_55kg_cash = $total_penjualan_55kg_cash + $jumlah_55kg;
-                                                    $total_penjualan_50kg_cash = $total_penjualan_50kg_cash + $jumlah_50kg;
-                                                } else {
-                                                    $total_penjualan_cashless = $total_penjualan_cashless + $jumlah;
-                                                    $total_penjualan_12kg_cashless = $total_penjualan_12kg_cashless + $jumlah_12kg;
-                                                    $total_penjualan_55kg_cashless = $total_penjualan_55kg_cashless + $jumlah_55kg;
-                                                    $total_penjualan_50kg_cashless = $total_penjualan_50kg_cashless + $jumlah_50kg;
-                                                }
+
+                                                $total_penjualan_piutang = $total_penjualan_piutang + $jumlah;
+                                                $total_penjualan_12kg_piutang = $total_penjualan_12kg_piutang + $jumlah_12kg;
+                                                $total_penjualan_55kg_piutang = $total_penjualan_55kg_piutang + $jumlah_55kg;
+                                                $total_penjualan_50kg_piutang = $total_penjualan_50kg_piutang + $jumlah_50kg;
+
 
 
                                                 $no_urut++;
@@ -334,24 +325,24 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                     echo "<td style='font-size: clamp(12px, 1vw, 12px); color: red;' >"; ?> <?= formatuang(0); ?> <?php echo "</td>";
                                                                                                                                                 } else {
                                                                                                                                                     echo "<td style='font-size: clamp(12px, 1vw, 12px); color: red;' >"; ?> <?= formatuang($harga_55kg); ?> <?php echo "</td>";
-                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                            echo "
+                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                        echo "
                                                     <td style='font-size: clamp(12px, 1vw, 12px); color: red;' >"; ?> <?= formatuang($jumlah_55kg); ?> <?php echo "</td>
                                                     <td style='font-size: clamp(12px, 1vw, 12px); color: red;' >$qty_12kg</td>";
                                                                                                                                                         if ($qty_12kg == 0) {
                                                                                                                                                             echo "<td style='font-size: clamp(12px, 1vw, 12px); color: red;' >"; ?> <?= formatuang(0); ?> <?php echo "</td>";
                                                                                                                                                                                                                                                         } else {
                                                                                                                                                                                                                                                             echo "<td style='font-size: clamp(12px, 1vw, 12px); color: red;' >"; ?> <?= formatuang($harga_12kg); ?> <?php echo "</td>";
-                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                echo "
+                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                                                echo "
                                                     <td style='font-size: clamp(12px, 1vw, 12px); color: red;' >"; ?> <?= formatuang($jumlah_12kg); ?> <?php echo "</td>
                                                     <td style='font-size: clamp(12px, 1vw, 12px); color: red;' >$qty_50kg</td>";
                                                                                                                                                         if ($qty_50kg == 0) {
                                                                                                                                                             echo "<td style='font-size: clamp(12px, 1vw, 12px); color: red;' >"; ?> <?= formatuang(0); ?> <?php echo "</td>";
                                                                                                                                                                                                                                                         } else {
                                                                                                                                                                                                                                                             echo "<td style='font-size: clamp(12px, 1vw, 12px); color: red;' >"; ?> <?= formatuang($harga_50kg); ?> <?php echo "</td>";
-                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                echo "
+                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                                                echo "
                                                     <td style='font-size: clamp(12px, 1vw, 12px); color: red;' >"; ?> <?= formatuang($jumlah_50kg); ?> <?php echo "</td>
                                                     <td style='font-size: clamp(12px, 1vw, 12px); color: red;' >"; ?> <?= formatuang($jumlah); ?> <?php echo "</td>
                                                     <td style='font-size: clamp(12px, 1vw, 12px); color: red;' >$status_penjualan</td>
@@ -426,141 +417,40 @@ if ($tanggal_awal == $tanggal_akhir) {
                                     </table>
                                 </div>
                                 <br>
-
-                                <!-- Kotak pemasukan pengeluaran -->
-                                <div class="row">
-                                    <!-- Penjualan CASHLESS -->
-                                    <div class="col-xl-4 col-md-6 mb-4">
-                                        <div class="card border-left-success shadow h-100 py-2">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                            Penjualan Cashless</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= formatuang($total_penjualan_cashless) ?></div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <i class="fa-solid fa-rupiah-sign"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Penjualan CASH -->
-                                    <div class="col-xl-4 col-md-6 mb-4">
-                                        <div class="card border-left-success shadow h-100 py-2">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                            Penjualan Cash</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= formatuang($total_penjualan_cash) ?></div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <i class="fa-solid fa-rupiah-sign"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Penjualan CASH -->
-                                    <div class="col-xl-4 col-md-6 mb-4">
-                                        <div class="card border-left-success shadow h-100 py-2">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                            Penjualan Cash + Cashless</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= formatuang($total_penjualan_cash + $total_penjualan_cashless) ?></div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <i class="fa-solid fa-rupiah-sign"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
+                                <!-- Tabel penjualan piutang -->
+                                <br>
+                                <hr>
                                 <br>
 
-                                <!-- Kotak pemasukan pengeluaran -->
-                                <div class="row">
-                                    <!-- Penjualan CASHLESS 5,5 KG -->
-                                    <div class="col-xl-3 col-md-6 mb-4">
-                                        <div class="card border-left-success shadow h-100 py-2">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                            Penjualan Cashless 5,5 Kg</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= formatuang($total_penjualan_55kg_cashless) ?></div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <i class="fa-solid fa-rupiah-sign"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <h5 align="center" style='font-size: clamp(12px, 1vw, 18px); color: black;'>REKAP PENJUALAN PIUTANG</h5>
+                                <!-- Tabel -->
+                                <table class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%; ">
+                                    <thead>
+                                        <tr>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Nama Penjualan Piutang</th>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Pembayaran</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Penjualan Piutang 5,5 Kg </td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_penjualan_55kg_piutang); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Penjualan Piutang 12 Kg </td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_penjualan_12kg_piutang); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Penjualan Piutang 50 Kg </td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_penjualan_50kg_piutang); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL SELURUH PENJUALAN PIUTANG</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_penjualan_piutang); ?></strong> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-                                    <!-- Penjualan CASH 5,5 KG -->
-                                    <div class="col-xl-3 col-md-6 mb-4">
-                                        <div class="card border-left-success shadow h-100 py-2">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                            Penjualan Cash 5,5 Kg</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= formatuang($total_penjualan_55kg_cash) ?></div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <i class="fa-solid fa-rupiah-sign"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Penjualan CASHLESS 12 KG -->
-                                    <div class="col-xl-3 col-md-6 mb-4">
-                                        <div class="card border-left-success shadow h-100 py-2">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                            Penjualan Cashless 12 Kg</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= formatuang($total_penjualan_12kg_cashless) ?></div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <i class="fa-solid fa-rupiah-sign"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Penjualan CASH 12KG  -->
-                                    <div class="col-xl-3 col-md-6 mb-4">
-                                        <div class="card border-left-success shadow h-100 py-2">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                            Penjualan Cash 12 Kg</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= formatuang($total_penjualan_12kg_cash) ?></div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <i class="fa-solid fa-rupiah-sign"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
 
                             </div>

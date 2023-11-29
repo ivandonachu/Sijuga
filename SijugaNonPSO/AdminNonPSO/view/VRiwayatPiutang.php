@@ -222,7 +222,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                             <h5 style="color: grey;">Riwayat Piutang</h5>
                         </div>
                         <!-- Card Body -->
-                        <div style="height: 980px;" class="card-body">
+                        <div style="height: 1180px;" class="card-body">
                             <div class="chart-area">
 
                                 <!-- Form Tanggal Akses Data -->
@@ -275,12 +275,15 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                             <?php
                                             $no_urut = 0;
-                                            $total_penjualan_cashless = 0;
-                                            $total_penjualan_cash = 0;
-                                            $total_penjualan_55kg_cashless = 0;
-                                            $total_penjualan_55kg_cash = 0;
-                                            $total_penjualan_12kg_cashless = 0;
-                                            $total_penjualan_12kg_cash = 0;
+                                            $total_bayar_piutang_cash = 0;
+                                            $total_bayar_piutang_55kg_cash = 0;
+                                            $total_bayar_piutang_12kg_cash = 0;
+                                            $total_bayar_piutang_50kg_cash = 0;
+                                            $total_bayar_piutang_cashless = 0;
+                                            $total_bayar_piutang_55kg_cashless = 0;
+                                            $total_bayar_piutang_12kg_cashless = 0;
+                                            $total_bayar_piutang_50kg_cashless = 0;
+                                            $total_bayar_piutang = 0;
                                             function formatuang($angka)
                                             {
                                                 $uang = "Rp " . number_format($angka, 2, ',', '.');
@@ -308,15 +311,20 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 $jumlah_bayar = $data['jumlah_bayar'];
                                                 $keterangan = $data['keterangan'];
                                                 $file_bukti = $data['file_bukti'];
+
                                                 if ($pembayaran_piutang == 'Cash') {
-                                                    $total_penjualan_cash = $total_penjualan_cash + $jumlah;
-                                                    $total_penjualan_12kg_cash = $total_penjualan_12kg_cash + $jumlah_12kg;
-                                                    $total_penjualan_55kg_cash = $total_penjualan_55kg_cash + $jumlah_55kg;
+                                                    $total_bayar_piutang_cash = $total_bayar_piutang_cash + $jumlah;
+                                                    $total_bayar_piutang_12kg_cash = $total_bayar_piutang_12kg_cash + $jumlah_12kg;
+                                                    $total_bayar_piutang_55kg_cash = $total_bayar_piutang_55kg_cash + $jumlah_55kg;
+                                                    $total_bayar_piutang_50kg_cash = $total_bayar_piutang_50kg_cash + $jumlah_50kg;
                                                 } else {
-                                                    $total_penjualan_cashless = $total_penjualan_cashless + $jumlah;
-                                                    $total_penjualan_12kg_cashless = $total_penjualan_12kg_cashless + $jumlah_12kg;
-                                                    $total_penjualan_55kg_cashless = $total_penjualan_55kg_cashless + $jumlah_55kg;
+                                                    $total_bayar_piutang_cashless = $total_bayar_piutang_cashless + $jumlah;
+                                                    $total_bayar_piutang_55kg_cashless = $total_bayar_piutang_55kg_cashless + $jumlah_12kg;
+                                                    $total_bayar_piutang_12kg_cashless = $total_bayar_piutang_12kg_cashless + $jumlah_55kg;
+                                                    $total_bayar_piutang_50kg_cashless = $total_bayar_piutang_50kg_cashless + $jumlah_50kg;
                                                 }
+
+                                                $total_bayar_piutang = $total_bayar_piutang + $jumlah;
 
                                                 $no_urut++;
 
@@ -330,26 +338,26 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                     <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$qty_55kg</td>";
                                                 if ($qty_55kg == 0) {
                                                     echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang(0); ?> <?php echo "</td>";
-                                                                                                                                                    } else {
-                                                                                                                                                        echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($harga_55kg); ?> <?php echo "</td>";
-                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                echo "
+                                                                                                                                                } else {
+                                                                                                                                                    echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($harga_55kg); ?> <?php echo "</td>";
+                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                            echo "
                                                     <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($jumlah_55kg); ?> <?php echo "</td>
                                                     <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$qty_12kg</td>";
                                                                                                                                                             if ($qty_12kg == 0) {
                                                                                                                                                                 echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang(0); ?> <?php echo "</td>";
-                                                                                                                                                                                                                                                        } else {
-                                                                                                                                                                                                                                                            echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($harga_12kg); ?> <?php echo "</td>";
-                                                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                                                    echo "
+                                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                                echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($harga_12kg); ?> <?php echo "</td>";
+                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                        echo "
                                                     <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($jumlah_12kg); ?> <?php echo "</td>
                                                     <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$qty_50kg</td>";
                                                                                                                                                             if ($qty_50kg == 0) {
                                                                                                                                                                 echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang(0); ?> <?php echo "</td>";
-                                                                                                                                                                                                                                                        } else {
-                                                                                                                                                                                                                                                            echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($harga_50kg); ?> <?php echo "</td>";
-                                                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                                                    echo "
+                                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                                echo "<td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($harga_50kg); ?> <?php echo "</td>";
+                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                        echo "
                                                     <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >"; ?> <?= formatuang($jumlah_50kg); ?> <?php echo "</td>
                                                     <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($jumlah); ?> <?php echo "</td>
                                                     <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($jumlah_bayar); ?> <?php echo "</td>
@@ -461,7 +469,59 @@ if ($tanggal_awal == $tanggal_akhir) {
                                 </div>
                                 <br>
 
-                                <!-- TABEL Pembayaran Piutang -->
+                                <br>
+                                <hr>
+                                <br>
+
+                                <h5 align="center" style='font-size: clamp(12px, 1vw, 18px); color: black;'>REKAP PEMBAYARAN PIUTANG</h5>
+                                <!-- Tabel -->
+                                <table class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%; ">
+                                    <thead>
+                                        <tr>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Nama Pembayaran Piutang</th>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Pembayaran</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Pembayaran Piutang 5,5 Kg Cash</td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_bayar_piutang_55kg_cash); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Pembayaran Piutang 12 Kg Cash</td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_bayar_piutang_12kg_cash); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Pembayaran Piutang 50 Kg Cash</td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_bayar_piutang_50kg_cash); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Pembayaran Piutang 5,5 Kg Cashless</td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_bayar_piutang_55kg_cashless); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Pembayaran Piutang 12 Kg Cashless</td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_bayar_piutang_12kg_cashless); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Pembayaran Piutang 50 Kg Cashless</td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_bayar_piutang_50kg_cashless); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL SELURUH PEMBAYARAN PIUTANG CASH</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_bayar_piutang_cash); ?></strong> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL SELURUH PEMBAYARAN PIUTANG CASLESS</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_bayar_piutang_cashless); ?></strong> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL SELURUH PEMBAYARAN PIUTANG</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_bayar_piutang); ?></strong> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
 
 
 

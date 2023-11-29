@@ -17,14 +17,14 @@ if ($jabatan_valid == 'Admin Non PSO') {
 $tanggal_awal = $_GET['tanggal1'];
 $tanggal_akhir = $_GET['tanggal2'];
 $tanggal = htmlspecialchars($_POST['tanggal']);
-$akun_kas = htmlspecialchars($_POST['akun_kas']);
+$akun_kas = $_POST['akun_kas'];
 $jumlah = htmlspecialchars($_POST['jumlah']);
 
 if (!isset($_POST['no_polisi'])) {
 	$no_polisi = "";
 } else {
 
-	$no_polisi = htmlspecialchars($_POST['no_polisi']);
+	$no_polisi = $_POST['no_polisi'];
 }
 $keterangan = htmlspecialchars($_POST['keterangan']);
 $nama_file = $_FILES['file']['name'];

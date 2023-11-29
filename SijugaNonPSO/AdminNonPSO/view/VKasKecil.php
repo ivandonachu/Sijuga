@@ -36,12 +36,18 @@ if ($tanggal_awal == $tanggal_akhir) {
     $sql_saldo = mysqli_query($koneksi, "SELECT * FROM list_saldo WHERE nama_saldo = 'Saldo Non PSO'");
     $data_saldo = mysqli_fetch_array($sql_saldo);
     $jumlah_saldo = $data_saldo['jumlah_saldo'];
+    $table2 = mysqli_query($koneksi, "SELECT akun_kas, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal = '$tanggal_awal' GROUP BY kas_kecil");
+    $table3 = mysqli_query($koneksi, "SELECT no_polisi, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal = '$tanggal_awal' AND akun_kas = 'BBM' GROUP BY no_polisi");
+    $table4 = mysqli_query($koneksi, "SELECT akun_kas, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal = '$tanggal_awal' GROUP BY akun_kas");
 } else {
 
     $table = mysqli_query($koneksi, "SELECT * FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
     $sql_saldo = mysqli_query($koneksi, "SELECT * FROM list_saldo WHERE nama_saldo = 'Saldo Non PSO'");
     $data_saldo = mysqli_fetch_array($sql_saldo);
     $jumlah_saldo = $data_saldo['jumlah_saldo'];
+    $table2 = mysqli_query($koneksi, "SELECT akun_kas, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'  GROUP BY akun_kas");
+    $table3 = mysqli_query($koneksi, "SELECT no_polisi, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'BBM' GROUP BY no_polisi");
+    $table4 = mysqli_query($koneksi, "SELECT no_polisi, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'BBM' GROUP BY no_polisi");
 }
 
 ?>
@@ -228,7 +234,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                             <h5 style="color: grey;">Kas Kecil</h5>
                         </div>
                         <!-- Card Body -->
-                        <div style="height: 820px;" class="card-body">
+                        <div style="height: 2520px;" class="card-body">
                             <div class="chart-area">
 
                                 <!-- Form Tanggal Akses Data -->
@@ -278,7 +284,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                             <div class="col-md-6">
                                                                 <label>Akun Kas</label>
                                                                 <select name="akun_kas" class="form-control" required="">
-                                                            
+
                                                                     <option>BBM</option>
                                                                     <option>MESIN STEAM</option>
                                                                     <option>PERAWATAN & SPAREPART</option>
@@ -286,15 +292,15 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                     <option>ATK</option>
                                                                     <option>GAJI</option>
                                                                     <option>PAJAK</option>
-                                                                    <option>PKB KIR & IJIN USAHA</option>
+                                                                    <option>PKB KIR & IZIN USAHA</option>
                                                                     <option>ASURANSI</option>
-                                                                    <option>LISTRIK TELEPON & INTERNET </option>
-                                                                    <option>KONSUMSI </option>
-                                                                    <option>JAMUAN </option>
-                                                                    <option>PLASTIK WRAP </option>
-                                                                    <option>LAIN-LAIN </option>
-                                                                    <option>REFFRESENTATIF </option>
-                                                                    <option>PENANGANAN COVID-19</option>
+                                                                    <option>LISTRIK TELEPON & INTERNET</option>
+                                                                    <option>KONSUMSI</option>
+                                                                    <option>JAMUAN</option>
+                                                                    <option>PLASTIK WRAP</option>
+                                                                    <option>LAIN LAIN</option>
+                                                                    <option>REFFRESENTATIF</option>
+                                                                    <option>PENANGANAN COVID 19</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -305,7 +311,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                             <div class="col-md-6">
                                                                 <label>No Polisi Kendaraan</label>
                                                                 <select id="tokens" class="selectpicker form-control" name="no_polisi" multiple data-live-search="true">
-                                                                <option></option>
+                                                                    <option></option>
                                                                     <?php
                                                                     include 'koneksi.php';
 
@@ -402,18 +408,18 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_polisi</td>";
                                                 if ($status_saldo == 'Masuk') {
                                                     echo "
-                                                        <td style='font-size: 14px'>" ?> <?= formatuang($jumlah); ?> <?php echo "</td>";
+                                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?= formatuang($jumlah); ?> <?php echo "</td>";
                                                                                                                     } else {
                                                                                                                         echo "
-                                                        <td style='font-size: 14px'>" ?> <?php echo "</td>";
+                                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?php echo "</td>";
                                                                                                                     }
 
                                                                                                                     if ($status_saldo == 'Keluar') {
                                                                                                                         echo "
-                                                        <td style='font-size: 14px'>" ?> <?= formatuang($jumlah); ?> <?php echo "</td>";
+                                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?= formatuang($jumlah); ?> <?php echo "</td>";
                                                                                                                     } else {
                                                                                                                         echo "
-                                                        <td style='font-size: 14px'>" ?> <?php echo "</td>";
+                                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?php echo "</td>";
                                                                                                                     }
                                                                                             ?>
                                                 <?php echo "
@@ -452,7 +458,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                                 <label>Akun Kas</label>
                                                                                 <select name="akun_kas" class="form-control">
                                                                                     <?php $dataSelect = $data['akun_kas']; ?>
-                                                                                 
+
                                                                                     <option <?php echo ($dataSelect == 'BBM') ? "selected" : "" ?>>BBM</option>
                                                                                     <option <?php echo ($dataSelect == 'MESIN STEAM') ? "selected" : "" ?>>MESIN STEAM</option>
                                                                                     <option <?php echo ($dataSelect == 'PERAWATAN & SPAREPART') ? "selected" : "" ?>>PERAWATAN & SPAREPART</option>
@@ -460,15 +466,15 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                                     <option <?php echo ($dataSelect == 'ATK') ? "selected" : "" ?>>ATK</option>
                                                                                     <option <?php echo ($dataSelect == 'GAJI') ? "selected" : "" ?>>GAJI</option>
                                                                                     <option <?php echo ($dataSelect == 'PAJAK') ? "selected" : "" ?>>PAJAK</option>
-                                                                                    <option <?php echo ($dataSelect == 'PKB KIR & IJIN USAHA') ? "selected" : "" ?>>PKB KIR & IJIN USAHA</option>
+                                                                                    <option <?php echo ($dataSelect == 'PKB KIR & IZIN USAHA') ? "selected" : "" ?>>PKB KIR & IZIN USAHA</option>
                                                                                     <option <?php echo ($dataSelect == 'ASURANSI') ? "selected" : "" ?>>ASURANSI</option>
                                                                                     <option <?php echo ($dataSelect == 'LISTRIK TELEPON & INTERNET') ? "selected" : "" ?>>LISTRIK TELEPON & INTERNET</option>
                                                                                     <option <?php echo ($dataSelect == 'KONSUMSI') ? "selected" : "" ?>>KONSUMSI</option>
                                                                                     <option <?php echo ($dataSelect == 'JAMUAN') ? "selected" : "" ?>>JAMUAN</option>
                                                                                     <option <?php echo ($dataSelect == 'PLASTIK WRAP') ? "selected" : "" ?>>PLASTIK WRAP</option>
-                                                                                    <option <?php echo ($dataSelect == 'LAIN-LAIN') ? "selected" : "" ?>>LAIN-LAIN</option>
+                                                                                    <option <?php echo ($dataSelect == 'LAIN LAIN') ? "selected" : "" ?>>LAIN LAIN</option>
                                                                                     <option <?php echo ($dataSelect == 'REFFRESENTATIF') ? "selected" : "" ?>>REFFRESENTATIF</option>
-                                                                                    <option <?php echo ($dataSelect == 'PENANGANAN COVID-19') ? "selected" : "" ?>>PENANGANAN COVID-19</option>
+                                                                                    <option <?php echo ($dataSelect == 'PENANGANAN COVID 19') ? "selected" : "" ?>>PENANGANAN COVID 19</option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
@@ -492,9 +498,9 @@ if ($tanggal_awal == $tanggal_akhir) {
 
 
                                                                                                                                                                 echo "<option" ?> <?php echo ($dataSelect == $no_polisi) ? "selected" : "" ?>> <?php echo $no_polisi; ?> <?php echo "</option>";
-                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                        }
 
-                                                                                                                                                                                                                                                                                ?>
+                                                                                                                                                                                                                                                                            ?>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="col-md-6">
@@ -588,6 +594,128 @@ if ($tanggal_awal == $tanggal_akhir) {
                                         </div>
                                     </div>
                                 </div>
+
+
+                                <br>
+                                <hr>
+                                <br>
+
+                                <h5 align="center" style='font-size: clamp(12px, 1vw, 18px); color: black;'>REKAP PENGELUARAN</h5>
+                                <!-- Tabel -->
+                                <table class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%; ">
+                                    <thead>
+                                        <tr>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Akun Kas</th>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Pengeluaran</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $total_seluruh = 0;
+                                        ?>
+                                        <?php while ($data = mysqli_fetch_array($table2)) {
+                                            $akun_kas = $data['akun_kas'];
+                                            $jumlah = $data['total_jumlah'];
+                                            if ($akun_kas == 'PENAMBAHAN SALDO') {
+                                            } else {
+                                                $total_seluruh = $total_seluruh + $jumlah;
+                                            }
+
+                                            echo "<tr>
+      ";
+                                            if ($akun_kas == 'PENAMBAHAN SALDO') {
+                                            } else {
+                                                echo " <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$akun_kas</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?= formatuang($jumlah); ?> <?php echo "</td>";
+                                                                                                    }
+
+
+                                                                                                    echo " </tr>";
+                                                                                                }
+                                                                                                        ?>
+                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL</strong></td>
+                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_seluruh); ?></strong> </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <br>
+                                <hr>
+                                <br>
+
+                                <h5 align="center" style='font-size: clamp(12px, 1vw, 18px); color: black;'>REKAP BBM</h5>
+                                <!-- Tabel -->
+                                <table class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%; ">
+                                    <thead>
+                                        <tr>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>No Polisi</th>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total BBM</th>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $total_seluruh = 0;
+                                        ?>
+                                        <?php while ($data = mysqli_fetch_array($table3)) {
+                                            $no_polisi = $data['no_polisi'];
+                                            $jumlah = $data['total_jumlah'];
+                                            $total_seluruh = $total_seluruh + $jumlah;
+                                            echo "<tr>
+                                             <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_polisi</td>
+                                             <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?= formatuang($jumlah); ?> <?php echo "</td>
+                                             <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>    <a href='VRBBM?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir&no_polisi=$no_polisi'>Rincian</a></td>";
+                                                                                                                                            echo " </tr>";
+                                                                                                                                        }
+                                                                                                                                            ?>
+                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL</strong></td>
+                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_seluruh); ?></strong> </td>
+                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>  </td>
+                                        
+                                     
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <br>
+                                <hr>
+                                <br>
+
+                                <h5 align="center" style='font-size: clamp(12px, 1vw, 18px); color: black;'>REKAP PERAWATAN & SPAREPART</h5>
+                                <!-- Tabel -->
+                                <table class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%; ">
+                                    <thead>
+                                        <tr>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>No Polisi</th>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total BBM</th>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $total_seluruh = 0;
+                                        ?>
+                                        <?php while ($data = mysqli_fetch_array($table4)) {
+                                            $no_polisi = $data['no_polisi'];
+                                            $jumlah = $data['total_jumlah'];
+                                            $total_seluruh = $total_seluruh + $jumlah;
+                                            echo "<tr>
+                                             <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_polisi</td>
+                                             <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?= formatuang($jumlah); ?> <?php echo "</td>
+                                             <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>    <a href='VRPerawatan?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir&no_polisi=$no_polisi'>Rincian</a></td>";
+                                                                                                                                            echo " </tr>";
+                                                                                                                                        }
+                                                                                                                                            ?>
+                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL</strong></td>
+                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_seluruh); ?></strong> </td>
+                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>  </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                
 
                             </div>
                         </div>

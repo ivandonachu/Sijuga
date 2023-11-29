@@ -402,6 +402,12 @@ if ($tanggal_awal == $tanggal_akhir) {
                                             $total_penjualan_12kg_cash = 0;
                                             $total_penjualan_50kg_cashless = 0;
                                             $total_penjualan_50kg_cash = 0;
+                                            $total_penjualan_lunas = 0;
+                                            $total_penjualan_piutang =0;
+                                            $total_penjualan_12kg_piutang = 0;
+                                            $total_penjualan_55kg_piutang = 0;
+                                            $total_penjualan_50kg_piutang = 0;
+                                            $total_seluruh_penjualan =0;
                                             function formatuang($angka)
                                             {
                                                 $uang = "Rp " . number_format($angka, 2, ',', '.');
@@ -427,17 +433,27 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 $status_penjualan = $data['status_penjualan'];
                                                 $keterangan = $data['keterangan'];
                                                 $file_bukti = $data['file_bukti'];
-                                                if ($pembayaran == 'Cash') {
-                                                    $total_penjualan_cash = $total_penjualan_cash + $jumlah;
-                                                    $total_penjualan_12kg_cash = $total_penjualan_12kg_cash + $jumlah_12kg;
-                                                    $total_penjualan_55kg_cash = $total_penjualan_55kg_cash + $jumlah_55kg;
-                                                    $total_penjualan_50kg_cash = $total_penjualan_50kg_cash + $jumlah_50kg;
+                                                if ($status_penjualan == 'Lunas') {
+                                                    if ($pembayaran == 'Cash') {
+                                                        $total_penjualan_cash = $total_penjualan_cash + $jumlah;
+                                                        $total_penjualan_12kg_cash = $total_penjualan_12kg_cash + $jumlah_12kg;
+                                                        $total_penjualan_55kg_cash = $total_penjualan_55kg_cash + $jumlah_55kg;
+                                                        $total_penjualan_50kg_cash = $total_penjualan_50kg_cash + $jumlah_50kg;
+                                                    } else {
+                                                        $total_penjualan_cashless = $total_penjualan_cashless + $jumlah;
+                                                        $total_penjualan_12kg_cashless = $total_penjualan_12kg_cashless + $jumlah_12kg;
+                                                        $total_penjualan_55kg_cashless = $total_penjualan_55kg_cashless + $jumlah_55kg;
+                                                        $total_penjualan_50kg_cashless = $total_penjualan_50kg_cashless + $jumlah_50kg;
+                                                    }
+                                                    $total_penjualan_lunas = $total_penjualan_lunas + $jumlah;
                                                 } else {
-                                                    $total_penjualan_cashless = $total_penjualan_cashless + $jumlah;
-                                                    $total_penjualan_12kg_cashless = $total_penjualan_12kg_cashless + $jumlah_12kg;
-                                                    $total_penjualan_55kg_cashless = $total_penjualan_55kg_cashless + $jumlah_55kg;
-                                                    $total_penjualan_50kg_cashless = $total_penjualan_50kg_cashless + $jumlah_50kg;
+                                                    $total_penjualan_piutang = $total_penjualan_piutang + $jumlah;
+                                                    $total_penjualan_12kg_piutang = $total_penjualan_12kg_piutang + $jumlah_12kg;
+                                                    $total_penjualan_55kg_piutang = $total_penjualan_55kg_piutang + $jumlah_55kg;
+                                                    $total_penjualan_50kg_piutang = $total_penjualan_50kg_piutang + $jumlah_50kg;
                                                 }
+
+                                                $total_seluruh_penjualan = $total_seluruh_penjualan + $jumlah;
 
                                                 $no_urut++;
 
@@ -900,6 +916,74 @@ if ($tanggal_awal == $tanggal_akhir) {
                                 <br>
 
                                 <!-- Kotak pemasukan pengeluaran -->
+                                <h5 align="center" style='font-size: clamp(12px, 1vw, 18px); color: black;'>REKAP PENJUALAN</h5>
+                                <!-- Tabel -->
+                                <table class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%; ">
+                                    <thead>
+                                        <tr>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Nama Penjualan Piutang</th>
+                                            <th style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Pembayaran</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Penjualan 5,5 Kg Cash </td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_penjualan_55kg_cash); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Penjualan 12 Kg Cash</td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_penjualan_12kg_cash); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Penjualan 50 Kg Cash</td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_penjualan_50kg_cash); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Penjualan 5,5 Kg Cashless </td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_penjualan_55kg_cashless); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Penjualan 12 Kg Cashles</td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_penjualan_12kg_cashless); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Penjualan 50 Kg Cashless</td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_penjualan_50kg_cashless); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Penjualan Piutang 5,5 Kg </td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_penjualan_55kg_piutang); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Penjualan Piutang 12 Kg </td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_penjualan_12kg_piutang); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>Total Penjualan Piutang 50 Kg </td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <?= formatuang($total_penjualan_50kg_piutang); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL SELURUH PENJUALAN CASH</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_penjualan_cash); ?></strong> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL SELURUH PENJUALAN CASHLESS</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_penjualan_cashless); ?></strong> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL SELURUH PENJUALAN PIUTANG</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_penjualan_piutang); ?></strong> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL SELURUH PENJUALAN</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_penjualan_lunas); ?></strong> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'><strong>TOTAL SELURUH PENJUALAN + PIUTANG</strong></td>
+                                            <td style='font-size: clamp(12px, 1vw, 12px); color: black;'> <strong> <?= formatuang($total_seluruh_penjualan); ?></strong> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
 
 
