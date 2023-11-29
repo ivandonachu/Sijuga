@@ -124,7 +124,7 @@ if ($tanggal_awal == $tanggal_akhir) {
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="DsSuperAdmin">
+                <a class="nav-link" href="DsSijugaNonPSO">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span style="font-size: 17px;">Dashboard</span></a>
             </li>
@@ -199,6 +199,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VListKendaraan">List Kendaraan</a>
+                        <a class="collapse-item" href="VListSaldo">List Saldo</a>
                     </div>
                 </div>
             </li>
@@ -282,7 +283,7 @@ if ($tanggal_awal == $tanggal_akhir) {
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsSuperAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Penjualan</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaNonPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Penjualan</a> </small>
                     <br>
                     <br>
 

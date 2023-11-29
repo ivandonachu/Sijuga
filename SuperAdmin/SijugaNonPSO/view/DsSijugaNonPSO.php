@@ -226,7 +226,7 @@ while ($data5 = mysqli_fetch_array($table5)) {
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="DsSuperAdmin">
+                <a class="nav-link" href="DsSijugaNonPSO">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span style="font-size: 17px;">Dashboard</span></a>
             </li>
