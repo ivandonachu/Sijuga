@@ -60,7 +60,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM customer");
                 <div class="sidebar-brand-icon rotate-n-15">
 
                 </div>
-                <div class="sidebar-brand-text mx-3">PT Non PSO</div>
+                <div class="sidebar-brand-text mx-3" style="font-size: 14px">PT SURYA KHARISMA HARTIWI</div>
             </a>
 
             <!-- Divider -->
@@ -86,10 +86,10 @@ $table = mysqli_query($koneksi, "SELECT * FROM customer");
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VListHutang">List Hutang</a>
-                        <a class="collapse-item" href="VRiwayatHutang">Riwayat Hutang</a>
+                        <a class="collapse-item" href="VListPiutang">List Piutang</a>
+                        <a class="collapse-item" href="VRiwayatPiutang">Riwayat Piutang</a>
+                        <a class="collapse-item" href="VLaporanSetoran">Laporan Setoran</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
-
                     </div>
                 </div>
             </li>
@@ -102,7 +102,20 @@ $table = mysqli_query($koneksi, "SELECT * FROM customer");
                 </a>
                 <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VPengeluaran">Kas Kecil</a>
+                        <a class="collapse-item" href="VKasKecil">Kas Kecil</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Menu Anggota -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>Customer</span>
+                </a>
+                <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VListCustomer">List Customer</a>
                     </div>
                 </div>
             </li>
@@ -111,11 +124,11 @@ $table = mysqli_query($koneksi, "SELECT * FROM customer");
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fa-solid fa-people-group"></i>
-                    <span>Customer</span>
+                    <span>Aset</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListCustomer">List Customer</a>
+                        <a class="collapse-item" href="VListKendaraan">List Kendaraan</a>
                     </div>
                 </div>
             </li>
@@ -359,7 +372,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM customer");
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
 
@@ -370,6 +383,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM customer");
                                             <tr>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Kode Customer</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Agen</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Customer</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jenis Pembayaran</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Region 2</th>
@@ -390,6 +404,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM customer");
                                             while ($data = mysqli_fetch_array($table)) {
                                                 $kode_customer = $data['kode_customer'];
                                                 $nama_customer = $data['nama_customer'];
+                                                $agen = $data['agen'];
                                                 $jenis_pembayaran = $data['jenis_pembayaran'];
                                                 $region_2 = $data['region_2'];
                                                 $provinsi = $data['provinsi'];
@@ -405,6 +420,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM customer");
                                                 echo "<tr>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_urut</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$kode_customer</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$agen</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_customer</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$jenis_pembayaran</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$region_2</td>
@@ -522,7 +538,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM customer");
                                                                         </div>
                                                                     </div>
 
-                                                                    
+
 
                                                                     <br>
 

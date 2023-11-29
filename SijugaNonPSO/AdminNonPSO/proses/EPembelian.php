@@ -22,7 +22,9 @@ $nama_akun = htmlspecialchars($_POST['nama_akun']);
 $nama_tabung = htmlspecialchars($_POST['nama_tabung']);
 $qty_pembelian = htmlspecialchars($_POST['qty_pembelian']);
 $harga_pembelian = htmlspecialchars($_POST['harga_pembelian']);
-$jumlah = $qty_pembelian * $harga_pembelian;
+$pph = htmlspecialchars($_POST['pph']);
+$ppn = htmlspecialchars($_POST['ppn']);
+$jumlah = ($qty_pembelian * $harga_pembelian) + ($pph + $ppn);
 $keterangan = htmlspecialchars($_POST['keterangan']);
 $nama_file = $_FILES['file']['name'];
 
@@ -62,10 +64,10 @@ else if ( $nama_file != "" ) {
 
 
   if ($file == '') {
-    mysqli_query($koneksi,"UPDATE pembelian SET tanggal = '$tanggal' , nama_akun = '$nama_akun' , nama_tabung = '$nama_tabung' , qty_pembelian = '$qty_pembelian' , harga_pembelian = '$harga_pembelian' , jumlah = '$jumlah', keterangan = '$keterangan' WHERE no_pembelian =  '$no_pembelian'");
+    mysqli_query($koneksi,"UPDATE pembelian SET tanggal = '$tanggal' , nama_akun = '$nama_akun' , nama_tabung = '$nama_tabung' , qty_pembelian = '$qty_pembelian' , harga_pembelian = '$harga_pembelian' , jumlah = '$jumlah', pph = '$pph', ppn = '$ppn', keterangan = '$keterangan' WHERE no_pembelian =  '$no_pembelian'");
   }
   else{
-    mysqli_query($koneksi,"UPDATE pembelian SET tanggal = '$tanggal' , nama_akun = '$nama_akun' , nama_tabung = '$nama_tabung' , qty_pembelian = '$qty_pembelian' , harga_pembelian = '$harga_pembelian' , jumlah = '$jumlah', keterangan = '$keterangan', file_bukti = '$file' WHERE no_pembelian  =  '$no_pembelian'");
+    mysqli_query($koneksi,"UPDATE pembelian SET tanggal = '$tanggal' , nama_akun = '$nama_akun' , nama_tabung = '$nama_tabung' , qty_pembelian = '$qty_pembelian' , harga_pembelian = '$harga_pembelian' , jumlah = '$jumlah', pph = '$pph', ppn = '$ppn', keterangan = '$keterangan', file_bukti = '$file' WHERE no_pembelian  =  '$no_pembelian'");
                   
   }
 

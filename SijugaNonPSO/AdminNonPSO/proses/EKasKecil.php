@@ -19,13 +19,17 @@ $tanggal_akhir = htmlspecialchars($_POST['tanggal2']);
 $no_laporan = htmlspecialchars($_POST['no_laporan']);
 $tanggal = htmlspecialchars($_POST['tanggal']);
 $akun_kas = htmlspecialchars($_POST['akun_kas']);
-if (!isset($_POST['iuran_anggota'])) {
+if (!isset($_POST['no_polisi'])) {
 	$no_polisi = "";
 } else {
 
 	$no_polisi = htmlspecialchars($_POST['no_polisi']);
 }
-
+if ($akun_kas == 'PENAMBAHAN SALDO') {
+	$status_saldo = 'Masuk';
+} else {
+	$status_saldo = 'Keluar';
+}
 $jumlah = htmlspecialchars($_POST['jumlah']);
 $keterangan = htmlspecialchars($_POST['keterangan']);
 $nama_file = $_FILES['file']['name'];
@@ -67,20 +71,37 @@ $data_saldo = mysqli_fetch_array($sql_saldo);
 $jumlah_saldo = $data_saldo['jumlah_saldo'];
 
 //kas kecil
-$sql_kas = mysqli_query($koneksi, "SELECT jumlah FROM kas_kecil WHERE no_laporan = '$no_laporan'");
+$sql_kas = mysqli_query($koneksi, "SELECT jumlah, akun_kas FROM kas_kecil WHERE no_laporan = '$no_laporan'");
 $data_kas = mysqli_fetch_array($sql_kas);
 $jumlah_kas = $data_kas['jumlah'];
+$akun_kasx = $data_kas['akun_kas'];
 
+if ($akun_kasx == 'PENAMBAHAN SALDO') {
+	$status_saldo = 'Masuk';
+	if ($akun_kas == 'PENAMBAHAN SALDO') {
+		$jumlah_saldo_baru = ($jumlah_saldo - $jumlah_kas) + $jumlah;
+	} else {
+		$jumlah_saldo_baru = ($jumlah_saldo - $jumlah_kas) - $jumlah;
+	
+	}
+} else {
+	$status_saldo = 'Keluar';
+	if ($akun_kas == 'PENAMBAHAN SALDO') {
+		$jumlah_saldo_baru = ($jumlah_saldo + $jumlah_kas) + $jumlah;
+	} else {
+		$jumlah_saldo_baru = ($jumlah_saldo + $jumlah_kas) - $jumlah;
+	}
+	
+}
 
-$jumlah_saldo_baru = ($jumlah_saldo + $jumlah_kas) - $jumlah;
 
 //update saldo
 mysqli_query($koneksi, "UPDATE list_saldo SET jumlah_saldo = '$jumlah_saldo_baru' WHERE nama_saldo =  'Saldo Non PSO'");
 
 if ($file == '') {
-	mysqli_query($koneksi, "UPDATE kas_kecil SET tanggal = '$tanggal' , akun_kas = '$akun_kas', no_polisi = '$no_polisi' , jumlah = '$jumlah' , keterangan = '$keterangan' WHERE no_laporan =  '$no_laporan'");
+	mysqli_query($koneksi, "UPDATE kas_kecil SET tanggal = '$tanggal' , akun_kas = '$akun_kas', no_polisi = '$no_polisi' , jumlah = '$jumlah', status_saldo = '$status_saldo' , keterangan = '$keterangan' WHERE no_laporan =  '$no_laporan'");
 } else {
-	mysqli_query($koneksi, "UPDATE kas_kecil SET tanggal = '$tanggal' , akun_kas = '$akun_kas' , no_polisi = '$no_polisi', jumlah = '$jumlah' , keterangan = '$keterangan', file_bukti = '$file' WHERE no_laporan =  '$no_laporan'");
+	mysqli_query($koneksi, "UPDATE kas_kecil SET tanggal = '$tanggal' , akun_kas = '$akun_kas' , no_polisi = '$no_polisi', jumlah = '$jumlah', status_saldo = '$status_saldo' , keterangan = '$keterangan', file_bukti = '$file' WHERE no_laporan =  '$no_laporan'");
 }
 
 echo "<script>alert('Data Pengeluaran Kas Berhasil di Edit'); window.location='../view/VKasKecil?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";

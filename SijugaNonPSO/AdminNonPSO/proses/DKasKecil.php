@@ -25,13 +25,16 @@ $data_saldo = mysqli_fetch_array($sql_saldo);
 $jumlah_saldo = $data_saldo['jumlah_saldo'];
 
 //kas kecil
-$sql_kas = mysqli_query($koneksi, "SELECT jumlah FROM kas_kecil WHERE no_laporan = '$no_laporan'");
+$sql_kas = mysqli_query($koneksi, "SELECT jumlah, akun_kas FROM kas_kecil WHERE no_laporan = '$no_laporan'");
 $data_kas = mysqli_fetch_array($sql_kas);
 $jumlah_kas = $data_kas['jumlah'];
+$akun_kas = $data_kas['akun_kas'];
 
-
-$jumlah_saldo_baru = ($jumlah_saldo + $jumlah_kas)  ;
-
+if ($akun_kas == 'PENAMBAHAN SALDO') {
+	$jumlah_saldo_baru = $jumlah_saldo - $jumlah_kas;
+} else {
+	$jumlah_saldo_baru = $jumlah_saldo + $jumlah_kas;
+}
 //update saldo
 mysqli_query($koneksi, "UPDATE list_saldo SET jumlah_saldo = '$jumlah_saldo_baru' WHERE nama_saldo =  'Saldo Non PSO'");
 

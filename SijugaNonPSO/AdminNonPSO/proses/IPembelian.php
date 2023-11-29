@@ -21,7 +21,9 @@ $nama_akun = htmlspecialchars($_POST['nama_akun']);
 $nama_tabung = htmlspecialchars($_POST['nama_tabung']);
 $qty_pembelian = htmlspecialchars($_POST['qty_pembelian']);
 $harga_pembelian = htmlspecialchars($_POST['harga_pembelian']);
-$jumlah = $qty_pembelian * $harga_pembelian;
+$pph = htmlspecialchars($_POST['pph']);
+$ppn = htmlspecialchars($_POST['ppn']);
+$jumlah = ($qty_pembelian * $harga_pembelian) + ($pph + $ppn);
 $keterangan = htmlspecialchars($_POST['keterangan']);
 
 $nama_file = $_FILES['file']['name'];
@@ -60,7 +62,7 @@ if ($nama_file == "") {
 
 
 
-mysqli_query($koneksi, "INSERT INTO pembelian VALUES('','$tanggal','$nama_akun','$nama_tabung','$qty_pembelian','$harga_pembelian','$jumlah','$keterangan','$file')");
+mysqli_query($koneksi, "INSERT INTO pembelian VALUES('','$tanggal','$nama_akun','$nama_tabung','$qty_pembelian','$harga_pembelian','$jumlah','$pph','$ppn','$keterangan','$file')");
 
 echo "<script>alert('Data Pembelian Berhasil di Input'); window.location='../view/VPembelian?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";
 exit;

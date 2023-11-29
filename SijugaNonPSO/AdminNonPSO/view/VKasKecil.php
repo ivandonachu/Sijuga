@@ -83,7 +83,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                 <div class="sidebar-brand-icon rotate-n-15">
 
                 </div>
-                <div class="sidebar-brand-text mx-3">PT Non PSO</div>
+                <div class="sidebar-brand-text mx-3" style="font-size: 14px">PT SURYA KHARISMA HARTIWI</div>
             </a>
 
             <!-- Divider -->
@@ -109,10 +109,10 @@ if ($tanggal_awal == $tanggal_akhir) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VListHutang">List Hutang</a>
-                        <a class="collapse-item" href="VRiwayatHutang">Riwayat Hutang</a>
+                        <a class="collapse-item" href="VListPiutang">List Piutang</a>
+                        <a class="collapse-item" href="VRiwayatPiutang">Riwayat Piutang</a>
+                        <a class="collapse-item" href="VLaporanSetoran">Laporan Setoran</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
-
                     </div>
                 </div>
             </li>
@@ -125,7 +125,20 @@ if ($tanggal_awal == $tanggal_akhir) {
                 </a>
                 <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VPengeluaran">Kas Kecil</a>
+                        <a class="collapse-item" href="VKasKecil">Kas Kecil</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Menu Anggota -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>Customer</span>
+                </a>
+                <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VListCustomer">List Customer</a>
                     </div>
                 </div>
             </li>
@@ -134,15 +147,14 @@ if ($tanggal_awal == $tanggal_akhir) {
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fa-solid fa-people-group"></i>
-                    <span>Pangkalan</span>
+                    <span>Aset</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListPangkalan">List Pangkalan</a>
+                        <a class="collapse-item" href="VListKendaraan">List Kendaraan</a>
                     </div>
                 </div>
             </li>
-
 
 
             <!-- Divider -->
@@ -266,6 +278,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                             <div class="col-md-6">
                                                                 <label>Akun Kas</label>
                                                                 <select name="akun_kas" class="form-control" required="">
+                                                            
                                                                     <option>BBM</option>
                                                                     <option>MESIN STEAM</option>
                                                                     <option>PERAWATAN & SPAREPART</option>
@@ -292,6 +305,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                             <div class="col-md-6">
                                                                 <label>No Polisi Kendaraan</label>
                                                                 <select id="tokens" class="selectpicker form-control" name="no_polisi" multiple data-live-search="true">
+                                                                <option></option>
                                                                     <?php
                                                                     include 'koneksi.php';
 
@@ -438,6 +452,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                                 <label>Akun Kas</label>
                                                                                 <select name="akun_kas" class="form-control">
                                                                                     <?php $dataSelect = $data['akun_kas']; ?>
+                                                                                 
                                                                                     <option <?php echo ($dataSelect == 'BBM') ? "selected" : "" ?>>BBM</option>
                                                                                     <option <?php echo ($dataSelect == 'MESIN STEAM') ? "selected" : "" ?>>MESIN STEAM</option>
                                                                                     <option <?php echo ($dataSelect == 'PERAWATAN & SPAREPART') ? "selected" : "" ?>>PERAWATAN & SPAREPART</option>
@@ -461,27 +476,27 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                         <br>
 
                                                                         <div class="row">
-                                                                        <div class="col-md-6">
-                                                                                    <div>
-                                                                                        <label>No Polisi Kendaraan</label>
-                                                                                    </div>
-                                                                                    <select id="tokens" class="selectpicker form-control" name="no_polisi" multiple data-live-search="true" >
-
-
-                                                                                        <?php
-                                                                                        $dataSelect = $data['no_polisi']; ?>
-                                                                                        <option <?php echo ($dataSelect == '') ? "selected" : "" ?>></option> <?php
-                                                                                                                                                                $result = mysqli_query($koneksi, "SELECT no_polisi FROM list_kendaraan ");
-                                                                                                                                                                while ($data2 = mysqli_fetch_array($result)) {
-                                                                                                                                                                    $no_polisi = $data2['no_polisi'];
-
-                                                                                                                                                             
-                                                                                                                                                                    echo "<option" ?> <?php echo ($dataSelect == $no_polisi) ? "selected" : "" ?>> <?php echo $no_polisi; ?> <?php echo "</option>";
-                                                                                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                                                                                        ?>
-                                                                                    </select>
+                                                                            <div class="col-md-6">
+                                                                                <div>
+                                                                                    <label>No Polisi Kendaraan</label>
                                                                                 </div>
+                                                                                <select id="tokens" class="selectpicker form-control" name="no_polisi" multiple data-live-search="true">
+
+
+                                                                                    <?php
+                                                                                    $dataSelect = $data['no_polisi']; ?>
+                                                                                    <option <?php echo ($dataSelect == '') ? "selected" : "" ?>></option> <?php
+                                                                                                                                                            $result = mysqli_query($koneksi, "SELECT no_polisi FROM list_kendaraan ");
+                                                                                                                                                            while ($data2 = mysqli_fetch_array($result)) {
+                                                                                                                                                                $no_polisi = $data2['no_polisi'];
+
+
+                                                                                                                                                                echo "<option" ?> <?php echo ($dataSelect == $no_polisi) ? "selected" : "" ?>> <?php echo $no_polisi; ?> <?php echo "</option>";
+                                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                                ?>
+                                                                                </select>
+                                                                            </div>
                                                                             <div class="col-md-6">
                                                                                 <label>Jumlah</label>
                                                                                 <input class="form-control form-control-sm" type="text" name="jumlah" value="<?= $jumlah; ?>" required="">

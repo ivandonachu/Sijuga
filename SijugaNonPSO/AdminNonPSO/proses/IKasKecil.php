@@ -18,12 +18,13 @@ $tanggal_awal = $_GET['tanggal1'];
 $tanggal_akhir = $_GET['tanggal2'];
 $tanggal = htmlspecialchars($_POST['tanggal']);
 $akun_kas = htmlspecialchars($_POST['akun_kas']);
-$no_polisi = htmlspecialchars($_POST['no_polisi']);
 $jumlah = htmlspecialchars($_POST['jumlah']);
-if ($akun_kas == 'Penambahan Saldo') {
-	$status_saldo = 'Masuk';
+
+if (!isset($_POST['no_polisi'])) {
+	$no_polisi = "";
 } else {
-	$status_saldo = 'Keluar';
+
+	$no_polisi = htmlspecialchars($_POST['no_polisi']);
 }
 $keterangan = htmlspecialchars($_POST['keterangan']);
 $nama_file = $_FILES['file']['name'];
@@ -62,7 +63,18 @@ if ($nama_file == "") {
 $sql_saldo = mysqli_query($koneksi, "SELECT * FROM list_saldo WHERE nama_saldo = 'Saldo Non PSO'");
 $data_saldo = mysqli_fetch_array($sql_saldo);
 $jumlah_saldo = $data_saldo['jumlah_saldo'];
-$jumlah_saldo_baru = $jumlah_saldo - $jumlah;
+if ($akun_kas == 'PENAMBAHAN SALDO') {
+	$status_saldo = 'Masuk';
+	$jumlah_saldo_baru = $jumlah_saldo + $jumlah;
+} else {
+	$status_saldo = 'Keluar';
+	$jumlah_saldo_baru = $jumlah_saldo - $jumlah;
+}
+
+if($jumlah_saldo_baru < 0 ){
+	echo "<script>alert('Saldo Kas Habis, Tidak Berhasil di Input'); window.location='../view/VKasKecil?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";
+exit;
+}
 //update saldo
 mysqli_query($koneksi, "UPDATE list_saldo SET jumlah_saldo = '$jumlah_saldo_baru' WHERE nama_saldo =  'Saldo Non PSO'");
 

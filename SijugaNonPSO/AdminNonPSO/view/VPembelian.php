@@ -77,7 +77,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                 <div class="sidebar-brand-icon rotate-n-15">
 
                 </div>
-                <div class="sidebar-brand-text mx-3">PT Non PSO</div>
+                <div class="sidebar-brand-text mx-3" style="font-size: 14px">PT SURYA KHARISMA HARTIWI</div>
             </a>
 
             <!-- Divider -->
@@ -103,10 +103,10 @@ if ($tanggal_awal == $tanggal_akhir) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VListHutang">List Hutang</a>
-                        <a class="collapse-item" href="VRiwayatHutang">Riwayat Hutang</a>
+                        <a class="collapse-item" href="VListPiutang">List Piutang</a>
+                        <a class="collapse-item" href="VRiwayatPiutang">Riwayat Piutang</a>
+                        <a class="collapse-item" href="VLaporanSetoran">Laporan Setoran</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
-
                     </div>
                 </div>
             </li>
@@ -119,7 +119,20 @@ if ($tanggal_awal == $tanggal_akhir) {
                 </a>
                 <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VPengeluaran">Kas Kecil</a>
+                        <a class="collapse-item" href="VKasKecil">Kas Kecil</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Menu Anggota -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>Customer</span>
+                </a>
+                <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VListCustomer">List Customer</a>
                     </div>
                 </div>
             </li>
@@ -128,15 +141,14 @@ if ($tanggal_awal == $tanggal_akhir) {
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fa-solid fa-people-group"></i>
-                    <span>Pangkalan</span>
+                    <span>Aset</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListPangkalan">List Pangkalan</a>
+                        <a class="collapse-item" href="VListKendaraan">List Kendaraan</a>
                     </div>
                 </div>
             </li>
-
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -290,6 +302,19 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                                         <div class="row">
                                                             <div class="col-md-6">
+                                                                <label>PPH</label>
+                                                                <input class="form-control form-control-sm" type="text" name="pph" value="0" required="">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>PPN</label>
+                                                                <input class="form-control form-control-sm" type="text" name="ppn" value="0" required="">
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
                                                                 <label>Keterangan</label>
                                                                 <textarea class="form-control form-control-sm" name="keterangan"></textarea>
                                                             </div>
@@ -331,6 +356,8 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Tabung</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">QTY Pembelian</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Harga Pembelian</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">PPH</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">PPN</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jumlah</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Keterangan</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">File</th>
@@ -356,6 +383,8 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 $nama_tabung = $data['nama_tabung'];
                                                 $qty_pembelian = $data['qty_pembelian'];
                                                 $harga_pembelian = $data['harga_pembelian'];
+                                                $pph = $data['pph'];
+                                                $ppn = $data['ppn'];
                                                 $jumlah = $data['jumlah'];
                                                 $keterangan = $data['keterangan'];
                                                 $file_bukti = $data['file_bukti'];
@@ -374,9 +403,11 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_tabung</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$qty_pembelian</td>
                                                 <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($harga_pembelian); ?> <?php echo "</td>
+                                                <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($pph); ?> <?php echo "</td>
+                                                <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($ppn); ?> <?php echo "</td>
                                                 <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($jumlah); ?> <?php echo "</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$keterangan</td>
-                                                <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="" href="/SijugaNonPSO/Admin/file_admin/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
+                                                <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="" href="/SijugaNonPSO/AdminNonPSO/file_admin_non_pso/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
                                                 "; ?>
                                                     <?php echo "<td style='font-size: clamp(12px, 1vw, 15px);'>"; ?>
 
@@ -435,6 +466,19 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                             <div class="col-md-6">
                                                                                 <label>Harga Pembelian</label>
                                                                                 <input class="form-control form-control-sm" type="text" name="harga_pembelian" value="<?= $harga_pembelian; ?>" required="">
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <br>
+
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <label>PPH</label>
+                                                                                <input class="form-control form-control-sm" type="text" name="pph" value="<?= $pph; ?>" required="">
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label>PPN</label>
+                                                                                <input class="form-control form-control-sm" type="text" name="ppn" value="<?= $ppn; ?>" required="">
                                                                             </div>
                                                                         </div>
 

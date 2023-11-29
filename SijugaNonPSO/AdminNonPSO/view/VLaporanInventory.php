@@ -79,7 +79,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                 <div class="sidebar-brand-icon rotate-n-15">
 
                 </div>
-                <div class="sidebar-brand-text mx-3">PT Non PSO</div>
+                <div class="sidebar-brand-text mx-3" style="font-size: 14px">PT SURYA KHARISMA HARTIWI</div>
             </a>
 
             <!-- Divider -->
@@ -105,10 +105,10 @@ if ($tanggal_awal == $tanggal_akhir) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VListHutang">List Hutang</a>
-                        <a class="collapse-item" href="VRiwayatHutang">Riwayat Hutang</a>
+                        <a class="collapse-item" href="VListPiutang">List Piutang</a>
+                        <a class="collapse-item" href="VRiwayatPiutang">Riwayat Piutang</a>
+                        <a class="collapse-item" href="VLaporanSetoran">Laporan Setoran</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
-
                     </div>
                 </div>
             </li>
@@ -116,12 +116,25 @@ if ($tanggal_awal == $tanggal_akhir) {
             <!-- Nav Item - Menu Pengeeluaran -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesx" aria-expanded="true" aria-controls="collapseUtilitiesx">
-                <i class="fa-solid fa-wallet"></i>
+                    <i class="fa-solid fa-wallet"></i>
                     <span>Pengeluaran</span>
                 </a>
                 <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VPengeluaran">Kas Kecil</a>
+                        <a class="collapse-item" href="VKasKecil">Kas Kecil</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Menu Anggota -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>Customer</span>
+                </a>
+                <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VListCustomer">List Customer</a>
                     </div>
                 </div>
             </li>
@@ -130,11 +143,11 @@ if ($tanggal_awal == $tanggal_akhir) {
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fa-solid fa-people-group"></i>
-                    <span>Pangkalan</span>
+                    <span>Aset</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListPangkalan">List Pangkalan</a>
+                        <a class="collapse-item" href="VListKendaraan">List Kendaraan</a>
                     </div>
                 </div>
             </li>
@@ -419,7 +432,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                         </div>
                                                                         <div class="col-md-4">
                                                                             <label>12 Kg retur</label>
-                                                                            <input class="form-control form-control-sm" type="text" name="B12K00" value="<?= $B12K00; ?>"  required="">
+                                                                            <input class="form-control form-control-sm" type="text" name="B12K00" value="<?= $B12K00; ?>" required="">
                                                                         </div>
                                                                     </div>
 
@@ -478,32 +491,32 @@ if ($tanggal_awal == $tanggal_akhir) {
                                 <br>
                                 <!-- Tabel Inventory -->
 
-                                 <!-- Tabel -->
-                       
-                                    <table align="center" id="example2" class="table-sm table-striped table-bordered  nowrap" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Tabung</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jumlah</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                <!-- Tabel -->
 
-                                            <?php
+                                <table align="center" id="example2" class="table-sm table-striped table-bordered  nowrap" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Tabung</th>
+                                            <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jumlah</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                            while ($data = mysqli_fetch_array($table2)) {
-                                                $nama_tabung = $data['nama_tabung'];
-                                                $jumlah_tabung = $data['jumlah_tabung'];
-                                                echo "<tr>
+                                        <?php
+
+                                        while ($data = mysqli_fetch_array($table2)) {
+                                            $nama_tabung = $data['nama_tabung'];
+                                            $jumlah_tabung = $data['jumlah_tabung'];
+                                            echo "<tr>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_tabung</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$jumlah_tabung</td>
                                                  </tr>";
-                                            }
-                                            ?>
+                                        }
+                                        ?>
 
-                                        </tbody>
-                                    </table>
-                       
+                                    </tbody>
+                                </table>
+
 
                             </div>
                         </div>
@@ -588,7 +601,7 @@ if ($tanggal_awal == $tanggal_akhir) {
         });
     </script>
 
-<script>
+    <script>
         $(document).ready(function() {
             var table = $('#example2').DataTable({
                 lengthChange: false,
