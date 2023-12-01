@@ -370,7 +370,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                 <label>Status Penjualan</label>
                                                                 <select name="status_penjualan" class="form-control" required="">
                                                                     <option>Lunas</option>
-                                                                    <option>Pitang</option>
+                                                                    <option>Piutang</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-6">
