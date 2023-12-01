@@ -363,7 +363,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <label>Tanggal</label>
-                                                                <input class="form-control " type="date" name="tanggal">
+                                                                <input class="form-control " type="date" name="tanggal" required="">
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>Nama Akun</label>

@@ -248,7 +248,7 @@ if ($tanggal_awal == $tanggal_akhir) {
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaNonPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Penjualan</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Penjualan</a> </small>
                     <br>
                     <br>
 
@@ -328,7 +328,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <label>Tanggal</label>
-                                                                <input class="form-control " type="date" name="tanggal">
+                                                                <input class="form-control " type="date" name="tanggal" required="">
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>Nama Akun</label>
