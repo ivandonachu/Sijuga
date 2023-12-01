@@ -308,6 +308,31 @@ if ($tanggal_awal == $tanggal_akhir) {
                                 </div>
                                 </form>
 
+                                <form action="VPenjualan" method="POST">
+                                    <div class="row" align="right">
+                                        <div class="col-md-10">
+                                            <select id="tokens" class="selectpicker form-control-sm" name="nama_customer" multiple data-live-search="true">
+                                                <?php
+                                                include 'koneksi.php';
+
+                                                $result = mysqli_query($koneksi, "SELECT nama_customer FROM customer");
+
+                                                while ($data2 = mysqli_fetch_array($result)) {
+                                                    $nama_customer = $data2['nama_customer'];
+
+                                                ?>
+                                                    <option value="<?= $data2['nama_customer']; ?>"><?php echo $data2['nama_customer']; ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+
+
+                                            <button type="submit" class="btn btn-primary" style=" font-size: clamp(7px, 1vw, 10px); color:white; ">Kofirm Customer</button>
+                                        </div>
+                                    </div>
+                                </form>
+
                                 <!-- Form Input -->
                                 <div class="row">
                                     <div class="col-md-6">
@@ -338,7 +363,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <label>Tanggal</label>
-                                                                <input class="form-control " type="date" name="tanggal" required="">
+                                                                <input class="form-control " type="date" name="tanggal">
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>Nama Akun</label>
@@ -352,49 +377,59 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                                         <br>
 
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label>Nama Customer</label>
-                                                                <select id="tokens" class="selectpicker form-control" name="nama_customer" multiple data-live-search="true">
-                                                                    <?php
-                                                                    include 'koneksi.php';
+                                                        <?php
+                                                        if (isset($_POST['nama_customer'])) {
+                                                            $nama_customer = $_POST['nama_customer'];
 
-                                                                    $result = mysqli_query($koneksi, "SELECT nama_customer FROM customer");
+                                                            //menampilkan data pegawai berdasarkan pilihan combobox ke dalam form
+                                                            $sql_customer = mysqli_query($koneksi, "SELECT * FROM customer WHERE nama_customer='$nama_customer'");
+                                                            $data_customer = mysqli_fetch_array($sql_customer);
 
-                                                                    while ($data2 = mysqli_fetch_array($result)) {
-                                                                        $nama_customer = $data2['nama_customer'];
+                                                        ?>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Nama Customer</label>
+                                                                    <input class="form-control form-control-sm" type="text" name="nama_customer" value="<?php echo $data_customer['nama_customer']; ?>" disabled="">
+                                                                    <input type="hidden" name="nama_customer" value="<?= $nama_customer; ?>">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label>Pembayaran</label>
+                                                                    <select name="pembayaran" class="form-control" required="">
+                                                                        <option>Cash</option>
+                                                                        <option>Cashless</option>
+                                                                    </select>
+                                                                </div>
 
-                                                                        echo "<option> $nama_customer </option> ";
-                                                                    }
-                                                                    ?>
-                                                                </select>
                                                             </div>
-                                                            <div class="col-md-6">
-                                                                <label>Pembayaran</label>
-                                                                <select name="pembayaran" class="form-control" required="">
-                                                                    <option>Cash</option>
-                                                                    <option>Cashless</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
 
-                                                        <br>
 
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <label>QTY 5,5 Kg</label>
-                                                                <input class="form-control form-control-sm" type="text" name="qty_55kg" value="0" required="">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>QTY 5,5 Kg</label>
+                                                                    <input class="form-control form-control-sm" type="text" name="qty_55kg" value="0" required="">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label>Harga 5,5 Kg</label>
+                                                                    <input class="form-control form-control-sm" type="text" name="harga_55kg" value="<?php echo $data_customer['harga_55kg']; ?>" disabled="">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label>QTY 12 Kg</label>
+                                                                    <input class="form-control form-control-sm" type="text" name="qty_12kg" value="0" required="">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label>Harga 12 Kg</label>
+                                                                    <input class="form-control form-control-sm" type="text" name="harga_125kg" value="<?php echo $data_customer['harga_12kg']; ?>" disabled="">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label>QTY 50 Kg</label>
+                                                                    <input class="form-control form-control-sm" type="text" name="qty_50kg" value="0" required="">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label>Harga 50 Kg</label>
+                                                                    <input class="form-control form-control-sm" type="text" name="harga_50kg" value="<?php echo $data_customer['harga_50kg']; ?>" disabled="">
+                                                                </div>
                                                             </div>
-                                                            <div class="col-md-4">
-                                                                <label>QTY 12 Kg</label>
-                                                                <input class="form-control form-control-sm" type="text" name="qty_12kg" value="0" required="">
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <label>QTY 50 Kg</label>
-                                                                <input class="form-control form-control-sm" type="text" name="qty_50kg" value="0" required="">
-                                                            </div>
-                                                        </div>
-
+                                                        <?php } ?>
                                                         <br>
 
                                                         <div class="row">
@@ -703,13 +738,25 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                                     <label>QTY 5,5 Kg</label>
                                                                                     <input class="form-control form-control-sm" type="text" name="qty_55kg" value="<?= $qty_55kg; ?>" required="">
                                                                                 </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label>Harga 5,5 Kg</label>
+                                                                                    <input class="form-control form-control-sm" type="text" name="harga_55kg" value="<?= $harga_55kg; ?>" required="">
+                                                                                </div>
                                                                                 <div class="col-md-4">
                                                                                     <label>QTY 12 Kg</label>
                                                                                     <input class="form-control form-control-sm" type="text" name="qty_12kg" value="<?= $qty_12kg; ?>" required="">
                                                                                 </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label>Harga 12 Kg</label>
+                                                                                    <input class="form-control form-control-sm" type="text" name="harga_12kg" value="<?= $harga_12kg; ?>" required="">
+                                                                                </div>
                                                                                 <div class="col-md-4">
                                                                                     <label>QTY 50 Kg</label>
                                                                                     <input class="form-control form-control-sm" type="text" name="qty_50kg" value="<?= $qty_50kg; ?>" required="">
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label>Harga 50 Kg</label>
+                                                                                    <input class="form-control form-control-sm" type="text" name="harga_50kg" value="<?= $harga_50kg; ?>" required="">
                                                                                 </div>
                                                                             </div>
 
@@ -860,54 +907,63 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                                                                 <br>
 
-                                                                                <div class="row">
-                                                                                    <div class="col-md-6">
-                                                                                        <div>
+
+
+
+
+                                                                                <?php
+                                                                                if (isset($_POST['nama_customer'])) {
+                                                                                    $nama_customer = $_POST['nama_customer'];
+
+                                                                                    //menampilkan data pegawai berdasarkan pilihan combobox ke dalam form
+                                                                                    $sql_customer = mysqli_query($koneksi, "SELECT * FROM customer WHERE nama_customer='$nama_customer'");
+                                                                                    $data_customer = mysqli_fetch_array($sql_customer);
+
+                                                                                ?>
+                                                                                    <div class="row">
+
+                                                                                        <div class="col-md-6">
                                                                                             <label>Nama Customer</label>
+                                                                                            <input class="form-control form-control-sm" type="text" name="nama_customer" value="<?php echo $data_customer['nama_customer']; ?>" disabled="">
+                                                                                            <input type="hidden" name="nama_customer" value="<?= $nama_customer; ?>">
                                                                                         </div>
-                                                                                        <select id="tokens" class="selectpicker form-control" name="nama_customer" multiple data-live-search="true" required="">
-
-
-                                                                                            <?php
-                                                                                            $dataSelect = $data['nama_customer']; ?>
-                                                                                            <option <?php echo ($dataSelect == '') ? "selected" : "" ?>></option> <?php
-                                                                                                                                                                    $result = mysqli_query($koneksi, "SELECT nama_customer FROM customer ");
-                                                                                                                                                                    while ($data2 = mysqli_fetch_array($result)) {
-                                                                                                                                                                        $nama_customer = $data2['nama_customer'];
-
-
-                                                                                                                                                                        echo "<option" ?> <?php echo ($dataSelect == $nama_customer) ? "selected" : "" ?>> <?php echo $nama_customer; ?> <?php echo "</option>";
-                                                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                                                            ?>
-                                                                                        </select>
+                                                                                        <div class="col-md-6">
+                                                                                            <label>Pembayaran</label>
+                                                                                            <select name="pembayaran" class="form-control" required="">
+                                                                                                <option>Cash</option>
+                                                                                                <option>Cashless</option>
+                                                                                            </select>
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <label>Pembayaran</label>
-                                                                                        <select name="pembayaran" class="form-control">
-                                                                                            <?php $dataSelect = $data['pembayaran']; ?>
-                                                                                            <option <?php echo ($dataSelect == 'Cashless') ? "selected" : "" ?>>Cashless</option>
-                                                                                            <option <?php echo ($dataSelect == 'Cash') ? "selected" : "" ?>>Cash</option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
 
-                                                                                <br>
 
-                                                                                <div class="row">
-                                                                                    <div class="col-md-4">
-                                                                                        <label>QTY 5,5 Kg</label>
-                                                                                        <input class="form-control form-control-sm" type="text" name="qty_55kg" value="<?= $qty_55kg; ?>" required="">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <label>QTY 5,5 Kg</label>
+                                                                                            <input class="form-control form-control-sm" type="text" name="qty_55kg" value="<?= $qty_55kg; ?>" required="">
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <label>Harga 5,5 Kg</label>
+                                                                                            <input class="form-control form-control-sm" type="text" name="harga_55kg" value="<?php echo $data_customer['harga_55kg']; ?>" disabled="">
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <label>QTY 12 Kg</label>
+                                                                                            <input class="form-control form-control-sm" type="text" name="qty_12kg" value="<?= $qty_12kg; ?>" required="">
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <label>Harga 12 Kg</label>
+                                                                                            <input class="form-control form-control-sm" type="text" name="harga_125kg" value="<?php echo $data_customer['harga_12kg']; ?>" disabled="">
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <label>QTY 50 Kg</label>
+                                                                                            <input class="form-control form-control-sm" type="text" name="qty_50kg" value="<?= $qty_50kg; ?>" required="">
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <label>Harga 50 Kg</label>
+                                                                                            <input class="form-control form-control-sm" type="text" name="harga_50kg" value="<?php echo $data_customer['harga_50kg']; ?>" disabled="">
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <label>QTY 12 Kg</label>
-                                                                                        <input class="form-control form-control-sm" type="text" name="qty_12kg" value="<?= $qty_12kg; ?>" required="">
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <label>QTY 50 Kg</label>
-                                                                                        <input class="form-control form-control-sm" type="text" name="qty_50kg" value="<?= $qty_50kg; ?>" required="">
-                                                                                    </div>
-                                                                                </div>
+                                                                                <?php } ?>
 
                                                                                 <br>
 
