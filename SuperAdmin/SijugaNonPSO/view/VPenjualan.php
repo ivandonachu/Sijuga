@@ -33,6 +33,46 @@ if (isset($_GET['tanggal1'])) {
 
 if ($tanggal_awal == $tanggal_akhir) {
     $table = mysqli_query($koneksi, "SELECT * FROM penjualan a INNER JOIN customer b ON b.kode_customer=a.kode_customer WHERE tanggal = '$tanggal_awal'");
+
+     //piutang
+     $sql_piutang = mysqli_query($koneksi, "SELECT SUM(jumlah_bayar) AS total_bayar_piutang FROM riwayat_piutang WHERE tanggal_bayar = '$tanggal_awal' AND pembayaran_piutang = 'Cash' ");
+     $data_piutang = mysqli_fetch_array($sql_piutang);
+     $total_pembayaran_piutang = $data_piutang['total_bayar_piutang'];
+ 
+     //pengeluaran
+     $sql_pengeluaran = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pengeluaran FROM kas_kecil WHERE tanggal = '$tanggal_awal'  AND akun_kas != 'PENAMBAHAN SALDO' ");
+     $data_pengeluaran = mysqli_fetch_array($sql_pengeluaran);
+     $total_pengeluaran = $data_pengeluaran['total_pengeluaran'];
+ 
+     //setoran total
+     $sql_setoran = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_setoran FROM setoran WHERE tanggal = '$tanggal_awal'  ");
+     $data_setoran = mysqli_fetch_array($sql_setoran);
+     if (!isset($data_setoran['total_setoran'])) {
+         $total_setoran = 0;
+     } else {
+ 
+         $total_setoran = $data_setoran['total_setoran'];
+     }
+ 
+     //setoran total cash
+     $sql_setoran_cash = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_setoran_cash FROM setoran WHERE tanggal = '$tanggal_awal' AND jenis_setoran = 'Cash'  ");
+     $data_setoran_cash = mysqli_fetch_array($sql_setoran_cash);
+     if (!isset($data_setoran_cash['total_setoran_cash'])) {
+         $total_setoran_cash = 0;
+     } else {
+ 
+         $total_setoran_cash = $data_setoran_cash['total_setoran_cash'];
+     }
+ 
+     //setoran total cashles
+     $sql_setoran_cashles = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_setoran_cashless FROM setoran WHERE tanggal = '$tanggal_awal' AND jenis_setoran = 'Cashless'  ");
+     $data_setoran_cashles = mysqli_fetch_array($sql_setoran_cashles);
+     if (!isset($data_setoran_cashles['total_setoran_cashless'])) {
+         $total_setoran_cashless = 0;
+     } else {
+ 
+         $total_setoran_cashless = $data_setoran_cashles['total_setoran_cashless'];
+     }
 } else {
 
     $table = mysqli_query($koneksi, "SELECT * FROM penjualan a INNER JOIN customer b ON b.kode_customer=a.kode_customer WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
@@ -43,7 +83,7 @@ if ($tanggal_awal == $tanggal_akhir) {
     $total_pembayaran_piutang = $data_piutang['total_bayar_piutang'];
 
     //pengeluaran
-    $sql_pengeluaran = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pengeluaran FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'  ");
+    $sql_pengeluaran = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pengeluaran FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'  AND akun_kas != 'PENAMBAHAN SALDO' ");
     $data_pengeluaran = mysqli_fetch_array($sql_pengeluaran);
     $total_pengeluaran = $data_pengeluaran['total_pengeluaran'];
 
