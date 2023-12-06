@@ -316,6 +316,8 @@ if ($tanggal_awal == $tanggal_akhir) {
                                 <form action="VPenjualan" method="POST">
                                     <div class="row" align="right">
                                         <div class="col-md-10">
+                                        <input type="hidden" name="tanggal1" value="<?php echo $tanggal_awal; ?>">
+                                        <input type="hidden" name="tanggal2" value="<?php echo $tanggal_akhir; ?>">
                                             <select id="tokens" class="selectpicker form-control-sm" name="nama_customer" multiple data-live-search="true">
                                                 <?php
                                                 include 'koneksi.php';

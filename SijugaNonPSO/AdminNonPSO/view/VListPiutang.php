@@ -367,7 +367,7 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                                                 <!-- Form Edit Data -->
                                                                 <div class="modal-body">
-                                                                    <form action="../proses/IPembayaranHutang" enctype="multipart/form-data" method="POST">
+                                                                    <form action="../proses/IPembayaranPiutang" enctype="multipart/form-data" method="POST">
                                                                         <input type="hidden" name="tanggal1" value="<?= $tanggal_awal; ?>">
                                                                         <input type="hidden" name="tanggal2" value="<?= $tanggal_akhir; ?>">
                                                                         <input type="hidden" name="no_penjualan" value="<?= $no_penjualan; ?>">
