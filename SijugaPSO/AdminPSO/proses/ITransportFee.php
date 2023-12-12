@@ -21,13 +21,13 @@ $jumlah = htmlspecialchars($_POST['jumlah']);
 $keterangan = htmlspecialchars($_POST['keterangan']);
 $nama_file = $_FILES['file']['name'];
 
+$nama_file = $_FILES['file']['name'];
+
 if ($nama_file == "") {
-	$file = "";
-}
+    $file = "";
+} else if ($nama_file != "") {
 
-else if ( $nama_file != "" ) {
-
-	function upload(){
+    function upload(){
 		$nama_file = $_FILES['file']['name'];
 		$ukuran_file = $_FILES['file']['size'];
 		$error = $_FILES['file']['error'];
@@ -38,20 +38,21 @@ else if ( $nama_file != "" ) {
 		$ekstensi_file = strtolower(end($ekstensi_file));
 
 
+		$nama_file_baru = uniqid();
+		$nama_file_baru .= ".";
+		$nama_file_baru .= $ekstensi_file;
 
+		move_uploaded_file($tmp_name, '../file_admin_pso/' . $nama_file_baru   );
 
-		move_uploaded_file($tmp_name, '../file_admin_pso/' . $nama_file   );
+		return $nama_file_baru; 
+    }
 
-		return $nama_file; 
-
-	}
-
-	$file = upload();
-	if (!$file) {
-		return false;
-	}
-
+    $file = upload();
+    if (!$file) {
+        return false;
+    }
 }
+
 
 
     
