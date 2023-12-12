@@ -12,7 +12,7 @@ $jabatan_valid = $data1['jabatan'];
 $nama = $data1['nama'];
 $foto_profile = $data1['foto_profile'];
 $username = $data1['username'];
-if ($jabatan_valid == 'Admin Non PSO') {
+if ($jabatan_valid == 'Admin PSO') {
 } else {
     header("Location: logout.php");
     exit;
@@ -32,13 +32,13 @@ if (isset($_GET['tanggal1'])) {
 }
 
 if ($tanggal_awal == $tanggal_akhir) {
-    $table = mysqli_query($koneksi, "SELECT * FROM kas_kecil_pso_pso WHERE tanggal = '$tanggal_awal'");
+    $table = mysqli_query($koneksi, "SELECT * FROM kas_kecil_pso WHERE tanggal = '$tanggal_awal'");
     $sql_saldo = mysqli_query($koneksi, "SELECT * FROM list_saldo WHERE nama_saldo = 'Saldo PSO'");
     $data_saldo = mysqli_fetch_array($sql_saldo);
     $jumlah_saldo = $data_saldo['jumlah_saldo'];
-    $table2 = mysqli_query($koneksi, "SELECT akun_kas, SUM(jumlah) AS total_jumlah FROM kas_kecil_pso  WHERE tanggal = '$tanggal_awal' GROUP BY kas_kecil_pso");
+    $table2 = mysqli_query($koneksi, "SELECT akun_kas, SUM(jumlah) AS total_jumlah FROM kas_kecil_pso  WHERE tanggal = '$tanggal_awal' GROUP BY akun_kas");
     $table3 = mysqli_query($koneksi, "SELECT no_polisi, SUM(jumlah) AS total_jumlah FROM kas_kecil_pso  WHERE tanggal = '$tanggal_awal' AND akun_kas = 'BBM' GROUP BY no_polisi");
-    $table4 = mysqli_query($koneksi, "SELECT akun_kas, SUM(jumlah) AS total_jumlah FROM kas_kecil_pso  WHERE tanggal = '$tanggal_awal' GROUP BY akun_kas");
+    $table4 = mysqli_query($koneksi, "SELECT akun_kas, SUM(jumlah) AS total_jumlah FROM kas_kecil_pso  WHERE tanggal = '$tanggal_awal' AND akun_kas = 'PERAWATAN & SPAREPART' GROUP BY no_polisi");
 } else {
 
     $table = mysqli_query($koneksi, "SELECT * FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
@@ -47,7 +47,7 @@ if ($tanggal_awal == $tanggal_akhir) {
     $jumlah_saldo = $data_saldo['jumlah_saldo'];
     $table2 = mysqli_query($koneksi, "SELECT akun_kas, SUM(jumlah) AS total_jumlah FROM kas_kecil_pso  WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'  GROUP BY akun_kas");
     $table3 = mysqli_query($koneksi, "SELECT no_polisi, SUM(jumlah) AS total_jumlah FROM kas_kecil_pso  WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'BBM' GROUP BY no_polisi");
-    $table4 = mysqli_query($koneksi, "SELECT no_polisi, SUM(jumlah) AS total_jumlah FROM kas_kecil_pso  WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'BBM' GROUP BY no_polisi");
+    $table4 = mysqli_query($koneksi, "SELECT no_polisi, SUM(jumlah) AS total_jumlah FROM kas_kecil_pso  WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PERAWATAN & SPAREPART' GROUP BY no_polisi");
 }
 
 ?>
@@ -89,7 +89,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                 <div class="sidebar-brand-icon rotate-n-15">
 
                 </div>
-                <div class="sidebar-brand-text mx-3" style="font-size: 14px">PT SURYA KHARISMA HARTIWI</div>
+                <div class="sidebar-brand-text mx-3" style="font-size: 14px">PT DWI KHARISMA ABADI</div>
             </a>
 
             <!-- Divider -->
@@ -115,9 +115,6 @@ if ($tanggal_awal == $tanggal_akhir) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VListPiutang">List Piutang</a>
-                        <a class="collapse-item" href="VRiwayatPiutang">Riwayat Piutang</a>
-                        <a class="collapse-item" href="VLaporanSetoran">Laporan Setoran</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
                     </div>
                 </div>
@@ -315,7 +312,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                     <?php
                                                                     include 'koneksi.php';
 
-                                                                    $result = mysqli_query($koneksi, "SELECT no_polisi FROM list_kendaraan WHERE status_kendaraan = 'Non PSO' ");
+                                                                    $result = mysqli_query($koneksi, "SELECT no_polisi FROM list_kendaraan WHERE status_kendaraan = 'PSO' ");
 
                                                                     while ($data2 = mysqli_fetch_array($result)) {
                                                                         $no_polisi = $data2['no_polisi'];
@@ -424,7 +421,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                                             ?>
                                                 <?php echo "
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$keterangan</td>
-                                                <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="" href="/SijugaNonPSO/AdminNonPSO/file_admin_non_pso/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
+                                                <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="" href="/SijugaPSO/AdminPSO/file_admin_pso/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
                                                 "; ?>
                                                     
                                                     
@@ -499,7 +496,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                                     <?php
                                                                                     $dataSelect = $data['no_polisi']; ?>
                                                                                     <option <?php echo ($dataSelect == '') ? "selected" : "" ?>></option> <?php
-                                                                                                                                                            $result = mysqli_query($koneksi, "SELECT no_polisi FROM list_kendaraan ");
+                                                                                                                                                            $result = mysqli_query($koneksi, "SELECT no_polisi FROM list_kendaraan WHERE status_kendaraan = 'PSO' ");
                                                                                                                                                             while ($data2 = mysqli_fetch_array($result)) {
                                                                                                                                                                 $no_polisi = $data2['no_polisi'];
 

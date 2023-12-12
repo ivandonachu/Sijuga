@@ -38,7 +38,7 @@ if ($tanggal_awal == $tanggal_akhir) {
     $jumlah_saldo = $data_saldo['jumlah_saldo'];
     $table2 = mysqli_query($koneksi, "SELECT akun_kas, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal = '$tanggal_awal' GROUP BY kas_kecil");
     $table3 = mysqli_query($koneksi, "SELECT no_polisi, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal = '$tanggal_awal' AND akun_kas = 'BBM' GROUP BY no_polisi");
-    $table4 = mysqli_query($koneksi, "SELECT akun_kas, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal = '$tanggal_awal' GROUP BY akun_kas");
+    $table4 = mysqli_query($koneksi, "SELECT akun_kas, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal = '$tanggal_awal' AND akun_kas = 'PERAWATAN & SPAREPART' GROUP BY no_polisi");
 } else {
 
     $table = mysqli_query($koneksi, "SELECT * FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
@@ -47,7 +47,7 @@ if ($tanggal_awal == $tanggal_akhir) {
     $jumlah_saldo = $data_saldo['jumlah_saldo'];
     $table2 = mysqli_query($koneksi, "SELECT akun_kas, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'  GROUP BY akun_kas");
     $table3 = mysqli_query($koneksi, "SELECT no_polisi, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'BBM' GROUP BY no_polisi");
-    $table4 = mysqli_query($koneksi, "SELECT no_polisi, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'BBM' GROUP BY no_polisi");
+    $table4 = mysqli_query($koneksi, "SELECT no_polisi, SUM(jumlah) AS total_jumlah FROM kas_kecil  WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PERAWATAN & SPAREPART' GROUP BY no_polisi");
 }
 
 ?>
