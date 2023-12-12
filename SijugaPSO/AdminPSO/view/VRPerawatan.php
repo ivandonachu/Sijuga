@@ -12,7 +12,7 @@ $jabatan_valid = $data1['jabatan'];
 $nama = $data1['nama'];
 $foto_profile = $data1['foto_profile'];
 $username = $data1['username'];
-if ($jabatan_valid == 'Admin Non PSO') {
+if ($jabatan_valid == 'Admin PSO') {
 } else {
     header("Location: logout.php");
     exit;
