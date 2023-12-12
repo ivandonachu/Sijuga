@@ -105,6 +105,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
+                        <a class="collapse-item" href="VTransportFee">Transport Fee</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
                     </div>
                 </div>

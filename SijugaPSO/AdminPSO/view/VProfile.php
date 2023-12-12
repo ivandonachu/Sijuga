@@ -50,83 +50,84 @@ if ($jabatan_valid == 'Admin PSO') {
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-   <!-- Sidebar -->
-   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-<!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-    <div class="sidebar-brand-icon rotate-n-15">
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+        <div class="sidebar-brand-icon rotate-n-15">
 
-    </div>
-    <div class="sidebar-brand-text mx-3" style="font-size: 14px">PT DWI KHARISMA ABADI</div>
-</a>
+        </div>
+        <div class="sidebar-brand-text mx-3" style="font-size: 14px">PT DWI KHARISMA ABADI</div>
+      </a>
 
-<!-- Divider -->
-<hr class="sidebar-divider my-0">
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
 
-<!-- Nav Item - Dashboard -->
-<li class="nav-item">
-    <a class="nav-link" href="DsAdmin">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span style="font-size: 17px;">Dashboard</span></a>
-</li>
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item">
+        <a class="nav-link" href="DsAdmin">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span style="font-size: 17px;">Dashboard</span></a>
+      </li>
 
-<!-- Divider -->
-<hr class="sidebar-divider">
+      <!-- Divider -->
+      <hr class="sidebar-divider">
 
-<!-- Nav Item - Menu Keuangan -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fa-solid fa-cash-register"></i>
-        <span>Transaksi</span>
-    </a>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
+      <!-- Nav Item - Menu Keuangan -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fa-solid fa-cash-register"></i>
+          <span>Transaksi</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="VPenjualan">Penjualan</a>
             <a class="collapse-item" href="VPembelian">Pembelian</a>
+            <a class="collapse-item" href="VTransportFee">Transport Fee</a>
             <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
+          </div>
         </div>
-    </div>
-</li>
+      </li>
 
-<!-- Nav Item - Menu Pengeeluaran -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesx" aria-expanded="true" aria-controls="collapseUtilitiesx">
-        <i class="fa-solid fa-wallet"></i>
-        <span>Pengeluaran</span>
-    </a>
-    <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
+      <!-- Nav Item - Menu Pengeeluaran -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesx" aria-expanded="true" aria-controls="collapseUtilitiesx">
+          <i class="fa-solid fa-wallet"></i>
+          <span>Pengeluaran</span>
+        </a>
+        <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="VKasKecil">Kas Kecil</a>
+          </div>
         </div>
-    </div>
-</li>
+      </li>
 
-<!-- Nav Item - Menu Anggota -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
-        <i class="fa-solid fa-people-group"></i>
-        <span>Customer</span>
-    </a>
-    <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
+      <!-- Nav Item - Menu Anggota -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
+          <i class="fa-solid fa-people-group"></i>
+          <span>Customer</span>
+        </a>
+        <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="VListCustomer">List Customer</a>
+          </div>
         </div>
-    </div>
-</li>
+      </li>
 
-<!-- Nav Item - Menu Anggota -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-        <i class="fa-solid fa-people-group"></i>
-        <span>Aset</span>
-    </a>
-    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
+      <!-- Nav Item - Menu Anggota -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fa-solid fa-people-group"></i>
+          <span>Aset</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="VListKendaraan">List Kendaraan</a>
+          </div>
         </div>
-    </div>
-</li>
+      </li>
 
 
       <!-- Divider -->

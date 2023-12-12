@@ -80,7 +80,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                 <div class="sidebar-brand-icon rotate-n-15">
 
                 </div>
-                <div class="sidebar-brand-text mx-3" style="font-size: 14px">PT SURYA KHARISMA HARTIWI</div>
+                <div class="sidebar-brand-text mx-3" style="font-size: 14px">PT DWI KHARISMA ABADI</div>
             </a>
 
             <!-- Divider -->
@@ -106,9 +106,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VListPiutang">List Piutang</a>
-                        <a class="collapse-item" href="VRiwayatPiutang">Riwayat Piutang</a>
-                        <a class="collapse-item" href="VLaporanSetoran">Laporan Setoran</a>
+                        <a class="collapse-item" href="VTransportFee">Transport Fee</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
                     </div>
                 </div>
@@ -227,8 +225,8 @@ if ($tanggal_awal == $tanggal_akhir) {
                         <!-- Card Body -->
                         <div style="height: 2520px;" class="card-body">
                             <div class="chart-area">
-                            <?php echo " <a style='font-size: 12px'> Data yang tampil  $tanggal_awal  sampai  $tanggal_akhir</a>" ?>
-                            <br>
+                                <?php echo " <a style='font-size: 12px'> Data yang tampil  $tanggal_awal  sampai  $tanggal_akhir</a>" ?>
+                                <br>
                                 <div align="left">
                                     <?php echo "<a href='VKasKecil?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir'><button type='button' class='btn btn-primary'>Kembali</button></a>"; ?>
                                 </div>
@@ -281,31 +279,31 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 if ($status_saldo == 'Masuk') {
                                                     echo "
                                                         <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?= formatuang($jumlah); ?> <?php echo "</td>";
-                                                                                                                    } else {
-                                                                                                                        echo "
+                                                                                                                                                    } else {
+                                                                                                                                                        echo "
                                                         <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?php echo "</td>";
-                                                                                                                    }
+                                                                                                                                                    }
 
-                                                                                                                    if ($status_saldo == 'Keluar') {
-                                                                                                                        echo "
+                                                                                                                                                    if ($status_saldo == 'Keluar') {
+                                                                                                                                                        echo "
                                                         <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?= formatuang($jumlah); ?> <?php echo "</td>";
-                                                                                                                    } else {
-                                                                                                                        echo "
+                                                                                                                                                    } else {
+                                                                                                                                                        echo "
                                                         <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?php echo "</td>";
-                                                                                                                    }
-                                                                                            ?>
+                                                                                                                                                    }
+                                                                                                                            ?>
                                                 <?php echo "
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$keterangan</td>
                                                 <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="" href="/SijugaPSO/AdminPSO/file_admin_pso/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
                                                 </tr>";
-                                            }
-                                                ?>
+                                                                                                                                                                                }
+                                                                                                                                                                                    ?>
 
                                         </tbody>
                                     </table>
                                 </div>
                                 <br>
-                             
+
 
 
                             </div>
