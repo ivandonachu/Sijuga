@@ -40,7 +40,7 @@ else if ( $nama_file != "" ) {
 
 
 
-		move_uploaded_file($tmp_name, '../file_admin_non_pso/' . $nama_file   );
+		move_uploaded_file($tmp_name, '../../../SijugaNonPSO/AdminNonPSO/file_admin_non_pso/' . $nama_file   );
 
 		return $nama_file; 
 

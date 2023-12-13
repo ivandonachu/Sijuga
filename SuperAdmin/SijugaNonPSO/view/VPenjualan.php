@@ -11,13 +11,12 @@ $data1 = mysqli_fetch_array($result1);
 $jabatan_valid = $data1['jabatan'];
 $nama = $data1['nama'];
 $foto_profile = $data1['foto_profile'];
-$username = $data1['username'];
+
 if ($jabatan_valid == 'Super Admin') {
 } else {
     header("Location: logout.php");
     exit;
 }
-
 
 
 if (isset($_GET['tanggal1'])) {
@@ -257,11 +256,9 @@ if ($tanggal_awal == $tanggal_akhir) {
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VListAkun">List Akun</a>
-                        <a class="collapse-item" href="VListSaldo">List Saldo</a>
                     </div>
                 </div>
             </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -323,7 +320,7 @@ if ($tanggal_awal == $tanggal_akhir) {
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaNonPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Penjualan</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Penjualan</a> </small>
                     <br>
                     <br>
 
@@ -350,9 +347,9 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                 <form action="VPenjualan" method="POST">
                                     <div class="row" align="right">
-                                        <input type="hidden" name="tanggal1" value="<?php echo $tanggal_awal; ?>">
-                                        <input type="hidden" name="tanggal2" value="<?php echo $tanggal_akhir; ?>">
                                         <div class="col-md-10">
+                                            <input type="hidden" name="tanggal1" value="<?php echo $tanggal_awal; ?>">
+                                            <input type="hidden" name="tanggal2" value="<?php echo $tanggal_akhir; ?>">
                                             <select id="tokens" class="selectpicker form-control-sm" name="nama_customer" multiple data-live-search="true">
                                                 <?php
                                                 include 'koneksi.php';
@@ -401,7 +398,16 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                         <?php echo "<form action='../proses/IPenjualan?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir' enctype='multipart/form-data' method='POST'>";  ?>
 
                                                         <br>
-
+                                                        <?php
+                                                        if (isset($_POST['nama_customer'])) {
+                                                        } else {
+                                                            echo "Silahkan Konfirmasi Pangkalan Terlebih Dahulu ";
+                                                        ?>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                        <?php
+                                                        } ?>
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <label>Tanggal</label>
@@ -723,6 +729,16 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                             <input type="hidden" name="no_penjualan" value="<?= $no_penjualan; ?>">
                                                                             <input type="hidden" name="tanggal1" value="<?php echo $tanggal_awal; ?>">
                                                                             <input type="hidden" name="tanggal2" value="<?php echo $tanggal_akhir; ?>">
+                                                                            <?php
+                                                                            if (isset($_POST['nama_customer'])) {
+                                                                            } else {
+                                                                                echo "Silahkan Konfirmasi Pangkalan Terlebih Dahulu ";
+                                                                            ?>
+                                                                                <br>
+                                                                                <br>
+                                                                                <br>
+                                                                            <?php
+                                                                            } ?>
                                                                             <div class="row">
                                                                                 <div class="col-md-6">
                                                                                     <label>Tanggal</label>
@@ -924,6 +940,16 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                                 <input type="hidden" name="no_penjualan" value="<?= $no_penjualan; ?>">
                                                                                 <input type="hidden" name="tanggal1" value="<?php echo $tanggal_awal; ?>">
                                                                                 <input type="hidden" name="tanggal2" value="<?php echo $tanggal_akhir; ?>">
+                                                                                <?php
+                                                                                if (isset($_POST['nama_customer'])) {
+                                                                                } else {
+                                                                                    echo "Silahkan Konfirmasi Pangkalan Terlebih Dahulu ";
+                                                                                ?>
+                                                                                    <br>
+                                                                                    <br>
+                                                                                    <br>
+                                                                                <?php
+                                                                                } ?>
                                                                                 <div class="row">
                                                                                     <div class="col-md-6">
                                                                                         <label>Tanggal</label>

@@ -18,18 +18,17 @@ $tanggal_awal = htmlspecialchars($_POST['tanggal1']);
 $tanggal_akhir = htmlspecialchars($_POST['tanggal2']);
 $no_laporan = htmlspecialchars($_POST['no_laporan']);
 $tanggal = htmlspecialchars($_POST['tanggal']);
-$jenis_setoran = htmlspecialchars($_POST['jenis_setoran']);
 $jumlah = htmlspecialchars($_POST['jumlah']);
 $keterangan = htmlspecialchars($_POST['keterangan']);
 $nama_file = $_FILES['file']['name'];
 
+$nama_file = $_FILES['file']['name'];
+
 if ($nama_file == "") {
-	$file = "";
-}
+    $file = "";
+} else if ($nama_file != "") {
 
-else if ( $nama_file != "" ) {
-
-	function upload(){
+    function upload(){
 		$nama_file = $_FILES['file']['name'];
 		$ukuran_file = $_FILES['file']['size'];
 		$error = $_FILES['file']['error'];
@@ -44,29 +43,28 @@ else if ( $nama_file != "" ) {
 		$nama_file_baru .= ".";
 		$nama_file_baru .= $ekstensi_file;
 
-		move_uploaded_file($tmp_name, '../../../SijugaNonPSO/AdminNonPSO/file_admin_non_pso/' . $nama_file_baru   );
+		move_uploaded_file($tmp_name, '../../../SijugaPSO/AdminPSO/file_admin_pso/' . $nama_file_baru   );
 
 		return $nama_file_baru; 
+    }
 
-	}
-
-	$file = upload();
-	if (!$file) {
-		return false;
-	}
-
+    $file = upload();
+    if (!$file) {
+        return false;
+    }
 }
 
 
+
   if ($file == '') {
-    mysqli_query($koneksi,"UPDATE setoran SET tanggal = '$tanggal',jenis_setoran = '$jenis_setoran', jumlah = '$jumlah', keterangan = '$keterangan' WHERE no_laporan =  '$no_laporan'");
+    mysqli_query($koneksi,"UPDATE transport_fee SET tanggal = '$tanggal' , jumlah = '$jumlah' , keterangan = '$keterangan' WHERE no_laporan =  '$no_laporan'");
   }
   else{
-    mysqli_query($koneksi,"UPDATE setoran SET tanggal = '$tanggal',jenis_setoran = '$jenis_setoran', jumlah = '$jumlah', keterangan = '$keterangan', file_bukti = '$file' WHERE no_laporan  =  '$no_laporan'");
+    mysqli_query($koneksi,"UPDATE transport_fee SET tanggal = '$tanggal' , jumlah = '$jumlah' , keterangan = '$keterangan', file_bukti = '$file' WHERE no_laporan =  '$no_laporan'");
                   
   }
 
-  echo "<script>alert('Data Setoran Berhasil di Edit'); window.location='../view/VLaporanSetoran?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";exit;
+  echo "<script>alert('Data Transport Fee Berhasil di Edit'); window.location='../view/VTransportFee?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";exit;
 
 
 

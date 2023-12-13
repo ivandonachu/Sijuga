@@ -16,10 +16,15 @@ if ($jabatan_valid == 'Super Admin') {
 }
 $tanggal_awal = htmlspecialchars($_POST['tanggal1']);
 $tanggal_akhir = htmlspecialchars($_POST['tanggal2']);
-$no_laporan = htmlspecialchars($_POST['no_laporan']);
+$no_pembelian = htmlspecialchars($_POST['no_pembelian']);
 $tanggal = htmlspecialchars($_POST['tanggal']);
-$jenis_setoran = htmlspecialchars($_POST['jenis_setoran']);
-$jumlah = htmlspecialchars($_POST['jumlah']);
+$nama_akun = htmlspecialchars($_POST['nama_akun']);
+$nama_tabung = htmlspecialchars($_POST['nama_tabung']);
+$qty_pembelian = htmlspecialchars($_POST['qty_pembelian']);
+$harga_pembelian = htmlspecialchars($_POST['harga_pembelian']);
+$pph = htmlspecialchars($_POST['pph']);
+$ppn = htmlspecialchars($_POST['ppn']);
+$jumlah = ($qty_pembelian * $harga_pembelian) + ($pph + $ppn);
 $keterangan = htmlspecialchars($_POST['keterangan']);
 $nama_file = $_FILES['file']['name'];
 
@@ -44,7 +49,7 @@ else if ( $nama_file != "" ) {
 		$nama_file_baru .= ".";
 		$nama_file_baru .= $ekstensi_file;
 
-		move_uploaded_file($tmp_name, '../../../SijugaNonPSO/AdminNonPSO/file_admin_non_pso/' . $nama_file_baru   );
+		move_uploaded_file($tmp_name, '../../../SijugaPSO/AdminPSO/file_admin_pso/' . $nama_file_baru   );
 
 		return $nama_file_baru; 
 
@@ -59,14 +64,14 @@ else if ( $nama_file != "" ) {
 
 
   if ($file == '') {
-    mysqli_query($koneksi,"UPDATE setoran SET tanggal = '$tanggal',jenis_setoran = '$jenis_setoran', jumlah = '$jumlah', keterangan = '$keterangan' WHERE no_laporan =  '$no_laporan'");
+    mysqli_query($koneksi,"UPDATE pembelian_pso SET tanggal = '$tanggal' , nama_akun = '$nama_akun' , nama_tabung = '$nama_tabung' , qty_pembelian = '$qty_pembelian' , harga_pembelian = '$harga_pembelian' , jumlah = '$jumlah', pph = '$pph', ppn = '$ppn', keterangan = '$keterangan' WHERE no_pembelian =  '$no_pembelian'");
   }
   else{
-    mysqli_query($koneksi,"UPDATE setoran SET tanggal = '$tanggal',jenis_setoran = '$jenis_setoran', jumlah = '$jumlah', keterangan = '$keterangan', file_bukti = '$file' WHERE no_laporan  =  '$no_laporan'");
+    mysqli_query($koneksi,"UPDATE pembelian_pso SET tanggal = '$tanggal' , nama_akun = '$nama_akun' , nama_tabung = '$nama_tabung' , qty_pembelian = '$qty_pembelian' , harga_pembelian = '$harga_pembelian' , jumlah = '$jumlah', pph = '$pph', ppn = '$ppn', keterangan = '$keterangan', file_bukti = '$file' WHERE no_pembelian  =  '$no_pembelian'");
                   
   }
 
-  echo "<script>alert('Data Setoran Berhasil di Edit'); window.location='../view/VLaporanSetoran?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";exit;
+  echo "<script>alert('Data Pembelian Berhasil di Edit'); window.location='../view/VPembelian?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";exit;
 
 
 

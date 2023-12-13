@@ -23,9 +23,12 @@ $B05K00 = htmlspecialchars($_POST['B05K00']);
 $B12K01 = htmlspecialchars($_POST['B12K01']);
 $B12K10 = htmlspecialchars($_POST['B12K10']);
 $B12K00 = htmlspecialchars($_POST['B12K00']);
+$B50K01 = htmlspecialchars($_POST['B50K01']);
+$B50K10 = htmlspecialchars($_POST['B50K10']);
+$B50K00 = htmlspecialchars($_POST['B50K00']);
 
 
-            mysqli_query($koneksi,"INSERT INTO laporan_inventory VALUES('','$tanggal','$B05K01','$B05K01','$B05K10','$B05K00','$B12K01','$B12K01','$B12K10','$B12K00')");
+            mysqli_query($koneksi,"INSERT INTO laporan_inventory VALUES('','$tanggal','$B05K01','$B05K01','$B05K10','$B05K00','$B12K01','$B12K01','$B12K10','$B12K00','$B50K01','$B50K01','$B50K10','$B50K00')");
 
             mysqli_query($koneksi,"UPDATE inventory SET jumlah_tabung = '$B05K01' WHERE kode_tabung = 'B05K01' ");
             mysqli_query($koneksi,"UPDATE inventory SET jumlah_tabung = '$B05K01' WHERE kode_tabung = 'B05K11' ");
@@ -35,6 +38,11 @@ $B12K00 = htmlspecialchars($_POST['B12K00']);
             mysqli_query($koneksi,"UPDATE inventory SET jumlah_tabung = '$B12K01' WHERE kode_tabung = 'B12K11' ");
             mysqli_query($koneksi,"UPDATE inventory SET jumlah_tabung = '$B12K10' WHERE kode_tabung = 'B12K10' ");
             mysqli_query($koneksi,"UPDATE inventory SET jumlah_tabung = '$B12K00' WHERE kode_tabung = 'B12K00' ");
+            mysqli_query($koneksi,"UPDATE inventory SET jumlah_tabung = '$B50K01' WHERE kode_tabung = 'B50K01' ");
+            mysqli_query($koneksi,"UPDATE inventory SET jumlah_tabung = '$B50K01' WHERE kode_tabung = 'B50K11' ");
+            mysqli_query($koneksi,"UPDATE inventory SET jumlah_tabung = '$B50K10' WHERE kode_tabung = 'B50K10' ");
+            mysqli_query($koneksi,"UPDATE inventory SET jumlah_tabung = '$B50K00' WHERE kode_tabung = 'B50K00' ");
+            
 
                
             echo "<script>alert('Data Laporan Inventory Berhasil di Input'); window.location='../view/VLaporanInventory?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";exit;

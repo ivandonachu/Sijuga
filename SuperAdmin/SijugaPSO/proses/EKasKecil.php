@@ -54,7 +54,7 @@ if ($nama_file == "") {
 		$nama_file_baru .= ".";
 		$nama_file_baru .= $ekstensi_file;
 
-		move_uploaded_file($tmp_name, '../../../SijugaNonPSO/AdminNonPSO/file_admin_non_pso/' . $nama_file_baru);
+		move_uploaded_file($tmp_name, '../../../SijugaPSO/AdminPSO/file_admin_pso/' . $nama_file_baru);
 
 		return $nama_file_baru;
 	}
@@ -66,12 +66,12 @@ if ($nama_file == "") {
 }
 
 //saldo
-$sql_saldo = mysqli_query($koneksi, "SELECT * FROM list_saldo WHERE nama_saldo = 'Saldo Non PSO'");
+$sql_saldo = mysqli_query($koneksi, "SELECT * FROM list_saldo WHERE nama_saldo = 'Saldo PSO'");
 $data_saldo = mysqli_fetch_array($sql_saldo);
 $jumlah_saldo = $data_saldo['jumlah_saldo'];
 
 //kas kecil
-$sql_kas = mysqli_query($koneksi, "SELECT jumlah, akun_kas FROM kas_kecil WHERE no_laporan = '$no_laporan'");
+$sql_kas = mysqli_query($koneksi, "SELECT jumlah, akun_kas FROM kas_kecil_pso WHERE no_laporan = '$no_laporan'");
 $data_kas = mysqli_fetch_array($sql_kas);
 $jumlah_kas = $data_kas['jumlah'];
 $akun_kasx = $data_kas['akun_kas'];
@@ -96,12 +96,12 @@ if ($akun_kasx == 'PENAMBAHAN SALDO') {
 
 
 //update saldo
-mysqli_query($koneksi, "UPDATE list_saldo SET jumlah_saldo = '$jumlah_saldo_baru' WHERE nama_saldo =  'Saldo Non PSO'");
+mysqli_query($koneksi, "UPDATE list_saldo SET jumlah_saldo = '$jumlah_saldo_baru' WHERE nama_saldo =  'Saldo PSO'");
 
 if ($file == '') {
-	mysqli_query($koneksi, "UPDATE kas_kecil SET tanggal = '$tanggal' , akun_kas = '$akun_kas', no_polisi = '$no_polisi' , jumlah = '$jumlah', status_saldo = '$status_saldo' , keterangan = '$keterangan' WHERE no_laporan =  '$no_laporan'");
+	mysqli_query($koneksi, "UPDATE kas_kecil_pso SET tanggal = '$tanggal' , akun_kas = '$akun_kas', no_polisi = '$no_polisi' , jumlah = '$jumlah', status_saldo = '$status_saldo' , keterangan = '$keterangan' WHERE no_laporan =  '$no_laporan'");
 } else {
-	mysqli_query($koneksi, "UPDATE kas_kecil SET tanggal = '$tanggal' , akun_kas = '$akun_kas' , no_polisi = '$no_polisi', jumlah = '$jumlah', status_saldo = '$status_saldo' , keterangan = '$keterangan', file_bukti = '$file' WHERE no_laporan =  '$no_laporan'");
+	mysqli_query($koneksi, "UPDATE kas_kecil_pso SET tanggal = '$tanggal' , akun_kas = '$akun_kas' , no_polisi = '$no_polisi', jumlah = '$jumlah', status_saldo = '$status_saldo' , keterangan = '$keterangan', file_bukti = '$file' WHERE no_laporan =  '$no_laporan'");
 }
 
 echo "<script>alert('Data Pengeluaran Kas Berhasil di Edit'); window.location='../view/VKasKecil?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";

@@ -48,7 +48,7 @@ if ($nama_file == "") {
 		$nama_file_baru .= ".";
 		$nama_file_baru .= $ekstensi_file;
 
-		move_uploaded_file($tmp_name, '../../../SijugaNonPSO/AdminNonPSO/file_admin_non_pso/' . $nama_file_baru   );
+		move_uploaded_file($tmp_name, '../../../SijugaPSO/AdminPSO/file_admin_pso/' . $nama_file_baru   );
 
 		return $nama_file_baru; 
     }
@@ -62,7 +62,7 @@ if ($nama_file == "") {
 
 
 
-mysqli_query($koneksi, "INSERT INTO pembelian VALUES('','$tanggal','$nama_akun','$nama_tabung','$qty_pembelian','$harga_pembelian','$jumlah','$pph','$ppn','$keterangan','$file')");
+mysqli_query($koneksi, "INSERT INTO pembelian_pso VALUES('','$tanggal','$nama_akun','$nama_tabung','$qty_pembelian','$harga_pembelian','$jumlah','$pph','$ppn','$keterangan','$file')");
 
 echo "<script>alert('Data Pembelian Berhasil di Input'); window.location='../view/VPembelian?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";
 exit;
