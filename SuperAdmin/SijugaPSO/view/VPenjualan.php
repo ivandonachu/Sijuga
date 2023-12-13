@@ -353,7 +353,6 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                 <div class="col-md-6">
                                                                     <label>Pembayaran</label>
                                                                     <select name="pembayaran" class="form-control" required="">
-                                                                        <option>Cash</option>
                                                                         <option>Cashless</option>
                                                                     </select>
                                                                 </div>
@@ -552,7 +551,6 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                                 <div class="col-md-6">
                                                                                     <label>Pembayaran</label>
                                                                                     <select name="pembayaran" class="form-control" required="">
-                                                                                        <option>Cash</option>
                                                                                         <option>Cashless</option>
                                                                                     </select>
                                                                                 </div>
