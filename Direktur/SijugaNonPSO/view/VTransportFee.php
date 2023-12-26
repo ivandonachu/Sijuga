@@ -77,7 +77,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                 <div class="sidebar-brand-icon rotate-n-15">
 
                 </div>
-                <div class="sidebar-brand-text mx-3">PT Non PSO</div>
+                <div class="sidebar-brand-text mx-3">PT SURYA KHARISMA HARTIWI</div>
             </a>
 
             <!-- Divider -->
@@ -85,13 +85,41 @@ if ($tanggal_awal == $tanggal_akhir) {
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="DsAdmin">
+                <a class="nav-link" href="DsSijugaNonPSO">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span style="font-size: 17px;">Dashboard</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
+
+            <!-- Nav Item - Menu List Pt -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwox" aria-expanded="true" aria-controls="collapseTwox">
+                    <i class="fa-solid fa-building"></i>
+                    <span>List PT</span>
+                </a>
+                <div id="collapseTwox" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/Direktur/SijugaNonPSO/view/DsSijugaNonPSO">SijugaNonPSO</a>
+                        <a class="collapse-item" href="/Direktur/SijugaPSO/view/DsSijugaPSO">SijugaPSO</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Menu Laporan Perusahaan -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoz" aria-expanded="true" aria-controls="collapseTwoz">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>Laporan</span>
+                </a>
+                <div id="collapseTwoz" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VLabaRugi">Laba Rugi</a>
+                        <a class="collapse-item" href="VLaporanAlokasi">Laporan Alokasi</a>
+                    </div>
+                </div>
+            </li>
 
             <!-- Nav Item - Menu Keuangan -->
             <li class="nav-item">
@@ -103,23 +131,36 @@ if ($tanggal_awal == $tanggal_akhir) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VPengeluaran">Pengeluaran</a>
-                        <a class="collapse-item" href="VTransportFee">Transport Fee</a>
+                        <a class="collapse-item" href="VListPiutang">List Piutang</a>
+                        <a class="collapse-item" href="VRiwayatPiutang">Riwayat Piutang</a>
+                        <a class="collapse-item" href="VLaporanSetoran">Laporan Setoran</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
+                    </div>
+                </div>
+            </li>
 
+            <!-- Nav Item - Menu Pengeeluaran -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesx" aria-expanded="true" aria-controls="collapseUtilitiesx">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Pengeluaran</span>
+                </a>
+                <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VKasKecil">Kas Kecil</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Menu Anggota -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
                     <i class="fa-solid fa-people-group"></i>
-                    <span>Pangkalan</span>
+                    <span>Customer</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListPangkalan">List Pangkalan</a>
+                        <a class="collapse-item" href="VListCustomer">List Customer</a>
                     </div>
                 </div>
             </li>
@@ -234,6 +275,66 @@ if ($tanggal_awal == $tanggal_akhir) {
                                     <div class="col-md-6">
                                         <?php echo " <a style='font-size: 12px'> Data yang tampil  $tanggal_awal  sampai  $tanggal_akhir</a>" ?>
                                     </div>
+                                    <div class="col-md-6">
+                                        <!-- Button Input Data Bayar -->
+                                        <div align="right">
+                                            <button style="font-size: clamp(7px, 3vw, 15px); " type="button" class="btn btn-primary" data-toggle="modal" data-target="#input"> <i class="fas fa-plus-square mr-2"></i>Catat Transport Fee</button> <br> <br>
+                                        </div>
+                                        <!-- Form Modal  -->
+                                        <div class="modal fade bd-example-modal-lg" id="input" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title"> Form Transport Fee</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- Form Input Data -->
+                                                    <div class="modal-body" align="left">
+                                                        <?php echo "<form action='../proses/ITransportFee?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir' enctype='multipart/form-data' method='POST'>";  ?>
+
+                                                        <br>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>Tanggal</label>
+                                                                <input class="form-control " type="date" name="tanggal" required="">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Jumlah</label>
+                                                                <input class="form-control form-control-sm" type="text" name="jumlah" required="">
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>Keterangan</label>
+                                                                <textarea class="form-control form-control-sm" name="keterangan"></textarea>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Upload File</label>
+                                                                <input type="file" name="file">
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">INPUT</button>
+                                                            <button type="reset" class="btn btn-danger"> RESET</button>
+                                                        </div>
+                                                        </form>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <!-- Tabel -->
@@ -246,6 +347,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jumlah</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Keterangan</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">File</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -274,7 +376,98 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($jumlah); ?> <?php echo "</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$keterangan</td>
                                                 <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="" href="/SijugaNonPSO/Admin/file_admin/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
-                                                </tr>";
+                                                "; ?>
+                                                    <?php echo "<td style='font-size: clamp(12px, 1vw, 15px);'>"; ?>
+
+                                                    <button style=" font-size: clamp(7px, 1vw, 10px); color:black; " href="#" type="submit" class=" btn bg-warning mr-2 rounded" data-toggle="modal" data-target="#formedit<?php echo $data['no_laporan']; ?>" data-toggle='tooltip' title='Edit Transport Fee'>
+                                                        <i class="fa-regular fa-pen-to-square"></i></button>
+                                                    <!-- Form EDIT DATA -->
+
+                                                    <div class="modal fade" id="formedit<?php echo $data['no_laporan']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title"> Edit Transport Fee </h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                                                        <span aria-hidden="true"> &times; </span>
+                                                                    </button>
+                                                                </div>
+
+                                                                <!-- Form Edit Data -->
+                                                                <div class="modal-body">
+                                                                    <form action="../proses/ETransportFee" enctype="multipart/form-data" method="POST">
+
+                                                                        <input type="hidden" name="no_laporan" value="<?= $no_laporan; ?>">
+                                                                        <input type="hidden" name="tanggal1" value="<?php echo $tanggal_awal; ?>">
+                                                                        <input type="hidden" name="tanggal2" value="<?php echo $tanggal_akhir; ?>">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <label>Tanggal</label>
+                                                                                <input class="form-control " type="date" name="tanggal" value="<?= $tanggal; ?>" required="">
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label>Jumlah</label>
+                                                                                <input class="form-control form-control-sm" type="text" name="jumlah" value="<?= $jumlah; ?>" required="">
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <br>
+
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <label>Keterangan</label>
+                                                                                <textarea class="form-control form-control-sm" name="keterangan"><?= $keterangan; ?></textarea>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label>Upload File</label>
+                                                                                <input type="file" name="file">
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <br>
+
+                                                                        <div class="modal-footer">
+                                                                            <button type="submit" class="btn btn-primary"> Ubah </button>
+                                                                            <button type="reset" class="btn btn-danger"> RESET</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Button Hapus -->
+                                                    <button style=" font-size: clamp(7px, 1vw, 10px); color:black;" href="#" type="submit" class=" btn btn-danger" data-toggle="modal" data-target="#PopUpHapus<?php echo $data['no_laporan']; ?>" data-toggle='tooltip' title='Hapus Transport Fee'>
+                                                        <i style="font-size: clamp(7px, 1vw, 10px); color: black;" class="fa-solid fa-trash"></i></button>
+                                                    <div class="modal fade" id="PopUpHapus<?php echo $data['no_laporan']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title"> <b> Hapus Transport Fee </b> </h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                                                        <span aria-hidden="true"> &times; </span>
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="modal-body">
+                                                                    <form action="../proses/DTransportFee" method="POST">
+                                                                        <input type="hidden" name="no_laporan" value="<?php echo $no_laporan; ?>">
+                                                                        <input type="hidden" name="tanggal1" value="<?php echo $tanggal_awal; ?>">
+                                                                        <input type="hidden" name="tanggal2" value="<?php echo $tanggal_akhir; ?>">
+                                                                        <div class="form-group">
+                                                                            <h6> Yakin Ingin Hapus Data Transport Fee ini ? </h6>
+                                                                        </div>
+
+                                                                        <div class="modal-footer">
+                                                                            <button type="submit" class="btn btn-primary"> Hapus </button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                <?php echo  " </td> </tr>";
                                             }
                                                 ?>
 

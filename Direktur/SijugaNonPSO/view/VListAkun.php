@@ -18,7 +18,6 @@ if ($jabatan_valid == 'Direktur') {
     exit;
 }
 
-
 $table = mysqli_query($koneksi, "SELECT * FROM account");
 
 
@@ -61,7 +60,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM account");
                 <div class="sidebar-brand-icon rotate-n-15">
 
                 </div>
-                <div class="sidebar-brand-text mx-3">PT Non PSO</div>
+                <div class="sidebar-brand-text mx-3">PT SURYA KHARISMA HARTIWI</div>
             </a>
 
             <!-- Divider -->
@@ -77,8 +76,8 @@ $table = mysqli_query($koneksi, "SELECT * FROM account");
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-             <!-- Nav Item - Menu List Pt -->
-             <li class="nav-item">
+            <!-- Nav Item - Menu List Pt -->
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwox" aria-expanded="true" aria-controls="collapseTwox">
                     <i class="fa-solid fa-building"></i>
                     <span>List PT</span>
@@ -115,23 +114,36 @@ $table = mysqli_query($koneksi, "SELECT * FROM account");
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VPengeluaran">Pengeluaran</a>
-                        <a class="collapse-item" href="VTransportFee">Transport Fee</a>
+                        <a class="collapse-item" href="VListPiutang">List Piutang</a>
+                        <a class="collapse-item" href="VRiwayatPiutang">Riwayat Piutang</a>
+                        <a class="collapse-item" href="VLaporanSetoran">Laporan Setoran</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
+                    </div>
+                </div>
+            </li>
 
+            <!-- Nav Item - Menu Pengeeluaran -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesx" aria-expanded="true" aria-controls="collapseUtilitiesx">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Pengeluaran</span>
+                </a>
+                <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="VKasKecil">Kas Kecil</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Menu Anggota -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
                     <i class="fa-solid fa-people-group"></i>
-                    <span>Pangkalan</span>
+                    <span>Customer</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListPangkalan">List Pangkalan</a>
+                        <a class="collapse-item" href="VListCustomer">List Customer</a>
                     </div>
                 </div>
             </li>
@@ -152,7 +164,6 @@ $table = mysqli_query($koneksi, "SELECT * FROM account");
                     </div>
                 </div>
             </li>
-
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -215,7 +226,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM account");
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaNonPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">List Akun</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">List Akun</a> </small>
                     <br>
                     <br>
 
@@ -228,6 +239,8 @@ $table = mysqli_query($koneksi, "SELECT * FROM account");
                         <div style="height: 630px;" class="card-body">
                             <div class="chart-area">
 
+                               
+
                                 <!-- Tabel -->
                                 <div style="overflow-x: auto" ;>
                                     <table align="center" id="example" class="table-sm table-striped table-bordered  nowrap" style="width:100%">
@@ -237,6 +250,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM account");
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Username</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jabatan</th>
+                                               
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -253,7 +267,8 @@ $table = mysqli_query($koneksi, "SELECT * FROM account");
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$username</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$jabatan</td>
-                                                </tr>";
+
+                                              </tr>";
                                             }
                                             ?>
 

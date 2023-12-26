@@ -20,6 +20,7 @@ if ($jabatan_valid == 'Direktur') {
 
 
 
+
 if (isset($_GET['tanggal1'])) {
     $tanggal_awal = $_GET['tanggal1'];
     $tanggal_akhir = $_GET['tanggal2'];
@@ -32,12 +33,12 @@ if (isset($_GET['tanggal1'])) {
 }
 
 if ($tanggal_awal == $tanggal_akhir) {
-    $table = mysqli_query($koneksi, "SELECT * FROM laporan_inventory WHERE tanggal = '$tanggal_awal'");
-    $table2 = mysqli_query($koneksi, "SELECT * FROM inventory ");
+    $table = mysqli_query($koneksi, "SELECT * FROM laporan_inventory_pso WHERE tanggal = '$tanggal_awal'");
+    $table2 = mysqli_query($koneksi, "SELECT * FROM inventory WHERE kode_tabung != 'B05K11' AND kode_tabung != 'B12K11' AND kode_tabung != 'B50K11' AND kode_tabung != 'L03K11'AND kode_tabung != 'L03K01'AND kode_tabung != 'L03K10'AND kode_tabung != 'L03K00' ");
 } else {
 
-    $table = mysqli_query($koneksi, "SELECT * FROM laporan_inventory WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'  ");
-    $table2 = mysqli_query($koneksi, "SELECT * FROM inventory WHERE kode_tabung != 'B05K11' AND kode_tabung != 'B12K11' AND kode_tabung != 'B50K11' AND kode_tabung != 'L03K11'AND kode_tabung != 'L03K01'AND kode_tabung != 'L03K10'AND kode_tabung != 'L03K00' ");
+    $table = mysqli_query($koneksi, "SELECT * FROM laporan_inventory_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'  ");
+    $table2 = mysqli_query($koneksi, "SELECT * FROM inventory WHERE  kode_tabung = 'L03K01'OR kode_tabung = 'L03K10'OR kode_tabung = 'L03K00' ");
 }
 
 ?>
@@ -71,118 +72,113 @@ if ($tanggal_awal == $tanggal_akhir) {
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+       <!-- Sidebar -->
+       <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-                <div class="sidebar-brand-icon rotate-n-15">
+<!-- Sidebar - Brand -->
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+    <div class="sidebar-brand-icon rotate-n-15">
 
-                </div>
-                <div class="sidebar-brand-text mx-3">PT SURYA KHARISMA HARTIWI</div>
-            </a>
+    </div>
+    <div class="sidebar-brand-text mx-3">PT DWI KHARISMA ABADI</div>
+</a>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+<!-- Divider -->
+<hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="DsSijugaNonPSO">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span style="font-size: 17px;">Dashboard</span></a>
-            </li>
+<!-- Nav Item - Dashboard -->
+<li class="nav-item">
+    <a class="nav-link" href="DsAdmin">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span style="font-size: 17px;">Dashboard</span></a>
+</li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+<!-- Divider -->
+<hr class="sidebar-divider">
 
-            <!-- Nav Item - Menu List Pt -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwox" aria-expanded="true" aria-controls="collapseTwox">
-                    <i class="fa-solid fa-building"></i>
-                    <span>List PT</span>
-                </a>
-                <div id="collapseTwox" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/Direktur/SijugaNonPSO/view/DsSijugaNonPSO">SijugaNonPSO</a>
-                        <a class="collapse-item" href="/Direktur/SijugaPSO/view/DsSijugaPSO">SijugaPSO</a>
-                    </div>
-                </div>
-            </li>
+<!-- Nav Item - Menu List Pt -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwox">
+        <i class="fa-solid fa-cash-register"></i>
+        <span>List PT</span>
+    </a>
+    <div id="collapseTwox" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="/Direktur/SijugaNonPSO/view/DsSijugaNonPSO">SijugaNonPSO</a>
+            <a class="collapse-item" href="/Direktur/SijugaPSO/view/DsSijugaPSO">SijugaPSO</a>
+        </div>
+    </div>
+</li>
 
-            <!-- Nav Item - Menu Laporan Perusahaan -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoz" aria-expanded="true" aria-controls="collapseTwoz">
-                    <i class="fa-solid fa-file-lines"></i>
-                    <span>Laporan</span>
-                </a>
-                <div id="collapseTwoz" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VLabaRugi">Laba Rugi</a>
-                        <a class="collapse-item" href="VLaporanAlokasi">Laporan Alokasi</a>
-                    </div>
-                </div>
-            </li>
+<!-- Nav Item - Menu Laporan Perusahaan -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoz" aria-expanded="true" aria-controls="collapseTwoz">
+        <i class="fa-solid fa-file-lines"></i>
+        <span>Laporan</span>
+    </a>
+    <div id="collapseTwoz" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="VLabaRugi">Laba Rugi</a>
+            <a class="collapse-item" href="VLaporanAlokasi">Laporan Alokasi</a>
+        </div>
+    </div>
+</li>
 
-            <!-- Nav Item - Menu Keuangan -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fa-solid fa-cash-register"></i>
-                    <span>Transaksi</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VPenjualan">Penjualan</a>
-                        <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VListPiutang">List Piutang</a>
-                        <a class="collapse-item" href="VRiwayatPiutang">Riwayat Piutang</a>
-                        <a class="collapse-item" href="VLaporanSetoran">Laporan Setoran</a>
-                        <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
-                    </div>
-                </div>
-            </li>
+ <!-- Nav Item - Menu Keuangan -->
+ <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fa-solid fa-cash-register"></i>
+        <span>Transaksi</span>
+    </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="VPenjualan">Penjualan</a>
+            <a class="collapse-item" href="VPembelian">Pembelian</a>
+            <a class="collapse-item" href="VTransportFee">Transport Fee</a>
+            <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
+        </div>
+    </div>
+</li>
 
-            <!-- Nav Item - Menu Pengeeluaran -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesx" aria-expanded="true" aria-controls="collapseUtilitiesx">
-                    <i class="fa-solid fa-wallet"></i>
-                    <span>Pengeluaran</span>
-                </a>
-                <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VKasKecil">Kas Kecil</a>
-                    </div>
-                </div>
-            </li>
+<!-- Nav Item - Menu Pengeeluaran -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesx" aria-expanded="true" aria-controls="collapseUtilitiesx">
+        <i class="fa-solid fa-wallet"></i>
+        <span>Pengeluaran</span>
+    </a>
+    <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="VKasKecil">Kas Kecil</a>
+        </div>
+    </div>
+</li>
 
-            <!-- Nav Item - Menu Anggota -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
-                    <i class="fa-solid fa-people-group"></i>
-                    <span>Customer</span>
-                </a>
-                <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListCustomer">List Customer</a>
-                    </div>
-                </div>
-            </li>
+<!-- Nav Item - Menu Anggota -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
+        <i class="fa-solid fa-people-group"></i>
+        <span>Customer</span>
+    </a>
+    <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="VListCustomer">List Customer</a>
+        </div>
+    </div>
+</li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+<!-- Nav Item - Menu Anggota -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+        <i class="fa-solid fa-people-group"></i>
+        <span>Aset</span>
+    </a>
+    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="VListKendaraan">List Kendaraan</a>
+        </div>
+    </div>
+</li>
 
-
-            <!-- Nav Item - Menu Pengaturan Akun -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Pengaturan Akun</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListAkun">List Akun</a>
-                    </div>
-                </div>
-            </li>
 
 
 
@@ -277,6 +273,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                     <div class="col-md-6">
                                         <?php echo " <a style='font-size: 12px'> Data yang tampil  $tanggal_awal  sampai  $tanggal_akhir</a>" ?>
                                     </div>
+                        
                                 </div>
 
                                 <!-- Tabel -->
@@ -286,15 +283,10 @@ if ($tanggal_awal == $tanggal_akhir) {
                                             <tr>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Tanggal</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">5,5 Kg Isi</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">5,5 Kg Kosong</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">5,5 Kg Retur</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">12 Kg Isi</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">12 Kg Kosong</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">12 Kg Retur</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">50 Kg Isi</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">50 Kg Kosong</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">50 Kg Retur</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">3 Kg Isi</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">3 Kg Kosong</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">3 Kg Retur</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -305,33 +297,20 @@ if ($tanggal_awal == $tanggal_akhir) {
                                             while ($data = mysqli_fetch_array($table)) {
                                                 $no_laporan = $data['no_laporan'];
                                                 $tanggal = $data['tanggal'];
-                                                $B05K01 = $data['B05K01'];
-                                                $B05K11 = $data['B05K11'];
-                                                $B05K10 = $data['B05K10'];
-                                                $B05K00 = $data['B05K00'];
-                                                $B12K01 = $data['B12K01'];
-                                                $B12K11 = $data['B12K11'];
-                                                $B12K10 = $data['B12K10'];
-                                                $B12K00 = $data['B12K00'];
-                                                $B50K01 = $data['B50K01'];
-                                                $B50K11 = $data['B50K11'];
-                                                $B50K10 = $data['B50K10'];
-                                                $B50K00 = $data['B50K00'];
+                                                $L03K01 = $data['L03K01'];
+                                                $L03K11 = $data['L03K11'];
+                                                $L03K10 = $data['L03K10'];
+                                                $L03K00 = $data['L03K00'];
+
                                                 $no_urut++;
 
                                                 echo "<tr>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_urut</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$tanggal</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B05K01</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B05K10</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B05K00</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B12K01</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B12K10</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B12K00</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B50K01</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B50K10</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$B50K00</td>
-                                               </tr>";
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$L03K01</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$L03K10</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$L03K00</td>
+                                              </tr>";
                                             }
                                             ?>
 

@@ -57,7 +57,7 @@ if ($jabatan_valid == 'Direktur') {
         <div class="sidebar-brand-icon rotate-n-15">
 
         </div>
-        <div class="sidebar-brand-text mx-3">PT SURYA KHARISMA HARTIWI</div>
+        <div class="sidebar-brand-text mx-3">PT DWI KHARISMA ABADI</div>
       </a>
 
       <!-- Divider -->
@@ -65,7 +65,7 @@ if ($jabatan_valid == 'Direktur') {
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="DsSijugaNonPSO">
+        <a class="nav-link" href="DsAdmin">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span style="font-size: 17px;">Dashboard</span></a>
       </li>
@@ -75,8 +75,8 @@ if ($jabatan_valid == 'Direktur') {
 
       <!-- Nav Item - Menu List Pt -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwox" aria-expanded="true" aria-controls="collapseTwox">
-          <i class="fa-solid fa-building"></i>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwox">
+          <i class="fa-solid fa-cash-register"></i>
           <span>List PT</span>
         </a>
         <div id="collapseTwox" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -111,9 +111,7 @@ if ($jabatan_valid == 'Direktur') {
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="VPenjualan">Penjualan</a>
             <a class="collapse-item" href="VPembelian">Pembelian</a>
-            <a class="collapse-item" href="VListPiutang">List Piutang</a>
-            <a class="collapse-item" href="VRiwayatPiutang">Riwayat Piutang</a>
-            <a class="collapse-item" href="VLaporanSetoran">Laporan Setoran</a>
+            <a class="collapse-item" href="VTransportFee">Transport Fee</a>
             <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
           </div>
         </div>
@@ -144,6 +142,20 @@ if ($jabatan_valid == 'Direktur') {
           </div>
         </div>
       </li>
+
+      <!-- Nav Item - Menu Anggota -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fa-solid fa-people-group"></i>
+          <span>Aset</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="VListKendaraan">List Kendaraan</a>
+          </div>
+        </div>
+      </li>
+
 
       <!-- Divider -->
       <hr class="sidebar-divider">

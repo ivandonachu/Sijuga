@@ -18,25 +18,8 @@ if ($jabatan_valid == 'Direktur') {
     exit;
 }
 
+$table = mysqli_query($koneksi, "SELECT * FROM list_kendaraan");
 
-
-if (isset($_GET['tanggal1'])) {
-    $tanggal_awal = $_GET['tanggal1'];
-    $tanggal_akhir = $_GET['tanggal2'];
-} elseif (isset($_POST['tanggal1'])) {
-    $tanggal_awal = $_POST['tanggal1'];
-    $tanggal_akhir = $_POST['tanggal2'];
-} else {
-    $tanggal_awal = date('Y-m-1');
-    $tanggal_akhir = date('Y-m-31');
-}
-
-if ($tanggal_awal == $tanggal_akhir) {
-    $table = mysqli_query($koneksi, "SELECT nama_pangkalan , SUM(qty_55kg) AS total_alokasi_55kg , SUM(qty_12kg) AS total_alokasi_12kg FROM penjualan a INNER JOIN pangkalan b ON b.no_registrasi=a.no_registrasi WHERE tanggal = '$tanggal_awal' GROUP BY b.nama_pangkalan");
-} else {
-
-    $table = mysqli_query($koneksi, "SELECT nama_pangkalan , SUM(qty_55kg) AS total_alokasi_55kg , SUM(qty_12kg) AS total_alokasi_12kg  FROM penjualan a INNER JOIN pangkalan b ON b.no_registrasi=a.no_registrasi WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY b.nama_pangkalan");
-}
 
 ?>
 
@@ -51,7 +34,7 @@ if ($tanggal_awal == $tanggal_akhir) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Laporan Alokasi</title>
+    <title>List Kendaraan</title>
 
     <!-- Custom fonts for this template-->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -183,7 +166,6 @@ if ($tanggal_awal == $tanggal_akhir) {
             </li>
 
 
-
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -245,132 +227,193 @@ if ($tanggal_awal == $tanggal_akhir) {
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaNonPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Laporan Alokasi</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">List Kendaraan</a> </small>
                     <br>
                     <br>
 
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h5 style="color: grey;">Laporan Alokasi</h5>
+                            <h5 style="color: grey;">List Kendaraan</h5>
                         </div>
                         <!-- Card Body -->
-                        <div style="height: 980px;" class="card-body">
+                        <div style="height: 820px;" class="card-body">
                             <div class="chart-area">
-
-                                <!-- Form Tanggal Akses Data -->
-                                <?php echo "<form  method='POST' action='VLaporanAlokasi' style='margin-bottom: 15px;'>" ?>
-                                <div>
-                                    <div align="left" style="margin-left: 20px;">
-                                        <input type="date" id="tanggal1" style="font-size: 14px" name="tanggal1">
-                                        <span>-</span>
-                                        <input type="date" id="tanggal2" style="font-size: 14px" name="tanggal2">
-                                        <button type="submit" name="submmit" style="font-size: 12px; margin-left: 10px; margin-bottom: 2px;" class="btn1 btn btn-outline-primary btn-sm">Lihat</button>
-                                    </div>
-                                </div>
-                                </form>
 
                                 <!-- Form Input -->
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <?php echo " <a style='font-size: 12px'> Data yang tampil  $tanggal_awal  sampai  $tanggal_akhir</a>" ?>
+                                    <div class="col-md-10">
+
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-2">
+                                        <!-- Button Input Data Bayar -->
                                         <div align="right">
-
-                                            <?php echo "<a href='VCetakLaporanAlokasi?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir' target='_blank'><button style='color:white;
-                                          '  type='submit' class=' btn btn-secondary' >  <i class='fa-solid fa-print'></i> Cetak Laporan Alokasi</button></a>"; ?>
+                                            <button style="font-size: clamp(7px, 3vw, 15px); " type="button" class="btn btn-primary" data-toggle="modal" data-target="#input"> <i class="fas fa-plus-square mr-2"></i>Tambah Kendaraan</button> <br> <br>
                                         </div>
-                                    </div>
+                                        <!-- Form Modal  -->
+                                        <div class="modal fade bd-example-modal-lg" id="input" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title"> Form Tambah Kendaraan</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
 
+                                                    <!-- Form Input Data -->
+                                                    <div class="modal-body" align="left">
+                                                        <?php echo "<form action='../proses/IKendaraan' enctype='multipart/form-data' method='POST'>";  ?>
+
+                                                        <br>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>No Polisi Kendaraan</label>
+                                                                <input class="form-control form-control-sm" type="text" name="no_polisi" required="">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Status kendaraan</label>
+                                                                <select name="status_kendaraan" class="form-control" required="">
+                                                                    <option>PSO</option>
+                                                                    <option>Non PSO</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">TAMBAH</button>
+                                                            <button type="reset" class="btn btn-danger"> RESET</button>
+                                                        </div>
+                                                        </form>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
-                                <br>
+
                                 <!-- Tabel -->
                                 <div style="overflow-x: auto" ;>
                                     <table align="center" id="example" class="table-sm table-striped table-bordered  nowrap" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Pangkalan</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Total Alokasi 5,5 Kg</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Total Alokasi 12 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Kode Kendaraan</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No Polisi Kendaraan</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Status Kendaraan</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
                                             <?php
-                                            $no_urut = 0;
-                                            $total_alokasi_55kg_global = 0;
-                                            $total_alokasi_12kg_global = 0;
-                                            function formatuang($angka)
-                                            {
-                                                $uang = "Rp " . number_format($angka, 2, ',', '.');
-                                                return $uang;
-                                            }
 
                                             while ($data = mysqli_fetch_array($table)) {
-                                                $nama_pangkalan = $data['nama_pangkalan'];
-                                                $total_alokasi_55kg = $data['total_alokasi_55kg'];
-                                                $total_alokasi_12kg = $data['total_alokasi_12kg'];
+                                                $kode_kendaraan = $data['kode_kendaraan'];
+                                                $no_polisi = $data['no_polisi'];
+                                                $status_kendaraan = $data['status_kendaraan'];
 
-                                                $total_alokasi_55kg_global = $total_alokasi_55kg_global + $total_alokasi_55kg;
-                                                $total_alokasi_12kg_global = $total_alokasi_12kg_global + $total_alokasi_12kg;
-                                                $no_urut++;
 
                                                 echo "<tr>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_urut</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_pangkalan</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$total_alokasi_55kg</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$total_alokasi_12kg</td>
-                                                </tr>";
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$kode_kendaraan</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_polisi</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$status_kendaraan</td>
+
+                                                "; ?>
+                                                <?php echo "<td style='font-size: clamp(12px, 1vw, 15px);'>"; ?>
+
+                                                <button style=" font-size: clamp(7px, 1vw, 10px); color:black; " href="#" type="submit" class=" btn bg-warning mr-2 rounded" data-toggle="modal" data-target="#formedit<?php echo $data['kode_kendaraan']; ?>" data-toggle='tooltip' title='Edit Data Kendaraan'>
+                                                    <i class="fa-regular fa-pen-to-square"></i></button>
+                                                <!-- Form EDIT DATA -->
+
+                                                <div class="modal fade" id="formedit<?php echo $data['kode_kendaraan']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title"> Edit Data Kendaraan </h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                                                    <span aria-hidden="true"> &times; </span>
+                                                                </button>
+                                                            </div>
+
+                                                            <!-- Form Edit Data -->
+                                                            <div class="modal-body">
+                                                                <form action="../proses/EKendaraan" enctype="multipart/form-data" method="POST">
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <label>Kode Kendaraan</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="kode_kendaraan" value="<?= $kode_kendaraan; ?>" required="" disabled>
+                                                                            <input type="hidden" name="kode_kendaraan" value="<?= $kode_kendaraan; ?>">
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label>No Polisi Kendaraan</label>
+                                                                            <input class="form-control form-control-sm" type="text" name="no_polisi" value="<?= $no_polisi; ?>" required="" disabled>
+                                                                            <input type="hidden" name="no_polisi" value="<?= $no_polisi; ?>">
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label>Status Kendaraan</label>
+                                                                            <select name="status_kendaraan" class="form-control">
+                                                                                <?php $dataSelect = $data['status_kendaraan']; ?>
+                                                                                <option <?php echo ($dataSelect == 'PSO') ? "selected" : "" ?>>PSO</option>
+                                                                                <option <?php echo ($dataSelect == 'Non PSO') ? "selected" : "" ?>>Non PSO</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <br>
+
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit" class="btn btn-primary"> Ubah </button>
+                                                                        <button type="reset" class="btn btn-danger"> RESET</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Button Hapus -->
+                                                <button style=" font-size: clamp(7px, 1vw, 10px); color:black;" href="#" type="submit" class=" btn btn-danger" data-toggle="modal" data-target="#PopUpHapus<?php echo $data['kode_kendaraan']; ?>" data-toggle='tooltip' title='Hapus Kendaraan'>
+                                                    <i style="font-size: clamp(7px, 1vw, 10px); color: black;" class="fa-solid fa-trash"></i></button>
+                                                <div class="modal fade" id="PopUpHapus<?php echo $data['kode_kendaraan']; ?>" role="dialog" arialabelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title"> <b> Hapus Kendaraan </b> </h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                                                    <span aria-hidden="true"> &times; </span>
+                                                                </button>
+                                                            </div>
+
+                                                            <div class="modal-body">
+                                                                <form action="../proses/DKendaraan" method="POST">
+                                                                    <input type="hidden" name="kode_kendaraan" value="<?php echo $kode_kendaraan; ?>">
+                                                                    <div class="form-group">
+                                                                        <h6> Yakin Ingin Hapus Kendaraan <?php echo $data['kode_kendaraan']; ?> ? </h6>
+                                                                    </div>
+
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit" class="btn btn-primary"> Hapus </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            <?php echo  " </td> </tr>";
                                             }
                                             ?>
 
                                         </tbody>
                                     </table>
                                 </div>
-                                <br>
-
-                                <!-- Kotak pemasukan pengeluaran -->
-                                <div class="row">
-                                    <!-- Penjualan CASHLESS -->
-                                    <div class="col-xl-6 col-md-6 mb-4">
-                                        <div class="card border-left-success shadow h-100 py-2">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                            Total Seluruh Alokasi 5,5 KG</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= ($total_alokasi_55kg_global) ?></div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <i class="fa-solid fa-dolly"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Penjualan CASH -->
-                                    <div class="col-xl-6 col-md-6 mb-4">
-                                        <div class="card border-left-success shadow h-100 py-2">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                            Total Seluruh Alokasi 12 KG</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= ($total_alokasi_12kg_global)  ?></div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <i class="fa-solid fa-dolly"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
                             </div>
                         </div>
                     </div>
