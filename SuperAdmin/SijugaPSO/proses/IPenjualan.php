@@ -18,32 +18,10 @@ $tanggal_awal = $_GET['tanggal1'];
 $tanggal_akhir = $_GET['tanggal2'];
 $tanggal = htmlspecialchars($_POST['tanggal']);
 $nama_akun = htmlspecialchars($_POST['nama_akun']);
-
-if(!isset($_POST['nama_customer'])){
-    $nama_customer = "";
-}else{
- $nama_customer = htmlspecialchars($_POST['nama_customer']);
-}
-
-
-if($nama_customer == ""){
-   echo "<script>alert('Nama Customer Tidak Boleh Kosong'); window.location='../view/VPenjualan?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";
-    exit;
-
-}
-$pembayaran = htmlspecialchars($_POST['pembayaran']);
-
-//akses data pangkalan
-$sql_customer = mysqli_query($koneksi, "SELECT kode_customer, harga_3kg FROM customer WHERE nama_customer = '$nama_customer'");
-$data_customer = mysqli_fetch_array($sql_customer);
-$kode_customer = $data_customer['kode_customer'];
-$harga_3kg = $data_customer['harga_3kg'];
-
-
-
+$kode_customer = htmlspecialchars($_POST['kode_customer']);
 $qty_3kg = htmlspecialchars($_POST['qty_3kg']);
-$jumlah = $qty_3kg * $harga_3kg;
-
+$harga_3kg = htmlspecialchars($_POST['harga_3kg']);
+$jumlah = htmlspecialchars($_POST['jumlah_3kg']);
 $status_penjualan = htmlspecialchars($_POST['status_penjualan']);
 $keterangan = htmlspecialchars($_POST['keterangan']);
 

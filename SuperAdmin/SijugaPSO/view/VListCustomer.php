@@ -68,7 +68,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM customer");
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="DsAdmin">
+                <a class="nav-link" href="DsSijugaPSO">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span style="font-size: 17px;">Dashboard</span></a>
             </li>
@@ -206,7 +206,7 @@ $table = mysqli_query($koneksi, "SELECT * FROM customer");
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">List Customer</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">List Customer</a> </small>
                     <br>
                     <br>
 

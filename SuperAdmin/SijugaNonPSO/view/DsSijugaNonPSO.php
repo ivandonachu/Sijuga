@@ -11,13 +11,12 @@ $data1 = mysqli_fetch_array($result1);
 $jabatan_valid = $data1['jabatan'];
 $nama = $data1['nama'];
 $foto_profile = $data1['foto_profile'];
-
+$username = $data1['username'];
 if ($jabatan_valid == 'Super Admin') {
 } else {
     header("Location: logout.php");
     exit;
 }
-
 
 
 
@@ -116,6 +115,15 @@ while ($data3 = mysqli_fetch_assoc($table3)) {
     $data_tanggal[] = "$tanggal_grafik";
 }
 
+//data Penjualan 3kg
+$table7 = mysqli_query($koneksi, "SELECT sum(jumlah) AS jumlah_penjualan_3 FROM penjualan_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal   ");
+
+while ($data7 = mysqli_fetch_array($table7)) {
+    $jumlah_penjualan_3 = $data7['jumlah_penjualan_3'];
+    $data_penjualan_3[] = "$jumlah_penjualan_3";
+}
+
+
 //data Penjualan 5,5kg
 $table4 = mysqli_query($koneksi, "SELECT sum(jumlah_55kg) AS jumlah_penjualan_55 FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal   ");
 
@@ -130,6 +138,14 @@ $table5 = mysqli_query($koneksi, "SELECT sum(jumlah_12kg) AS jumlah_penjualan_12
 while ($data5 = mysqli_fetch_array($table5)) {
     $jumlah_penjualan_12 = $data5['jumlah_penjualan_12'];
     $data_penjualan_12[] = "$jumlah_penjualan_12";
+}
+
+//data Penjualan 50kg
+$table6 = mysqli_query($koneksi, "SELECT sum(jumlah_50kg) AS jumlah_penjualan_50 FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal ");
+
+while ($data6 = mysqli_fetch_array($table6)) {
+    $jumlah_penjualan_50 = $data6['jumlah_penjualan_50'];
+    $data_penjualan_50[] = "$jumlah_penjualan_50";
 }
 
 
@@ -248,8 +264,8 @@ while ($data5 = mysqli_fetch_array($table5)) {
                 </div>
             </li>
 
-             <!-- Nav Item - Menu Keuangan -->
-             <li class="nav-item">
+            <!-- Nav Item - Menu Keuangan -->
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fa-solid fa-cash-register"></i>
                     <span>Transaksi</span>
@@ -323,6 +339,8 @@ while ($data5 = mysqli_fetch_array($table5)) {
                 </div>
             </li>
 
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -449,7 +467,7 @@ while ($data5 = mysqli_fetch_array($table5)) {
                                     <h5 style="color: black;">Laporan Inventory</h5>
                                 </div>
                                 <!-- Card Body -->
-                                <div style="height: 300px;" class="card-body">
+                                <div style="height: 550px;" class="card-body">
                                     <div class="chart-area">
                                         <!-- Tabel Inventory -->
 
@@ -605,6 +623,13 @@ while ($data5 = mysqli_fetch_array($table5)) {
                 }
             },
             series: [{
+                name: 'Penjualan 3 Kg',
+                data: [<?php foreach ($data_penjualan_3 as $n) {
+                            print_r($n);
+                            echo ",";
+                        } ?>]
+
+            }, {
                 name: 'Penjualan 5,5 Kg',
                 data: [<?php foreach ($data_penjualan_55 as $x) {
                             print_r($x);
@@ -614,6 +639,13 @@ while ($data5 = mysqli_fetch_array($table5)) {
             }, {
                 name: 'Penjualan 12 Kg',
                 data: [<?php foreach ($data_penjualan_12 as $n) {
+                            print_r($n);
+                            echo ",";
+                        } ?>]
+
+            }, {
+                name: 'Penjualan 50 Kg',
+                data: [<?php foreach ($data_penjualan_50 as $n) {
                             print_r($n);
                             echo ",";
                         } ?>]

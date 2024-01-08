@@ -94,7 +94,7 @@ if ($tanggal_awal == $tanggal_akhir) {
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="DsAdmin">
+                <a class="nav-link" href="DsSijugaPSO">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span style="font-size: 17px;">Dashboard</span></a>
             </li>
@@ -232,7 +232,7 @@ if ($tanggal_awal == $tanggal_akhir) {
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsAdmin">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Penjualan</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Penjualan</a> </small>
                     <br>
                     <br>
 
@@ -255,33 +255,6 @@ if ($tanggal_awal == $tanggal_akhir) {
                                         <button type="submit" name="submmit" style="font-size: 12px; margin-left: 10px; margin-bottom: 2px;" class="btn1 btn btn-outline-primary btn-sm">Lihat</button>
                                     </div>
                                 </div>
-                                </form>
-
-                                <form action="VPenjualan" method="POST">
-                                    <div class="row" align="right">
-                                        <div class="col-md-10">
-                                            <input type="hidden" name="tanggal1" value="<?php echo $tanggal_awal; ?>">
-                                            <input type="hidden" name="tanggal2" value="<?php echo $tanggal_akhir; ?>">
-                                            <select id="tokens" class="selectpicker form-control-sm" name="nama_customer" multiple data-live-search="true">
-                                                <?php
-                                                include 'koneksi.php';
-
-                                                $result = mysqli_query($koneksi, "SELECT nama_customer FROM customer");
-
-                                                while ($data2 = mysqli_fetch_array($result)) {
-                                                    $nama_customer = $data2['nama_customer'];
-
-                                                ?>
-                                                    <option value="<?= $data2['nama_customer']; ?>"><?php echo $data2['nama_customer']; ?></option>
-                                                <?php
-                                                }
-                                                ?>
-                                            </select>
-
-
-                                            <button type="submit" class="btn btn-primary" style=" font-size: clamp(7px, 1vw, 10px); color:white; ">Kofirm Customer</button>
-                                        </div>
-                                    </div>
                                 </form>
 
                                 <!-- Form Input -->
@@ -308,16 +281,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                     <!-- Form Input Data -->
                                                     <div class="modal-body" align="left">
                                                         <?php echo "<form action='../proses/IPenjualan?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir' enctype='multipart/form-data' method='POST'>";  ?>
-                                                        <?php
-                                                        if (isset($_POST['nama_customer'])) {
-                                                        } else {
-                                                            echo "Silahkan Konfirmasi Pangkalan Terlebih Dahulu ";
-                                                        ?>
-                                                            <br>
-                                                            <br>
-                                                            <br>
-                                                        <?php
-                                                        } ?>
+
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <label>Tanggal</label>
@@ -335,42 +299,58 @@ if ($tanggal_awal == $tanggal_akhir) {
 
                                                         <br>
 
-                                                        <?php
-                                                        if (isset($_POST['nama_customer'])) {
-                                                            $nama_customer = $_POST['nama_customer'];
+                                                        <div class="row">
+                                                            <div class="col-md-6">
 
-                                                            //menampilkan data pegawai berdasarkan pilihan combobox ke dalam form
-                                                            $sql_customer = mysqli_query($koneksi, "SELECT * FROM customer WHERE nama_customer='$nama_customer'");
-                                                            $data_customer = mysqli_fetch_array($sql_customer);
 
-                                                        ?>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <label>Nama Customer</label>
-                                                                    <input class="form-control form-control-sm" type="text" name="nama_customer" value="<?php echo $data_customer['nama_customer']; ?>" disabled="">
-                                                                    <input type="hidden" name="nama_customer" value="<?= $nama_customer; ?>">
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <label>Pembayaran</label>
-                                                                    <select name="pembayaran" class="form-control" required="">
-                                                                        <option>Cashless</option>
-                                                                    </select>
-                                                                </div>
+                                                                <label>Nama Pangkalan</label>
+
+                                                                <select id="tokens" name="kode_customer" class="selectpicker form-control" data-live-search="true" onchange="detail()">
+                                                                    <option value=""></option>
+                                                                    <?php
+                                                                    include 'koneksi.php';
+
+                                                                    $result = mysqli_query($koneksi, "SELECT * FROM customer");
+
+                                                                    while ($data2 = mysqli_fetch_array($result)) {
+
+                                                                    ?>
+                                                                        <option value="<?= $data2['kode_customer']; ?>"><?php echo $data2['nama_customer']; ?></option>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
+                                                                </select>
 
                                                             </div>
 
 
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <label>QTY 3 Kg</label>
-                                                                    <input class="form-control form-control-sm" type="text" name="qty_3kg" value="0" required="">
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <label>Harga 3 Kg</label>
-                                                                    <input class="form-control form-control-sm" type="text" name="harga_3kg" value="<?php echo $data_customer['harga_3kg']; ?>" disabled="">
-                                                                </div>
+
+                                                            <div class="col-md-6">
+                                                                <label>Pembayaran</label>
+                                                                <select name="pembayaran" class="form-control" required="">
+                                                                    <option>Cashless</option>
+                                                                </select>
                                                             </div>
-                                                        <?php } ?>
+
+                                                        </div>
+
+
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>QTY 3 Kg</label>
+                                                                <input class="form-control form-control-sm" type="text" name="qty_3kg" id="qty_3kg" required="" onkeyup="sum();">
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label>Harga 3 Kg</label>
+                                                                <input class="form-control form-control-sm" type="text" name="harga_3kg" id="harga_3kg" required="">
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label>Jumlah 3 Kg</label>
+                                                                <input class="form-control form-control-sm" type="text" name="jumlah_3kg" id="jumlah_3kg" required="">
+                                                            </div>
+                                                        </div>
+
+
                                                         <br>
 
                                                         <div class="row">
@@ -500,16 +480,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                         <input type="hidden" name="no_penjualan" value="<?= $no_penjualan; ?>">
                                                                         <input type="hidden" name="tanggal1" value="<?php echo $tanggal_awal; ?>">
                                                                         <input type="hidden" name="tanggal2" value="<?php echo $tanggal_akhir; ?>">
-                                                                        <?php
-                                                                        if (isset($_POST['nama_customer'])) {
-                                                                        } else {
-                                                                            echo "Silahkan Konfirmasi Pangkalan Terlebih Dahulu ";
-                                                                        ?>
-                                                                            <br>
-                                                                            <br>
-                                                                            <br>
-                                                                        <?php
-                                                                        } ?>
+
                                                                         <div class="row">
                                                                             <div class="col-md-6">
                                                                                 <label>Tanggal</label>
@@ -529,45 +500,60 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                         <br>
 
 
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
 
-
-
-                                                                        <?php
-                                                                        if (isset($_POST['nama_customer'])) {
-                                                                            $nama_customer = $_POST['nama_customer'];
-
-                                                                            //menampilkan data pegawai berdasarkan pilihan combobox ke dalam form
-                                                                            $sql_customer = mysqli_query($koneksi, "SELECT * FROM customer WHERE nama_customer='$nama_customer'");
-                                                                            $data_customer = mysqli_fetch_array($sql_customer);
-
-                                                                        ?>
-                                                                            <div class="row">
-
-                                                                                <div class="col-md-6">
-                                                                                    <label>Nama Customer</label>
-                                                                                    <input class="form-control form-control-sm" type="text" name="nama_customer" value="<?php echo $data_customer['nama_customer']; ?>" disabled="">
-                                                                                    <input type="hidden" name="nama_customer" value="<?= $nama_customer; ?>">
+                                                                                <div>
+                                                                                    <label>Nama Pangkalan</label>
                                                                                 </div>
-                                                                                <div class="col-md-6">
-                                                                                    <label>Pembayaran</label>
-                                                                                    <select name="pembayaran" class="form-control" required="">
-                                                                                        <option>Cashless</option>
-                                                                                    </select>
-                                                                                </div>
+
+
+                                                                                <select id="tokens2" name="nama_customer" class="selectpicker form-control" data-live-search="true">
+                                                                                    <option value=""></option>
+                                                                                    <?php $dataSelect = $data['nama_customer']; ?>
+                                                                                    <?php
+                                                                                    include 'koneksi.php';
+
+                                                                                    $result3 = mysqli_query($koneksi, "SELECT * FROM customer");
+
+                                                                                    while ($data3 = mysqli_fetch_array($result3)) {
+
+                                                                                    ?>
+                                                                                        <option value="<?= $data3['nama_customer']; ?>" <?php echo ($dataSelect == $data3['nama_customer']) ? "selected" : "" ?>><?php echo $data3['nama_customer']; ?></option>
+                                                                                    <?php
+                                                                                    }
+                                                                                    ?>
+                                                                                </select>
+
                                                                             </div>
 
 
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <label>QTY 3 Kg</label>
-                                                                                    <input class="form-control form-control-sm" type="text" name="qty_3kg" value="<?= $qty_3kg; ?>" required="">
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <label>Harga 3 Kg</label>
-                                                                                    <input class="form-control form-control-sm" type="text" name="harga_3kg" value="<?php echo $data_customer['harga_3kg']; ?>" disabled="">
-                                                                                </div>
+
+                                                                            <div class="col-md-6">
+                                                                                <label>Pembayaran</label>
+                                                                                <select name="pembayaran" class="form-control" required="">
+                                                                                    <option>Cashless</option>
+                                                                                </select>
                                                                             </div>
-                                                                        <?php } ?>
+
+                                                                        </div>
+
+
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label>QTY 3 Kg</label>
+                                                                                <input class="form-control form-control-sm" type="text" value="<?= $qty_3kg; ?>" name="qty_3kg" id="qty_3kg" required="">
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <label>Harga 3 Kg</label>
+                                                                                <input class="form-control form-control-sm" type="text" value="<?= $harga_3kg; ?>" name="harga_3kg" id="harga_3kg" required="" disabled>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <label>Jumlah 3 Kg</label>
+                                                                                <input class="form-control form-control-sm" type="text" value="<?= $jumlah; ?>" name="jumlah_3kg" id="jumlah_3kg" required="" disabled>
+                                                                            </div>
+                                                                        </div>
+
 
                                                                         <br>
 
@@ -812,7 +798,40 @@ if ($tanggal_awal == $tanggal_akhir) {
             maxOptions: 1
         });
     </script>
+    <script>
+        function sum() {
+            var qty_3kg = document.getElementById('qty_3kg').value;
+            var harga_3kg = document.getElementById('harga_3kg').value;
+            var result_3kg = parseInt(qty_3kg) * parseInt(harga_3kg);
 
+
+
+            if (!isNaN(result_3kg)) {
+                document.getElementById('jumlah_3kg').value = result_3kg;
+            }
+            s
+        }
+    </script>
+
+
+    <script>
+        function detail() {
+            var id = $("#tokens").val();
+            $.ajax({
+                url: "data.php",
+                method: "POST",
+                data: {
+                    id: id
+                },
+                dataType: "json",
+                success: function(data) {
+                    $('#harga_3kg').val(data.harga_3kg);
+                    $('#harga_3kg').val(data.harga_3kg);
+                    $('#harga_3kg').val(data.harga_3kg);
+                }
+            })
+        }
+    </script>
 
 </body>
 

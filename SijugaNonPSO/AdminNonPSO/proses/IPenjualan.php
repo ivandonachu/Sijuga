@@ -18,37 +18,18 @@ $tanggal_awal = $_GET['tanggal1'];
 $tanggal_akhir = $_GET['tanggal2'];
 $tanggal = htmlspecialchars($_POST['tanggal']);
 $nama_akun = htmlspecialchars($_POST['nama_akun']);
-
-if(!isset($_POST['nama_customer'])){
-    $nama_customer = "";
-}else{
- $nama_customer = htmlspecialchars($_POST['nama_customer']);
-}
-
-
-if($nama_customer == ""){
-   echo "<script>alert('Nama Customer Tidak Boleh Kosong'); window.location='../view/VPenjualan?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir';</script>";
-    exit;
-
-}
+$kode_customer = htmlspecialchars($_POST['kode_customer']);
 $pembayaran = htmlspecialchars($_POST['pembayaran']);
-
-//akses data pangkalan
-$sql_customer = mysqli_query($koneksi, "SELECT kode_customer, harga_12kg, harga_55kg, harga_50kg FROM customer WHERE nama_customer = '$nama_customer'");
-$data_customer = mysqli_fetch_array($sql_customer);
-$kode_customer = $data_customer['kode_customer'];
-$harga_12kg = $data_customer['harga_12kg'];
-$harga_55kg = $data_customer['harga_55kg'];
-$harga_50kg = $data_customer['harga_50kg'];
-
-
 $qty_55kg = htmlspecialchars($_POST['qty_55kg']);
-$jumlah_55kg = $qty_55kg * $harga_55kg;
 $qty_12kg = htmlspecialchars($_POST['qty_12kg']);
-$jumlah_12kg = $qty_12kg * $harga_12kg;
 $qty_50kg = htmlspecialchars($_POST['qty_50kg']);
-$jumlah_50kg = $qty_50kg * $harga_50kg;
-$jumlah = $jumlah_55kg + $jumlah_12kg + $jumlah_50kg;
+$harga_55kg = htmlspecialchars($_POST['harga_55kg']);
+$harga_12kg = htmlspecialchars($_POST['harga_12kg']);
+$harga_50kg = htmlspecialchars($_POST['harga_50kg']);
+$jumlah_55kg = htmlspecialchars($_POST['jumlah_55kg']);
+$jumlah_12kg = htmlspecialchars($_POST['jumlah_12kg']);
+$jumlah_50kg = htmlspecialchars($_POST['jumlah_50kg']);
+$jumlah = htmlspecialchars($_POST['jumlah']);
 $status_penjualan = htmlspecialchars($_POST['status_penjualan']);
 $keterangan = htmlspecialchars($_POST['keterangan']);
 

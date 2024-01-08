@@ -106,7 +106,7 @@ $table2 = mysqli_query($koneksi, "SELECT * FROM inventory ");
 //data grafik
 
 //data tanggal
-$table3 = mysqli_query($koneksi, "SELECT tanggal FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal ");
+$table3 = mysqli_query($koneksi, "SELECT tanggal FROM penjualan_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal ");
 
 
 while ($data3 = mysqli_fetch_assoc($table3)) {
@@ -115,21 +115,15 @@ while ($data3 = mysqli_fetch_assoc($table3)) {
     $data_tanggal[] = "$tanggal_grafik";
 }
 
-//data Penjualan 5,5kg
-$table4 = mysqli_query($koneksi, "SELECT sum(jumlah_55kg) AS jumlah_penjualan_55 FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal   ");
+//data Penjualan 3kg
+$table4 = mysqli_query($koneksi, "SELECT sum(jumlah) AS jumlah_penjualan_3 FROM penjualan_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal   ");
 
 while ($data4 = mysqli_fetch_array($table4)) {
-    $jumlah_penjualan_55 = $data4['jumlah_penjualan_55'];
-    $data_penjualan_55[] = "$jumlah_penjualan_55";
+    $jumlah_penjualan_3 = $data4['jumlah_penjualan_3'];
+    $data_penjualan_3[] = "$jumlah_penjualan_3";
 }
 
-//data Penjualan 12kg
-$table5 = mysqli_query($koneksi, "SELECT sum(jumlah_12kg) AS jumlah_penjualan_12 FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal ");
 
-while ($data5 = mysqli_fetch_array($table5)) {
-    $jumlah_penjualan_12 = $data5['jumlah_penjualan_12'];
-    $data_penjualan_12[] = "$jumlah_penjualan_12";
-}
 
 
 ?>
@@ -416,7 +410,7 @@ while ($data5 = mysqli_fetch_array($table5)) {
                                     <h5 style="color: black;">Laporan Inventory</h5>
                                 </div>
                                 <!-- Card Body -->
-                                <div style="height: 300px;" class="card-body">
+                                <div style="height: 550px;" class="card-body">
                                     <div class="chart-area">
                                         <!-- Tabel Inventory -->
 
@@ -572,16 +566,9 @@ while ($data5 = mysqli_fetch_array($table5)) {
                 }
             },
             series: [{
-                name: 'Penjualan 5,5 Kg',
-                data: [<?php foreach ($data_penjualan_55 as $x) {
+                name: 'Penjualan 3 Kg',
+                data: [<?php foreach ($data_penjualan_3 as $x) {
                             print_r($x);
-                            echo ",";
-                        } ?>]
-
-            }, {
-                name: 'Penjualan 12 Kg',
-                data: [<?php foreach ($data_penjualan_12 as $n) {
-                            print_r($n);
                             echo ",";
                         } ?>]
 

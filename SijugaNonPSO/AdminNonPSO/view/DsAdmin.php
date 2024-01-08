@@ -132,6 +132,16 @@ while ($data5 = mysqli_fetch_array($table5)) {
 }
 
 
+//data Penjualan 50kg
+$table6 = mysqli_query($koneksi, "SELECT sum(jumlah_50kg) AS jumlah_penjualan_50 FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY tanggal ");
+
+while ($data6 = mysqli_fetch_array($table6)) {
+    $jumlah_penjualan_50 = $data6['jumlah_penjualan_50'];
+    $data_penjualan_50[] = "$jumlah_penjualan_50";
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -418,7 +428,7 @@ while ($data5 = mysqli_fetch_array($table5)) {
                                     <h5 style="color: black;">Laporan Inventory</h5>
                                 </div>
                                 <!-- Card Body -->
-                                <div style="height: 300px;" class="card-body">
+                                <div style="height: 550px;" class="card-body">
                                     <div class="chart-area">
                                         <!-- Tabel Inventory -->
 
@@ -583,6 +593,13 @@ while ($data5 = mysqli_fetch_array($table5)) {
             }, {
                 name: 'Penjualan 12 Kg',
                 data: [<?php foreach ($data_penjualan_12 as $n) {
+                            print_r($n);
+                            echo ",";
+                        } ?>]
+
+            }, {
+                name: 'Penjualan 50 Kg',
+                data: [<?php foreach ($data_penjualan_50 as $n) {
                             print_r($n);
                             echo ",";
                         } ?>]
