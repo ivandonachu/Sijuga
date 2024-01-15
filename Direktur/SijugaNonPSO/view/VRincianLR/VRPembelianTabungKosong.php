@@ -115,8 +115,8 @@ if ($tanggal_awal == $tanggal_akhir) {
                 </a>
                 <div id="collapseTwoz" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VLabaRugi">Laba Rugi</a>
-                        <a class="collapse-item" href="VLaporanAlokasi">Laporan Alokasi</a>
+                        <a class="collapse-item" href="../VLabaRugi">Laba Rugi</a>
+                        <a class="collapse-item" href="../VLaporanAlokasi">Laporan Alokasi</a>
                     </div>
                 </div>
             </li>
@@ -129,11 +129,11 @@ if ($tanggal_awal == $tanggal_akhir) {
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VPenjualan">Penjualan</a>
-                        <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VPengeluaran">Pengeluaran</a>
-                        <a class="collapse-item" href="VTransportFee">Transport Fee</a>
-                        <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
+                        <a class="collapse-item" href="../VPenjualan">Penjualan</a>
+                        <a class="collapse-item" href="../VPembelian">Pembelian</a>
+                        <a class="collapse-item" href="../VPengeluaran">Pengeluaran</a>
+                        <a class="collapse-item" href="../VTransportFee">Transport Fee</a>
+                        <a class="collapse-item" href="../VLaporanInventory">Laporan Inventory</a>
 
                     </div>
                 </div>
@@ -147,7 +147,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListPangkalan">List Pangkalan</a>
+                        <a class="collapse-item" href="../VListPangkalan">List Pangkalan</a>
                     </div>
                 </div>
             </li>
@@ -164,7 +164,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListAkun">List Akun</a>
+                        <a class="collapse-item" href="../VListAkun">List Akun</a>
                     </div>
                 </div>
             </li>

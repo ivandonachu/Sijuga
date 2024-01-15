@@ -32,10 +32,10 @@ if (isset($_GET['tanggal1'])) {
 }
 
 if ($tanggal_awal == $tanggal_akhir) {
-    $table = mysqli_query($koneksi, "SELECT * FROM kas_kecil WHERE tanggal = '$tanggal_awal' AND akun_kas = 'ATK'");
+    $table = mysqli_query($koneksi, "SELECT * FROM kas_kecil WHERE tanggal = '$tanggal_awal' AND akun_kas = 'PERAWATAN & SPAREPART'");
 } else {
 
-    $table = mysqli_query($koneksi, "SELECT * FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'ATK'");
+    $table = mysqli_query($koneksi, "SELECT * FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PERAWATAN & SPAREPART'");
 }
 
 ?>
@@ -51,7 +51,7 @@ if ($tanggal_awal == $tanggal_akhir) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ATK</title>
+    <title>PERAWATAN & SPAREPART</title>
 
     <!-- Custom fonts for this template-->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -232,14 +232,14 @@ if ($tanggal_awal == $tanggal_akhir) {
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaNonPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">ATK</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaNonPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">PERAWATAN & SPAREPART</a> </small>
                     <br>
                     <br>
 
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h5 style="color: grey;">ATK</h5>
+                            <h5 style="color: grey;">PERAWATAN & SPAREPART</h5>
                         </div>
                         <!-- Card Body -->
                         <div style="height: 820px;" class="card-body">

@@ -32,10 +32,10 @@ if (isset($_GET['tanggal1'])) {
 }
 
 if ($tanggal_awal == $tanggal_akhir) {
-    $table = mysqli_query($koneksi, "SELECT * FROM pengeluaran WHERE tanggal = '$tanggal_awal' AND nama_akun = 'Gaji Driver'");
+    $table = mysqli_query($koneksi, "SELECT * FROM kas_kecil_pso WHERE tanggal = '$tanggal_awal' AND akun_kas = 'PERAWATAN KANTOR & GUDANG'");
 } else {
 
-    $table = mysqli_query($koneksi, "SELECT * FROM pengeluaran WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Gaji Driver'");
+    $table = mysqli_query($koneksi, "SELECT * FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PERAWATAN KANTOR & GUDANG'");
 }
 
 ?>
@@ -51,7 +51,7 @@ if ($tanggal_awal == $tanggal_akhir) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Gaji Driver</title>
+    <title>PERAWATAN KANTOR & GUDANG</title>
 
     <!-- Custom fonts for this template-->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -77,7 +77,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                 <div class="sidebar-brand-icon rotate-n-15">
 
                 </div>
-                <div class="sidebar-brand-text mx-3">PT Non PSO</div>
+                <div class="sidebar-brand-text mx-3">PT DWI KHARISMA ABADI</div>
             </a>
 
             <!-- Divider -->
@@ -85,7 +85,7 @@ if ($tanggal_awal == $tanggal_akhir) {
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="DsSijugaNonPSO">
+                <a class="nav-link" href="DsAdmin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span style="font-size: 17px;">Dashboard</span></a>
             </li>
@@ -95,8 +95,8 @@ if ($tanggal_awal == $tanggal_akhir) {
 
             <!-- Nav Item - Menu List Pt -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwox" aria-expanded="true" aria-controls="collapseTwox">
-                    <i class="fa-solid fa-building"></i>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwox">
+                    <i class="fa-solid fa-cash-register"></i>
                     <span>List PT</span>
                 </a>
                 <div id="collapseTwox" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -115,8 +115,8 @@ if ($tanggal_awal == $tanggal_akhir) {
                 </a>
                 <div id="collapseTwoz" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VLabaRugi">Laba Rugi</a>
-                        <a class="collapse-item" href="VLaporanAlokasi">Laporan Alokasi</a>
+                        <a class="collapse-item" href="../VLabaRugi">Laba Rugi</a>
+                        <a class="collapse-item" href="../VLaporanAlokasi">Laporan Alokasi</a>
                     </div>
                 </div>
             </li>
@@ -129,12 +129,37 @@ if ($tanggal_awal == $tanggal_akhir) {
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VPenjualan">Penjualan</a>
-                        <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VPengeluaran">Pengeluaran</a>
-                        <a class="collapse-item" href="VTransportFee">Transport Fee</a>
-                        <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
+                        <a class="collapse-item" href="../VPenjualan">Penjualan</a>
+                        <a class="collapse-item" href="../VPembelian">Pembelian</a>
+                        <a class="collapse-item" href="../VTransportFee">Transport Fee</a>
+                        <a class="collapse-item" href="../VLaporanInventory">Laporan Inventory</a>
+                        <a class="collapse-item" href="../VPerencanaanAgen">Perencanaan Agen</a>
+                    </div>
+                </div>
+            </li>
 
+            <!-- Nav Item - Menu Pengeeluaran -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesx" aria-expanded="true" aria-controls="collapseUtilitiesx">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Pengeluaran</span>
+                </a>
+                <div id="collapseUtilitiesx" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="../VKasKecil">Kas Kecil</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Menu Anggota -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>Customer</span>
+                </a>
+                <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="../VListCustomer">List Customer</a>
                     </div>
                 </div>
             </li>
@@ -143,28 +168,11 @@ if ($tanggal_awal == $tanggal_akhir) {
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fa-solid fa-people-group"></i>
-                    <span>Pangkalan</span>
+                    <span>Aset</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListPangkalan">List Pangkalan</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-
-            <!-- Nav Item - Menu Pengaturan Akun -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Pengaturan Akun</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListAkun">List Akun</a>
+                        <a class="collapse-item" href="../VListKendaraan">List Kendaraan</a>
                     </div>
                 </div>
             </li>
@@ -232,14 +240,14 @@ if ($tanggal_awal == $tanggal_akhir) {
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaNonPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Gaji Driver</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaNonPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">PERAWATAN KANTOR & GUDANG</a> </small>
                     <br>
                     <br>
 
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h5 style="color: grey;">Gaji Driver</h5>
+                            <h5 style="color: grey;">PERAWATAN KANTOR & GUDANG</h5>
                         </div>
                         <!-- Card Body -->
                         <div style="height: 820px;" class="card-body">
@@ -263,8 +271,10 @@ if ($tanggal_awal == $tanggal_akhir) {
                                             <tr>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Tanggal</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Akun Pengeluaran</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jumlah Pengeluaran</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Akun Kas</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No Polisi Kendaraan</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Debit</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Kredit</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Keterangan</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">File</th>
                                             </tr>
@@ -281,25 +291,45 @@ if ($tanggal_awal == $tanggal_akhir) {
                                             }
 
                                             while ($data = mysqli_fetch_array($table)) {
-                                                $no_pengeluaran = $data['no_pengeluaran'];
+                                                $no_laporan = $data['no_laporan'];
                                                 $tanggal = $data['tanggal'];
-                                                $nama_akun = $data['nama_akun'];
-                                                $jumlah_pengeluaran = $data['jumlah_pengeluaran'];
+                                                $akun_kas = $data['akun_kas'];
+                                                $no_polisi = $data['no_polisi'];
+                                                $jumlah = $data['jumlah'];
+                                                $status_saldo = $data['status_saldo'];
                                                 $keterangan = $data['keterangan'];
                                                 $file_bukti = $data['file_bukti'];
-                                                $total_pengeluaran = $total_pengeluaran + $jumlah_pengeluaran;
+
                                                 $no_urut++;
 
                                                 echo "<tr>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_urut</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$tanggal</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_akun</td>
-                                                <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($jumlah_pengeluaran); ?> <?php echo "</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$akun_kas</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_polisi</td>";
+                                                if ($status_saldo == 'Masuk') {
+                                                    echo "
+                                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?= formatuang($jumlah); ?> <?php echo "</td>";
+                                                                                                                                                    } else {
+                                                                                                                                                        echo "
+                                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?php echo "</td>";
+                                                                                                                                                    }
+
+                                                                                                                                                    if ($status_saldo == 'Keluar') {
+                                                                                                                                                        echo "
+                                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?= formatuang($jumlah); ?> <?php echo "</td>";
+                                                                                                                                                    } else {
+                                                                                                                                                        echo "
+                                                        <td style='font-size: clamp(12px, 1vw, 12px); color: black;'>" ?> <?php echo "</td>";
+                                                                                                                                                    }
+                                                                                                                            ?>
+                                                <?php echo "
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$keterangan</td>
-                                                <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="" href="/SijugaNonPSO/Admin/file_admin/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
+                                                <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="" href="/SijugaNonPSO/AdminNonPSO/file_admin_non_pso/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
+                                                
                                                 </tr>";
-                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                ?>
+                                                                                                                                                                                        }
+                                                                                                                                                                                            ?>
 
                                         </tbody>
                                     </table>

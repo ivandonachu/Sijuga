@@ -35,70 +35,39 @@ function formatuang($angka)
 }
 
 //sql penjualan refill
-$sql_penjualan_refill = mysqli_query($koneksi, "SELECT SUM(jumlah_55kg) AS penjualan_refil_55kg, SUM(jumlah_12kg) AS penjualan_refil_12kg , SUM(jumlah_50kg) AS penjualan_refil_50kg  FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Penjualan Refill' ");
+$sql_penjualan_refill = mysqli_query($koneksi, "SELECT SUM(jumlah) AS penjualan_refil_3kg FROM penjualan_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Penjualan Refill' ");
 $data_penjualan_refill = mysqli_fetch_array($sql_penjualan_refill);
 
-
-$penjualan_refil_55kg = $data_penjualan_refill['penjualan_refil_55kg'];
-if (!isset($data_penjualan_refill['penjualan_refil_55kg'])) {
-    $penjualan_refil_55kg = 0;
+$penjualan_refil_3kg = $data_penjualan_refill['penjualan_refil_3kg'];
+if (!isset($data_penjualan_refill['penjualan_refil_3kg'])) {
+    $penjualan_refil_3kg = 0;
 }
 
-$penjualan_refil_12kg = $data_penjualan_refill['penjualan_refil_12kg'];
-if (!isset($data_penjualan_refill['penjualan_refil_12kg'])) {
-    $penjualan_refil_12kg = 0;
-}
-
-$penjualan_refil_50kg = $data_penjualan_refill['penjualan_refil_50kg'];
-if (!isset($data_penjualan_refill['penjualan_refil_50kg'])) {
-    $penjualan_refil_50kg = 0;
-}
-
-$total_penjualan_refill = $penjualan_refil_12kg + $penjualan_refil_55kg + $penjualan_refil_50kg;
+$total_penjualan_refill = $penjualan_refil_3kg;
 
 
 //sql Penjualan tabung isi
-$sql_penjualan_tabung_isi = mysqli_query($koneksi, "SELECT SUM(jumlah_55kg) AS penjualan_tabung_isi_55kg, SUM(jumlah_12kg) AS penjualan_tabung_isi_12kg , SUM(jumlah_50kg) AS penjualan_tabung_isi_50kg FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Penjualan Tabung Isi' ");
+$sql_penjualan_tabung_isi = mysqli_query($koneksi, "SELECT SUM(jumlah) AS penjualan_tabung_isi_3kg FROM pembelian_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Penjualan Tabung Isi' ");
 $data_penjualan_tabung_isi = mysqli_fetch_array($sql_penjualan_tabung_isi);
 
-$penjualan_tabung_isi_55kg = $data_penjualan_tabung_isi['penjualan_tabung_isi_55kg'];
-if (!isset($data_penjualan_tabung_isi['penjualan_tabung_isi_55kg'])) {
-    $penjualan_tabung_isi_55kg = 0;
+$penjualan_tabung_isi_3kg = $data_penjualan_tabung_isi['penjualan_tabung_isi_3kg'];
+if (!isset($data_penjualan_tabung_isi['penjualan_tabung_isi_3kg'])) {
+    $penjualan_tabung_isi_3kg = 0;
 }
 
-$penjualan_tabung_isi_12kg = $data_penjualan_tabung_isi['penjualan_tabung_isi_12kg'];
-if (!isset($data_penjualan_tabung_isi['penjualan_tabung_isi_12kg'])) {
-    $penjualan_tabung_isi_12kg = 0;
-}
-
-$penjualan_tabung_isi_50kg = $data_penjualan_tabung_isi['penjualan_tabung_isi_50kg'];
-if (!isset($data_penjualan_tabung_isi['penjualan_tabung_isi_50kg'])) {
-    $penjualan_tabung_isi_50kg = 0;
-}
-
-$total_penjualan_tabung_isi = $penjualan_tabung_isi_12kg + $penjualan_tabung_isi_55kg + $penjualan_tabung_isi_50kg;
+$total_penjualan_tabung_isi = $penjualan_tabung_isi_3kg;
 
 
 //sql Penjualan tabung kosong
-$sql_penjualan_tabung_kosong = mysqli_query($koneksi, "SELECT SUM(jumlah_55kg) AS penjualan_tabung_kosong_55kg, SUM(jumlah_12kg) AS penjualan_tabung_kosong_12kg , SUM(jumlah_50kg) AS penjualan_tabung_kosong_50kg  FROM penjualan WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Penjualan Tabung Isi' ");
+$sql_penjualan_tabung_kosong = mysqli_query($koneksi, "SELECT SUM(jumlah) AS penjualan_tabung_kosong_3kg FROM pembelian_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Penjualan Tabung Isi' ");
 $data_penjualan_tabung_kosong = mysqli_fetch_array($sql_penjualan_tabung_kosong);
 
-$penjualan_tabung_kosong_55kg = $data_penjualan_tabung_kosong['penjualan_tabung_kosong_55kg'];
-if (!isset($data_penjualan_tabung_kosong['penjualan_tabung_kosong_55kg'])) {
-    $penjualan_tabung_kosong_55kg = 0;
+$penjualan_tabung_kosong_3kg = $data_penjualan_tabung_kosong['penjualan_tabung_kosong_3kg'];
+if (!isset($data_penjualan_tabung_kosong['penjualan_tabung_kosong_3kg'])) {
+    $penjualan_tabung_kosong_3kg = 0;
 }
 
-$penjualan_tabung_kosong_12kg = $data_penjualan_tabung_kosong['penjualan_tabung_kosong_12kg'];
-if (!isset($data_penjualan_tabung_kosong['penjualan_tabung_kosong_12kg'])) {
-    $penjualan_tabung_kosong_12kg = 0;
-}
-
-$penjualan_tabung_kosong_50kg = $data_penjualan_tabung_kosong['penjualan_tabung_kosong_50kg'];
-if (!isset($data_penjualan_tabung_kosong['penjualan_tabung_kosong_50kg'])) {
-    $penjualan_tabung_kosong_50kg = 0;
-}
-
-$total_penjualan_tabung_kosong = $penjualan_tabung_kosong_12kg + $penjualan_tabung_kosong_55kg + $penjualan_tabung_kosong_50kg;
+$total_penjualan_tabung_kosong = $penjualan_tabung_kosong_3kg;
 
 //sql transport fee
 $sql_transport_fee = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_transport_fee FROM transport_fee WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'");
@@ -112,7 +81,7 @@ if (!isset($data_transport_fee['total_transport_fee'])) {
 
 
 //sql pembelian refill
-$sql_pembelian_refill = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pembelian_refill FROM pembelian WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Pembelian Refill' ");
+$sql_pembelian_refill = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pembelian_refill FROM pembelian_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Pembelian Refill' ");
 $data_pembelian_refill = mysqli_fetch_array($sql_pembelian_refill);
 
 
@@ -122,7 +91,7 @@ if (!isset($data_pembelian_refill['total_pembelian_refill'])) {
 }
 
 //sql pembelian tabung isi
-$sql_pembelian_tabung_isi = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pembelian_tabung_isi FROM pembelian WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Pembelian Tabung Isi' ");
+$sql_pembelian_tabung_isi = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pembelian_tabung_isi FROM pembelian_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Pembelian Tabung Isi' ");
 $data_pembelian_tabung_isi = mysqli_fetch_array($sql_pembelian_tabung_isi);
 
 
@@ -132,7 +101,7 @@ if (!isset($data_pembelian_tabung_isi['total_pembelian_tabung_isi'])) {
 }
 
 //sql pembelian tabung kosong
-$sql_pembelian_tabung_kosong = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pembelian_tabung_kosong FROM pembelian WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Pembelian Tabung Kosong' ");
+$sql_pembelian_tabung_kosong = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pembelian_tabung_kosong FROM pembelian_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Pembelian Tabung Kosong' ");
 $data_pembelian_tabung_kosong = mysqli_fetch_array($sql_pembelian_tabung_kosong);
 
 
@@ -144,7 +113,7 @@ if (!isset($data_pembelian_tabung_kosong['total_pembelian_tabung_kosong'])) {
 
 //BIAYA USAHA
 //sql BBM
-$sql_bbm = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_bbm FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'BBM' ");
+$sql_bbm = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_bbm FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'BBM' ");
 $data_bbm = mysqli_fetch_array($sql_bbm);
 
 
@@ -154,7 +123,7 @@ if (!isset($data_bbm['total_bbm'])) {
 }
 
 //sql Mesin Steam
-$sql_mesin_steam = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_mesin_steam FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'MESIN STEAM' ");
+$sql_mesin_steam = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_mesin_steam FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'MESIN STEAM' ");
 $data_mesin_steam = mysqli_fetch_array($sql_mesin_steam);
 
 
@@ -164,7 +133,7 @@ if (!isset($data_mesin_steam['total_mesin_steam'])) {
 }
 
 //sql PERAWATAN & SPAREPART
-$sql_perawatan_sparepart = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_perawatan_sparepart FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PERAWATAN & SPAREPART' ");
+$sql_perawatan_sparepart = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_perawatan_sparepart FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PERAWATAN & SPAREPART' ");
 $data_perawatan_sparepart = mysqli_fetch_array($sql_perawatan_sparepart);
 
 
@@ -174,7 +143,7 @@ if (!isset($data_perawatan_sparepart['total_perawatan_sparepart'])) {
 }
 
 //sql PERAWATAN KANTOR & GUDANG
-$sql_perawatan_kantor = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_perawatan_kantor FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PERAWATAN KANTOR & GUDANG' ");
+$sql_perawatan_kantor = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_perawatan_kantor FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PERAWATAN KANTOR & GUDANG' ");
 $data_perawatan_kantor = mysqli_fetch_array($sql_perawatan_kantor);
 
 
@@ -184,7 +153,7 @@ if (!isset($data_perawatan_kantor['total_perawatan_kantor'])) {
 }
 
 //sql ATK
-$sql_atk = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_atk FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'ATK' ");
+$sql_atk = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_atk FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'ATK' ");
 $data_atk = mysqli_fetch_array($sql_atk);
 
 
@@ -194,7 +163,7 @@ if (!isset($data_atk['total_atk'])) {
 }
 
 //sql GAJI
-$sql_gaji = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_gaji FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'GAJI' ");
+$sql_gaji = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_gaji FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'GAJI' ");
 $data_gaji = mysqli_fetch_array($sql_gaji);
 
 
@@ -204,7 +173,7 @@ if (!isset($data_gaji['total_gaji'])) {
 }
 
 //sql PAJAK
-$sql_pajak = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pajak FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PAJAK' ");
+$sql_pajak = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pajak FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PAJAK' ");
 $data_pajak = mysqli_fetch_array($sql_pajak);
 
 
@@ -214,7 +183,7 @@ if (!isset($data_pajak['total_pajak'])) {
 }
 
 //sql PKB KIR & IZIN USAHA
-$sql_pkb_kir_izin = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pkb_kir_izin FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PKB KIR & IZIN USAHA' ");
+$sql_pkb_kir_izin = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_pkb_kir_izin FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PKB KIR & IZIN USAHA' ");
 $data_pkb_kir_izin = mysqli_fetch_array($sql_pkb_kir_izin);
 
 
@@ -224,7 +193,7 @@ if (!isset($data_pkb_kir_izin['total_pkb_kir_izin'])) {
 }
 
 //sql ASURANSI
-$sql_asuransi = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_asuransi FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'ASURANSI' ");
+$sql_asuransi = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_asuransi FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'ASURANSI' ");
 $data_asuransi = mysqli_fetch_array($sql_asuransi);
 
 
@@ -234,7 +203,7 @@ if (!isset($data_asuransi['total_asuransi'])) {
 }
 
 //sql LISTRIK TELEPON & INTERNET
-$sql_listrik = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_listrik FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'LISTRIK TELEPON & INTERNET' ");
+$sql_listrik = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_listrik FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'LISTRIK TELEPON & INTERNET' ");
 $data_listrik = mysqli_fetch_array($sql_listrik);
 
 
@@ -244,7 +213,7 @@ if (!isset($data_listrik['total_listrik'])) {
 }
 
 //sql KONSUMSI
-$sql_konsumsi = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_konsumsi FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'KONSUMSI' ");
+$sql_konsumsi = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_konsumsi FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'KONSUMSI' ");
 $data_konsumsi = mysqli_fetch_array($sql_konsumsi);
 
 
@@ -254,7 +223,7 @@ if (!isset($data_konsumsi['total_konsumsi'])) {
 }
 
 //sql JAMUAN
-$sql_jamuan = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_jamuan FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'JAMUAN' ");
+$sql_jamuan = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_jamuan FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'JAMUAN' ");
 $data_jamuan = mysqli_fetch_array($sql_jamuan);
 
 
@@ -264,7 +233,7 @@ if (!isset($data_jamuan['total_jamuan'])) {
 }
 
 //sql PLASTIK WRAP
-$sql_plastik_wrap = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_plastik_wrap FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PLASTIK WRAP' ");
+$sql_plastik_wrap = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_plastik_wrap FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PLASTIK WRAP' ");
 $data_plastik_wrap = mysqli_fetch_array($sql_plastik_wrap);
 
 
@@ -274,7 +243,7 @@ if (!isset($data_plastik_wrap['total_plastik_wrap'])) {
 }
 
 //sql LAIN LAIN
-$sql_lain_lain = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_lain_lain FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'LAIN LAIN' ");
+$sql_lain_lain = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_lain_lain FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'LAIN LAIN' ");
 $data_lain_lain = mysqli_fetch_array($sql_lain_lain);
 
 
@@ -284,7 +253,7 @@ if (!isset($data_lain_lain['total_lain_lain'])) {
 }
 
 //sql REFFRESENTATIF
-$sql_reffresentatif = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_reffresentatif FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'REFFRESENTATIF' ");
+$sql_reffresentatif = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_reffresentatif FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'REFFRESENTATIF' ");
 $data_reffresentatif = mysqli_fetch_array($sql_reffresentatif);
 
 
@@ -294,7 +263,7 @@ if (!isset($data_reffresentatif['total_reffresentatif'])) {
 }
 
 //sql PENANGANAN COVID 19
-$sql_penanganan_covid = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_penanganan_covid FROM kas_kecil WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PENANGANAN COVID 19' ");
+$sql_penanganan_covid = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total_penanganan_covid FROM kas_kecil_pso WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND akun_kas = 'PENANGANAN COVID 19' ");
 $data_penanganan_covid = mysqli_fetch_array($sql_penanganan_covid);
 
 
@@ -303,14 +272,14 @@ if (!isset($data_penanganan_covid['total_penanganan_covid'])) {
     $total_penanganan_covid = 0;
 }
 
-$total_pendapatan = $total_penjualan_refill + $total_penjualan_tabung_isi + $total_penjualan_tabung_kosong;
+$total_pendapatan = $total_penjualan_refill + $total_penjualan_tabung_isi + $total_penjualan_tabung_kosong + $total_transport_fee;
 
 $total_harga_pokok_penjualan = $total_pembelian_tabung_kosong + $total_pembelian_tabung_isi + $total_pembelian_refill;
 
 $laba_kotor = $total_pendapatan - $total_harga_pokok_penjualan;
 
 $total_biaya_usaha_final = $total_bbm + $total_mesin_steam + $total_perawatan_sparepart + $total_perawatan_kantor + $total_atk + $total_gaji + $total_pajak + $total_pkb_kir_izin + $total_asuransi + $total_listrik + $total_konsumsi + $total_jamuan
-                           + $total_plastik_wrap + $total_lain_lain + $total_reffresentatif + $total_penanganan_covid;
+    + $total_plastik_wrap + $total_lain_lain + $total_reffresentatif + $total_penanganan_covid;
 
 $laba_bersih_sebelum_pajak = $laba_kotor - $total_biaya_usaha_final;
 
@@ -354,7 +323,7 @@ $laba_bersih_sebelum_pajak = $laba_kotor - $total_biaya_usaha_final;
                 <div class="sidebar-brand-icon rotate-n-15">
 
                 </div>
-                <div class="sidebar-brand-text mx-3">PT SURYA KHARISMA HARTIWI</div>
+                <div class="sidebar-brand-text mx-3">PT DWI KHARISMA ABADI</div>
             </a>
 
             <!-- Divider -->
@@ -362,7 +331,7 @@ $laba_bersih_sebelum_pajak = $laba_kotor - $total_biaya_usaha_final;
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="DsSijugaNonPSO">
+                <a class="nav-link" href="DsAdmin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span style="font-size: 17px;">Dashboard</span></a>
             </li>
@@ -372,8 +341,8 @@ $laba_bersih_sebelum_pajak = $laba_kotor - $total_biaya_usaha_final;
 
             <!-- Nav Item - Menu List Pt -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwox" aria-expanded="true" aria-controls="collapseTwox">
-                    <i class="fa-solid fa-building"></i>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwox">
+                    <i class="fa-solid fa-cash-register"></i>
                     <span>List PT</span>
                 </a>
                 <div id="collapseTwox" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -408,10 +377,9 @@ $laba_bersih_sebelum_pajak = $laba_kotor - $total_biaya_usaha_final;
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="VPenjualan">Penjualan</a>
                         <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VListPiutang">List Piutang</a>
-                        <a class="collapse-item" href="VRiwayatPiutang">Riwayat Piutang</a>
-                        <a class="collapse-item" href="VLaporanSetoran">Laporan Setoran</a>
+                        <a class="collapse-item" href="VTransportFee">Transport Fee</a>
                         <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
+                        <a class="collapse-item" href="VPerencanaanAgen">Perencanaan Agen</a>
                     </div>
                 </div>
             </li>
@@ -442,19 +410,15 @@ $laba_bersih_sebelum_pajak = $laba_kotor - $total_biaya_usaha_final;
                 </div>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-
-            <!-- Nav Item - Menu Pengaturan Akun -->
+            <!-- Nav Item - Menu Anggota -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Pengaturan Akun</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>Aset</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListAkun">List Akun</a>
+                        <a class="collapse-item" href="VListKendaraan">List Kendaraan</a>
                     </div>
                 </div>
             </li>
@@ -521,14 +485,14 @@ $laba_bersih_sebelum_pajak = $laba_kotor - $total_biaya_usaha_final;
 
 
                     <!-- Posisi Halaman -->
-                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaNonPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Laba Rugi Non PSO</a> </small>
+                    <small class="m-0 font-weight-thin text-primary"><a href="DsSijugaNonPSO">Dashboard</a> <i style="color: grey;" class="fa fa-caret-right" aria-hidden="true"></i> <a style="color: grey;">Laba Rugi PSO</a> </small>
                     <br>
                     <br>
 
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h5 style="color: grey;">Laba Rugi Non PSO</h5>
+                            <h5 style="color: grey;">Laba Rugi PSO</h5>
                         </div>
                         <!-- Card Body -->
                         <div style="height: 1850px;" class="card-body">
@@ -603,6 +567,13 @@ $laba_bersih_sebelum_pajak = $laba_kotor - $total_biaya_usaha_final;
                                             <td class="text-left"><?= formatuang($total_penjualan_tabung_kosong); ?></td>
                                             <td class="text-left"><?= formatuang(0); ?></td>
                                             <?php echo "<td class='text-right'><a href='VRincianLR/VRPenjualanTabungKosong?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir'>Rincian</a></td>"; ?>
+                                        </tr>
+                                        <tr>
+                                            <td>4-140</td>
+                                            <td class="text-left">Transport Fee</td>
+                                            <td class="text-left"><?= formatuang($total_transport_fee); ?></td>
+                                            <td class="text-left"><?= formatuang(0); ?></td>
+                                            <?php echo "<td class='text-right'><a href='VRincianLR/VRTransportFee?tanggal1=$tanggal_awal&tanggal2=$tanggal_akhir'>Rincian</a></td>"; ?>
                                         </tr>
                                         <tr style="background-color:     #F0F8FF; ">
                                             <td><strong>Total Pendapatan</strong></td>

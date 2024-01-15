@@ -43,10 +43,10 @@ $html = '
 
 ';
 if ($tanggal_awal == $tanggal_akhir) {
-    $table = mysqli_query($koneksi, "SELECT nama_pangkalan , SUM(qty_55kg) AS total_alokasi_55kg , SUM(qty_12kg) AS total_alokasi_12kg FROM penjualan a INNER JOIN pangkalan b ON b.no_registrasi=a.no_registrasi WHERE tanggal = '$tanggal_awal' GROUP BY b.nama_pangkalan");
+    $table = mysqli_query($koneksi, "SELECT nama_customer , SUM(qty_55kg) AS total_alokasi_55kg , SUM(qty_12kg) AS total_alokasi_12kg , SUM(qty_50kg) AS total_alokasi_50kg FROM penjualan a INNER JOIN customer b ON b.kode_customer=a.kode_customer WHERE tanggal = '$tanggal_awal' GROUP BY b.nama_customer");
 } else {
 
-    $table = mysqli_query($koneksi, "SELECT nama_pangkalan , SUM(qty_55kg) AS total_alokasi_55kg , SUM(qty_12kg) AS total_alokasi_12kg  FROM penjualan a INNER JOIN pangkalan b ON b.no_registrasi=a.no_registrasi WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY b.nama_pangkalan");
+    $table = mysqli_query($koneksi, "SELECT nama_customer , SUM(qty_55kg) AS total_alokasi_55kg , SUM(qty_12kg) AS total_alokasi_12kg , SUM(qty_50kg) AS total_alokasi_50kg FROM penjualan a INNER JOIN customer b ON b.kode_customer=a.kode_customer WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' GROUP BY b.nama_customer");
 }
     
 
@@ -61,9 +61,10 @@ if ($tanggal_awal == $tanggal_akhir) {
         <thead>
             <tr>
                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No</th>
-                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Pangkalan</th>
+                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Customer</th>
                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Total Alokasi 5,5 Kg</th>
                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Total Alokasi 12 Kg</th>
+                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Total Alokasi 50 Kg</th>
             </tr>
         </thead>
         <tbody>';
@@ -73,6 +74,7 @@ if ($tanggal_awal == $tanggal_akhir) {
         $no_urut = 0;
         $total_alokasi_55kg_global = 0;
         $total_alokasi_12kg_global = 0;
+        $total_alokasi_50kg_global = 0;
         function formatuang($angka)
         {
             $uang = "Rp " . number_format($angka, 2, ',', '.');
@@ -80,19 +82,22 @@ if ($tanggal_awal == $tanggal_akhir) {
         }
 
         while ($data = mysqli_fetch_array($table)) {
-            $nama_pangkalan = $data['nama_pangkalan'];
+            $nama_customer = $data['nama_customer'];
             $total_alokasi_55kg = $data['total_alokasi_55kg'];
             $total_alokasi_12kg = $data['total_alokasi_12kg'];
+            $total_alokasi_50kg = $data['total_alokasi_50kg'];
 
             $total_alokasi_55kg_global = $total_alokasi_55kg_global + $total_alokasi_55kg;
             $total_alokasi_12kg_global = $total_alokasi_12kg_global + $total_alokasi_12kg;
+            $total_alokasi_50kg_global = $total_alokasi_50kg_global + $total_alokasi_50kg;
             $no_urut++;
 
                 $html .= ' <tr>
                 <td style="font-size: clamp(12px, 1vw, 12px); color: black;" align="center" >'. $no_urut .'</td>
-                <td style="font-size: clamp(12px, 1vw, 12px); color: black;" >'. $nama_pangkalan .'</td>
+                <td style="font-size: clamp(12px, 1vw, 12px); color: black;" >'. $nama_customer .'</td>
                 <td style="font-size: clamp(12px, 1vw, 12px); color: black;" >'. $total_alokasi_55kg .'</td>
                 <td style="font-size: clamp(12px, 1vw, 12px); color: black;" >'. $total_alokasi_12kg .'</td>
+                <td style="font-size: clamp(12px, 1vw, 12px); color: black;" >'. $total_alokasi_50kg .'</td>
                  </tr>';
             }
               
@@ -108,6 +113,7 @@ if ($tanggal_awal == $tanggal_akhir) {
         <tr>
             <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Total Seluruh Alokasi 5,5 Kg</th>
             <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Total Seluruh Alokasi 12 Kg</th>
+            <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Total Seluruh Alokasi 50 Kg</th>
         </tr>
     </thead>
     <tbody>';
@@ -118,6 +124,7 @@ if ($tanggal_awal == $tanggal_akhir) {
             $html .= ' <tr>
             <td style="font-size: clamp(12px, 1vw, 12px); color: black;" >'. $total_alokasi_55kg_global .'</td>
             <td style="font-size: clamp(12px, 1vw, 12px); color: black;" >'. $total_alokasi_12kg_global .'</td>
+            <td style="font-size: clamp(12px, 1vw, 12px); color: black;" >'. $total_alokasi_50kg_global .'</td>
              </tr>';
     
           

@@ -32,10 +32,10 @@ if (isset($_GET['tanggal1'])) {
 }
 
 if ($tanggal_awal == $tanggal_akhir) {
-    $table = mysqli_query($koneksi, "SELECT * FROM penjualan a INNER JOIN pangkalan b ON b.no_registrasi=a.no_registrasi WHERE tanggal = '$tanggal_awal' AND nama_akun = 'Penjualan Refill' ");
+    $table = mysqli_query($koneksi, "SELECT * FROM penjualan a INNER JOIN customer b ON b.kode_customer=a.kode_customer WHERE tanggal = '$tanggal_awal' AND nama_akun = 'Penjualan Refill' ");
 } else {
 
-    $table = mysqli_query($koneksi, "SELECT * FROM penjualan a INNER JOIN pangkalan b ON b.no_registrasi=a.no_registrasi WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Penjualan Refill' ");
+    $table = mysqli_query($koneksi, "SELECT * FROM penjualan a INNER JOIN customer b ON b.kode_customer=a.kode_customer WHERE tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' AND nama_akun = 'Penjualan Refill' ");
 }
 
 ?>
@@ -115,8 +115,8 @@ if ($tanggal_awal == $tanggal_akhir) {
                 </a>
                 <div id="collapseTwoz" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VLabaRugi">Laba Rugi</a>
-                        <a class="collapse-item" href="VLaporanAlokasi">Laporan Alokasi</a>
+                        <a class="collapse-item" href="../VLabaRugi">Laba Rugi</a>
+                        <a class="collapse-item" href="../VLaporanAlokasi">Laporan Alokasi</a>
                     </div>
                 </div>
             </li>
@@ -129,11 +129,11 @@ if ($tanggal_awal == $tanggal_akhir) {
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VPenjualan">Penjualan</a>
-                        <a class="collapse-item" href="VPembelian">Pembelian</a>
-                        <a class="collapse-item" href="VPengeluaran">Pengeluaran</a>
-                        <a class="collapse-item" href="VTransportFee">Transport Fee</a>
-                        <a class="collapse-item" href="VLaporanInventory">Laporan Inventory</a>
+                        <a class="collapse-item" href="../VPenjualan">Penjualan</a>
+                        <a class="collapse-item" href="../VPembelian">Pembelian</a>
+                        <a class="collapse-item" href="../VPengeluaran">Pengeluaran</a>
+                        <a class="collapse-item" href="../VTransportFee">Transport Fee</a>
+                        <a class="collapse-item" href="../VLaporanInventory">Laporan Inventory</a>
 
                     </div>
                 </div>
@@ -147,7 +147,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListPangkalan">List Pangkalan</a>
+                        <a class="collapse-item" href="../VListPangkalan">List Pangkalan</a>
                     </div>
                 </div>
             </li>
@@ -164,7 +164,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="VListAkun">List Akun</a>
+                        <a class="collapse-item" href="../VListAkun">List Akun</a>
                     </div>
                 </div>
             </li>
@@ -264,12 +264,14 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">No</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Tanggal</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Akun</th>
-                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Pangkalan</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Nama Customer</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Pembayaran</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">QTY 5,5 Kg</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Harga 5,5 Kg</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">QTY 12 Kg</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Harga 12 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">QTY 50 Kg</th>
+                                                <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Harga 50 Kg</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Jumlah</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">Keterangan</th>
                                                 <th style="font-size: clamp(12px, 1vw, 12px); color: black;">File</th>
@@ -285,6 +287,8 @@ if ($tanggal_awal == $tanggal_akhir) {
                                             $total_penjualan_55kg_cash = 0;
                                             $total_penjualan_12kg_cashless = 0;
                                             $total_penjualan_12kg_cash = 0;
+                                            $total_penjualan_50kg_cashless = 0;
+                                            $total_penjualan_50kg_cash = 0;
                                             function formatuang($angka)
                                             {
                                                 $uang = "Rp " . number_format($angka, 2, ',', '.');
@@ -295,7 +299,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 $no_penjualan = $data['no_penjualan'];
                                                 $tanggal = $data['tanggal'];
                                                 $nama_akun = $data['nama_akun'];
-                                                $nama_pangkalan = $data['nama_pangkalan'];
+                                                $nama_customer = $data['nama_customer'];
                                                 $pembayaran = $data['pembayaran'];
                                                 $qty_55kg = $data['qty_55kg'];
                                                 $harga_55kg = $data['harga_55kg'];
@@ -303,6 +307,9 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 $qty_12kg = $data['qty_12kg'];
                                                 $harga_12kg = $data['harga_12kg'];
                                                 $jumlah_12kg = $data['jumlah_12kg'];
+                                                $qty_50kg = $data['qty_50kg'];
+                                                $harga_50kg = $data['harga_50kg'];
+                                                $jumlah_50kg = $data['jumlah_50kg'];
                                                 $jumlah = $data['jumlah'];
                                                 $keterangan = $data['keterangan'];
                                                 $file_bukti = $data['file_bukti'];
@@ -310,10 +317,12 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                     $total_penjualan_cash = $total_penjualan_cash + $jumlah;
                                                     $total_penjualan_12kg_cash = $total_penjualan_12kg_cash + $jumlah_12kg;
                                                     $total_penjualan_55kg_cash = $total_penjualan_55kg_cash + $jumlah_55kg;
+                                                    $total_penjualan_50kg_cash = $total_penjualan_50kg_cash + $jumlah_50kg;
                                                 } else {
                                                     $total_penjualan_cashless = $total_penjualan_cashless + $jumlah;
                                                     $total_penjualan_12kg_cashless = $total_penjualan_12kg_cashless + $jumlah_12kg;
                                                     $total_penjualan_55kg_cashless = $total_penjualan_55kg_cashless + $jumlah_55kg;
+                                                    $total_penjualan_50kg_cashless = $total_penjualan_50kg_cashless + $jumlah_50kg;
                                                 }
 
                                                 $no_urut++;
@@ -322,12 +331,14 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$no_urut</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$tanggal</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_akun</td>
-                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_pangkalan</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$nama_customer</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$pembayaran</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$qty_55kg</td>
                                                 <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($harga_55kg); ?> <?php echo "</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$qty_12kg</td>
                                                 <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($harga_12kg); ?> <?php echo "</td>
+                                                <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$qty_50kg</td>
+                                                <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($harga_50kg); ?> <?php echo "</td>
                                                 <td style='font-size: clamp(12px, 1vw, 15px); color: black;' >"; ?> <?= formatuang($jumlah); ?> <?php echo "</td>
                                                 <td style='font-size: clamp(12px, 1vw, 12px); color: black;' >$keterangan</td>
                                                 <td style='font-size: clamp(12px, 1vw, 15px);'>"; ?> <a download="" href="/SijugaNonPSO/Admin/file_admin/<?= $file_bukti ?>"> <?php echo "$file_bukti </a> </td>
@@ -465,6 +476,47 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                             Penjualan Cash 12 Kg</div>
                                                         <div class="h5 mb-0 font-weight-bold text-gray-800"><?= formatuang($total_penjualan_12kg_cash) ?></div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fa-solid fa-rupiah-sign"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <!-- Kotak pemasukan pengeluaran -->
+                                <div class="row">
+                                    <!-- Penjualan CASHLESS 50 KG -->
+                                    <div class="col-xl-3 col-md-6 mb-4">
+                                        <div class="card border-left-success shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                            Penjualan Cashless 50 Kg</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= formatuang($total_penjualan_50kg_cashless) ?></div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fa-solid fa-rupiah-sign"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Penjualan CASH 50 KG -->
+                                    <div class="col-xl-3 col-md-6 mb-4">
+                                        <div class="card border-left-success shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                            Penjualan Cash 50 Kg</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= formatuang($total_penjualan_50kg_cash) ?></div>
                                                     </div>
                                                     <div class="col-auto">
                                                         <i class="fa-solid fa-rupiah-sign"></i>
