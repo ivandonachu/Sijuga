@@ -310,7 +310,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <label>No Polisi Kendaraan</label>
-                                                                <select id="tokens" class="selectpicker form-control" name="no_polisi" multiple data-live-search="true">
+                                                                <select id="tokens" class="selectpicker form-control" name="no_polisi"  data-live-search="true">
                                                                     <option></option>
                                                                     <?php
                                                                     include 'koneksi.php';
@@ -493,7 +493,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                                 <div>
                                                                                     <label>No Polisi Kendaraan</label>
                                                                                 </div>
-                                                                                <select id="tokens" class="selectpicker form-control" name="no_polisi" multiple data-live-search="true">
+                                                                                <select id="tokens" class=" form-control" name="no_polisi"  data-live-search="true">
 
 
                                                                                     <?php

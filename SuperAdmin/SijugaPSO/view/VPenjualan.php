@@ -508,7 +508,7 @@ if ($tanggal_awal == $tanggal_akhir) {
                                                                                 </div>
 
 
-                                                                                <select id="tokens2" name="nama_customer" class="selectpicker form-control" data-live-search="true">
+                                                                                <select id="tokens2" name="nama_customer" class=" form-control" data-live-search="true">
                                                                                     <option value=""></option>
                                                                                     <?php $dataSelect = $data['nama_customer']; ?>
                                                                                     <?php
