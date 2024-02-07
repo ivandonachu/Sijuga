@@ -97,6 +97,7 @@ if ($jabatan_valid == 'Direktur') {
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="VLabaRugi">Laba Rugi</a>
             <a class="collapse-item" href="VLaporanAlokasi">Laporan Alokasi</a>
+            <a class="collapse-item" href="VRekapPengeluaranBulanan">Rek Pengeluaran Bulanan</a>
           </div>
         </div>
       </li>
